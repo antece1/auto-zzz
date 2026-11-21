@@ -1,4 +1,5 @@
-# ZZZ AutoBetterZZZ
+# auto-zzz v0.2.0 - daily run: push today's farming plan, then start the OneDragon one-dragon run
+# (based on the author's ZZZ AutoBetterZZZ script)
 # 1) close BetterGI and Genshin Impact, 2) close leftover OneDragon windows,
 # 3) push today's farming plan into the OneDragon charge plan (planner\daily\push_plan.py),
 # 4) run the ZZZ OneDragon daily run (-o) and close ZZZ when done (-c).

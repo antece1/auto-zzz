@@ -13,6 +13,7 @@ import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
+__version__ = "0.2.0"  # auto-zzz 版本，见仓库根目录 VERSION
 BASE = os.environ.get('AUTOZZZ_BACKEND', 'http://127.0.0.1:23001')  # OneDragon 后端地址
 ONEDRAGON_DIR = Path(os.environ.get('ONEDRAGON_DIR', r'C:\ZZZ-OneDragon'))  # OneDragon 安装目录
 ONEDRAGON_LOG = ONEDRAGON_DIR / '.log' / 'log.txt'
@@ -97,7 +98,7 @@ class Game:
         if self._sid:
             return
         self._mcp({'jsonrpc': '2.0', 'id': 1, 'method': 'initialize', 'params': {
-            'protocolVersion': '2025-03-26', 'capabilities': {}, 'clientInfo': {'name': 'zzz-upgrade', 'version': '0.1'}}})
+            'protocolVersion': '2025-03-26', 'capabilities': {}, 'clientInfo': {'name': 'auto-zzz', 'version': __version__}}})
         self._mcp({'jsonrpc': '2.0', 'method': 'notifications/initialized'})
 
     def _tool(self, name: str, args: dict) -> dict:

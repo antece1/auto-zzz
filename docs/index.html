@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ZZZ 资源调度员</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap">
@@ -116,13 +121,15 @@ button.ghost{background:transparent;color:var(--ink)}
 @media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.agents{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:no-preference){.tile,.agent{transition:border-color .2s,opacity .2s}}
 </style>
-
+</head>
+<body>
 <div class="wrap">
 <header>
   <div class="brand">
     <h1><span class="tag">ZZZ</span>资源调度员</h1>
     <span id="state" class="state example">当前等级是示例值，等快照导入</span>
     <span id="dbst" class="db">数据库：连接中…</span>
+    <span class="state" title="auto-zzz 版本">auto-zzz v0.2.0</span>
   </div>
   <p class="lede">设置每个代理人的当前和目标，下面自动算出要多少材料、背包缺多少、大概要花多少电量。按版本 3.3 的数据计算，标“估算”的掉落量没有可靠来源，只能参考。</p>
   <div class="stats">
@@ -165,12 +172,13 @@ button.ghost{background:transparent;color:var(--ink)}
 </section>
 
 <section>
-  <h2>导入快照 <small>把快照 JSON 的内容粘贴进来（格式见 planner/snapshot_template.json）</small></h2>
+  <h2>导入快照 <small>把快照 JSON 的内容粘贴进来（格式见 snapshot_template.json）</small></h2>
   <div class="panel">
     <textarea id="snap" placeholder='{"dennies": 1234567, "agents": [...], "materials": [...]}'></textarea>
     <div class="btns">
       <button id="btn-import">导入</button>
       <button id="btn-reset" class="ghost">恢复示例值</button>
+      <button id="btn-sample" class="ghost">加载作者账号示例</button>
       <span class="msg" id="msg"></span>
     </div>
     <ul class="hist" id="hist"></ul>
@@ -187,7 +195,8 @@ button.ghost{background:transparent;color:var(--ink)}
     <li>「仓鼠笼」访问器（技能 11→12 级用）不能用电量刷，来自丽都城募和活动。</li>
     <li>音擎组件按代理人自己的职业计算；如果装的是别的职业的音擎，组件种类会不同。</li>
     <li>等级经验在每个等级段内按线性估算，误差在一个等级段以内。</li>
-    <li>数据存在这个网页自己的数据库里：当前状态、目标、背包和历史快照，换设备打开也是同一份。连不上数据库时只存在本机浏览器。</li>
+    <li>在 claude.ai 上打开时，数据存在网页自己的数据库里；在 GitHub Pages 或本地打开时，只存在你这台电脑的浏览器里。</li>
+    <li>auto-zzz v0.2.0 · <a href="https://github.com/antece1/auto-zzz">github.com/antece1/auto-zzz</a></li>
   </ul>
 </section>
 </div>
@@ -500,7 +509,7 @@ function update(){
 }
 document.getElementById("groups").addEventListener("input",e=>{const k=e.target.dataset.own;if(!k)return;S.own[k]=Math.max(0,+e.target.value||0);save(["inventory"]);update();});
 
-/* snapshot import: matches planner/snapshot_template.json */
+/* snapshot import: matches docs/snapshot_template.json */
 document.getElementById("btn-import").onclick=()=>{
   const msg=document.getElementById("msg");
   let d;try{d=JSON.parse(document.getElementById("snap").value)}catch(e){msg.textContent="JSON 格式不对，请把快照文件的全部内容原样粘贴进来。";return}
@@ -539,7 +548,8 @@ const PRIO=w=>w.startsWith("核心技")?1:w.startsWith("认证章")?2:w==="代�
 function renderDays(){
   const box=document.getElementById("days");if(!box)return;
   const per=clamp(document.getElementById("perday").value,20,2640);
-  const q=farmRows.filter(r=>!r.nh).map(r=>({...r,left:r.runs})).sort((a,b)=>((a.star?0:1)-(b.star?0:1))||(a.star?0:PRIO(a.why)-PRIO(b.why)));
+  const rank=r=>r.star&&!r.disc?0:r.disc?1:2,bare=w=>w.replace(/^★[^：]*：/,"");  // ★材料（按优先级）→ ★驱动盘 → 其他
+  const q=farmRows.filter(r=>!r.nh).map(r=>({...r,left:r.runs})).sort((a,b)=>(rank(a)-rank(b))||(PRIO(bare(a.why))-PRIO(bare(b.why))));
   const out=[];
   for(let day=1;day<=60&&q.some(r=>r.left>0&&!r.disc);day++){
     let budget=per;const items=[];
@@ -558,5 +568,19 @@ document.getElementById("perday").addEventListener("input",renderDays);
 document.getElementById("discruns").value=S.discRuns;
 document.getElementById("discruns").addEventListener("input",e=>{S.discRuns=clamp(e.target.value,0,10);save(["focus"]);update();});
 document.getElementById("showall").addEventListener("change",e=>{showAll=e.target.checked;renderAgents();update();});
+/* sample account (docs/sample/, served next to this page on GitHub Pages) */
+document.getElementById("btn-sample").onclick=async()=>{
+  const msg=document.getElementById("msg");
+  try{
+    const g=async f=>{const r=await fetch("sample/"+f);if(!r.ok)throw new Error(f);const j=await r.json();return j.data||j};
+    applyRemote("meta",await g("meta_agents.json"));applyRemote("current",await g("plan_current.json"));
+    applyRemote("targets",await g("plan_targets.json"));applyRemote("inventory",await g("plan_inventory.json"));
+    applyRemote("focus",await g("plan_focus.json"));DISCS=(await g("discs.json")).agents;
+    S.source="snapshot";S.snapAt="2026-11-21 11:47（作者账号示例）";save();renderAgents();update();
+    msg.textContent="已加载作者 2026-11-21 的账号：24 个代理人、背包、驱动盘，简已打星。";
+  }catch(e){msg.textContent="示例数据只能在 GitHub Pages 上加载（这里读不到 sample/ 文件夹）。"}
+};
 renderAgents();update();connectDb();
 </script>
+</body>
+</html>

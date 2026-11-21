@@ -16,8 +16,10 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # 也能用 python -I 运行
 from zzzgame import Game, StopRun
 
+__version__ = "0.2.0"  # auto-zzz 版本，见仓库根目录 VERSION
 ROOT = Path(__file__).resolve().parent  # 仓库里的 upgrade 目录
 SKILLS = ['普攻', '闪避', '支援', '特殊技', '连携技']
 
@@ -257,6 +259,7 @@ def load_steps(args: argparse.Namespace) -> tuple[list[dict], bool]:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--version", action="version", version=f"auto-zzz %(prog)s {__version__}")
     ap.add_argument('--plan')
     ap.add_argument('--apply', action='store_true')
     ap.add_argument('--agent')

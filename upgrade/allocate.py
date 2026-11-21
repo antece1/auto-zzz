@@ -16,6 +16,7 @@
 """
 import argparse, json, os, sys
 
+__version__ = "0.2.0"  # auto-zzz 版本，见仓库根目录 VERSION
 SKILLS = ["普攻", "闪避", "支援", "特殊技", "连携技"]
 SKILL_LV = {2: ("C", 2, 2000), 3: ("C", 3, 3000), 4: ("B", 2, 6000), 5: ("B", 3, 9000), 6: ("B", 4, 12000),
             7: ("B", 6, 18000), 8: ("A", 5, 45000), 9: ("A", 8, 67500), 10: ("A", 10, 90000),
@@ -138,6 +139,7 @@ def apply_step(cur, s):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--version", action="version", version=f"auto-zzz %(prog)s {__version__}")
     ap.add_argument("--state", required=True); ap.add_argument("--prio", required=True)
     ap.add_argument("--out", required=True); ap.add_argument("--reserve", type=int, default=0, help="留着不花的丁尼")
     a = ap.parse_args()

@@ -14,6 +14,7 @@
 """
 import argparse, datetime as dt, json, math, os, shutil, sys, uuid
 
+__version__ = "0.2.0"  # auto-zzz 版本，见仓库根目录 VERSION
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "upgrade"))
@@ -210,6 +211,7 @@ def collect_done(yml, tags):
 def main():
     import yaml
     ap = argparse.ArgumentParser(); ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--version", action="version", version=f"auto-zzz %(prog)s {__version__}")
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
     cfg = read_json(CONFIG, {"per_day": 240, "enabled": True})

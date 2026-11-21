@@ -1,5 +1,7 @@
 # auto-zzz
 
+**v0.2.0** · [在线打开资源调度员](https://antece1.github.io/auto-zzz/) · [更新记录](CHANGELOG.md)
+
 绝区零（Zenless Zone Zero）培养自动化：算出该练谁、练到多少、缺什么材料，每天把刷取任务排进一条龙，并在游戏里自动点技能升级。
 
 它建立在 [ZenlessZoneZero-OneDragon](https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon)（绝区零一条龙）之上：截图、文字识别、点击都通过 OneDragon 的本机后端完成，本仓库不包含也不修改 OneDragon 的代码。
@@ -17,7 +19,7 @@
 | 每日推送 | `daily/push_plan.py` | 每天把缺口换算成副本，写进 OneDragon 的体力计划（charge_plan.yml），然后一条龙照常跑 |
 | 刷取队列 | `daily/queue.json` | 升级时材料不够，自动记下来，第二天优先刷 |
 | 优先培养 | `upgrade/state/plan/focus.json` | 给角色打星：它的材料排最前，并每天刷它的驱动盘套装 |
-| 规划网页 | `planner/zzz-planner.html` | 培养材料清单、缺口、每日排期、驱动盘检查（单个 HTML，浏览器直接打开） |
+| 资源调度员网页 | `docs/index.html` | 培养材料清单、缺口、每日排期、驱动盘检查、星标优先；[在线打开](https://antece1.github.io/auto-zzz/)，点「加载作者账号示例」可以看真实账号的效果 |
 | 参考数据 | `reference/` | 升级消耗、掉落、各代理人核心技材料、培养优先级（附来源）；`reference/agents/` 是 24 个代理人各自的升级消耗表 |
 | 真实账号示例 | `data/account/` | 作者 2026-11-21 的账号快照、规划状态、确认过的升级清单和第一次升级结果（不含 UID） |
 
