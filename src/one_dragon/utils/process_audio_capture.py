@@ -263,7 +263,13 @@ class ProcessAudioCapture:
         self.close()
 
     def open(self) -> None:
-        """激活进程音频并开始捕获。失败时会清理已申请的资源并抛出 ProcessAudioCaptureError"""
+        """
+        激活进程音频并开始捕获。失败时会清理已申请的资源并抛出 ProcessAudioCaptureError。
+        已经在捕获时再调用不做任何事：重复打开会让 IAudioClient::Initialize 报 0x8000FFFF，
+        并多调一次 CoInitializeEx，close 只回收一次，线程上会残留 COM 初始化状态。
+        """
+        if self._started:
+            return
         try:
             self._open()
         except Exception:

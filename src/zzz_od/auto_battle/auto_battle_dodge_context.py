@@ -129,14 +129,17 @@ class AudioRecorder:
 
         log.info(f'开始录制游戏进程音频 pid={pid}')
         try:
-            with capture:  # 退出时释放进程录音资源，再回退
-                while self.running:
-                    stream_data = capture.read(timeout_ms=100)
-                    if stream_data.shape[0] > 0:
-                        self._push_audio(stream_data.mean(axis=1))
+            # 上面已经 open 过，这里不能再用 with capture（__enter__ 会再 open 一次，导致初始化报错）
+            while self.running:
+                stream_data = capture.read(timeout_ms=100)
+                if stream_data.shape[0] > 0:
+                    self._push_audio(stream_data.mean(axis=1))
         except ProcessAudioCaptureError:
             log.warning('读取游戏进程音频失败，改为录制默认输出设备', exc_info=True)
             return False
+        finally:
+            # 先释放进程录音资源（含 COM），再回退录制输出设备
+            capture.close()
         return True
 
     def _record_device_loop(self) -> None:
