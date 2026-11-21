@@ -1,0 +1,402 @@
+{
+ "generated_at": "2026-11-21T12:30:00-08:00",
+ "approved_by_user": true,
+ "approved_note": "用户在 main 里确认，原话：确认清单（2026-11-21）",
+ "steps": [
+  {
+   "what": "skill",
+   "skill": "闪避",
+   "from": 4,
+   "to": 5,
+   "display_from": 4,
+   "display_to": 5,
+   "cost": {
+    "进阶物理芯片": 3,
+    "丁尼": 9000
+   },
+   "order": 1,
+   "agent": "jane_doe",
+   "name_cn": "简",
+   "status": "done",
+   "result": "results/2026-11-21_1319_jane_dodge.json"
+  },
+  {
+   "what": "skill",
+   "skill": "闪避",
+   "from": 5,
+   "to": 6,
+   "display_from": 5,
+   "display_to": 6,
+   "cost": {
+    "进阶物理芯片": 4,
+    "丁尼": 12000
+   },
+   "order": 2,
+   "agent": "jane_doe",
+   "name_cn": "简"
+  },
+  {
+   "what": "skill",
+   "skill": "普攻",
+   "from": 5,
+   "to": 6,
+   "display_from": 5,
+   "display_to": 6,
+   "cost": {
+    "进阶物理芯片": 4,
+    "丁尼": 12000
+   },
+   "order": 3,
+   "agent": "jane_doe",
+   "name_cn": "简"
+  },
+  {
+   "what": "skill",
+   "skill": "闪避",
+   "from": 6,
+   "to": 7,
+   "display_from": 6,
+   "display_to": 7,
+   "cost": {
+    "进阶物理芯片": 6,
+    "丁尼": 18000
+   },
+   "order": 4,
+   "agent": "jane_doe",
+   "name_cn": "简"
+  },
+  {
+   "what": "skill",
+   "skill": "普攻",
+   "from": 6,
+   "to": 7,
+   "display_from": 6,
+   "display_to": 7,
+   "cost": {
+    "进阶物理芯片": 6,
+    "丁尼": 18000
+   },
+   "order": 5,
+   "agent": "jane_doe",
+   "name_cn": "简"
+  },
+  {
+   "what": "level",
+   "from": 55,
+   "to": 60,
+   "cost": {
+    "_expA": 225000
+   },
+   "order": 6,
+   "agent": "lycaon",
+   "name_cn": "莱卡恩"
+  },
+  {
+   "what": "engine",
+   "from": 45,
+   "to": 50,
+   "cost": {
+    "_expW": 75000
+   },
+   "order": 7,
+   "agent": "lycaon",
+   "name_cn": "莱卡恩"
+  },
+  {
+   "what": "skill",
+   "skill": "连携技",
+   "from": 5,
+   "to": 6,
+   "display_from": 7,
+   "display_to": 8,
+   "cost": {
+    "进阶以太芯片": 4,
+    "丁尼": 12000
+   },
+   "order": 8,
+   "agent": "nicole",
+   "name_cn": "妮可"
+  },
+  {
+   "what": "skill",
+   "skill": "连携技",
+   "from": 7,
+   "to": 8,
+   "display_from": 7,
+   "display_to": 8,
+   "cost": {
+    "特化电击芯片": 5,
+    "丁尼": 45000
+   },
+   "order": 9,
+   "agent": "yanagi",
+   "name_cn": "柳"
+  },
+  {
+   "what": "skill",
+   "skill": "支援",
+   "from": 1,
+   "to": 2,
+   "display_from": 1,
+   "display_to": 2,
+   "cost": {
+    "基础电击芯片": 2,
+    "丁尼": 2000
+   },
+   "order": 10,
+   "agent": "yanagi",
+   "name_cn": "柳"
+  },
+  {
+   "what": "skill",
+   "skill": "连携技",
+   "from": 6,
+   "to": 7,
+   "display_from": 8,
+   "display_to": 9,
+   "cost": {
+    "进阶以太芯片": 6,
+    "丁尼": 18000
+   },
+   "order": 11,
+   "agent": "nicole",
+   "name_cn": "妮可"
+  },
+  {
+   "what": "skill",
+   "skill": "连携技",
+   "from": 8,
+   "to": 9,
+   "display_from": 8,
+   "display_to": 9,
+   "cost": {
+    "特化电击芯片": 8,
+    "丁尼": 67500
+   },
+   "order": 12,
+   "agent": "yanagi",
+   "name_cn": "柳"
+  },
+  {
+   "what": "skill",
+   "skill": "支援",
+   "from": 2,
+   "to": 3,
+   "display_from": 2,
+   "display_to": 3,
+   "cost": {
+    "基础电击芯片": 3,
+    "丁尼": 3000
+   },
+   "order": 13,
+   "agent": "yanagi",
+   "name_cn": "柳"
+  },
+  {
+   "what": "skill",
+   "skill": "连携技",
+   "from": 5,
+   "to": 6,
+   "display_from": 5,
+   "display_to": 6,
+   "cost": {
+    "进阶冰结芯片": 4,
+    "丁尼": 12000
+   },
+   "order": 14,
+   "agent": "lycaon",
+   "name_cn": "莱卡恩"
+  },
+  {
+   "what": "skill",
+   "skill": "支援",
+   "from": 3,
+   "to": 4,
+   "display_from": 3,
+   "display_to": 4,
+   "cost": {
+    "进阶电击芯片": 2,
+    "丁尼": 6000
+   },
+   "order": 15,
+   "agent": "yanagi",
+   "name_cn": "柳"
+  },
+  {
+   "what": "skill",
+   "skill": "连携技",
+   "from": 7,
+   "to": 8,
+   "display_from": 9,
+   "display_to": 10,
+   "cost": {
+    "特化以太芯片": 5,
+    "丁尼": 45000
+   },
+   "order": 16,
+   "agent": "nicole",
+   "name_cn": "妮可"
+  },
+  {
+   "what": "skill",
+   "skill": "特殊技",
+   "from": 8,
+   "to": 9,
+   "display_from": 10,
+   "display_to": 11,
+   "cost": {
+    "特化以太芯片": 8,
+    "丁尼": 67500
+   },
+   "order": 17,
+   "agent": "nicole",
+   "name_cn": "妮可"
+  },
+  {
+   "what": "skill",
+   "skill": "闪避",
+   "from": 6,
+   "to": 7,
+   "display_from": 6,
+   "display_to": 7,
+   "cost": {
+    "进阶电击芯片": 6,
+    "丁尼": 18000
+   },
+   "order": 18,
+   "agent": "qingyi",
+   "name_cn": "青衣"
+  },
+  {
+   "what": "skill",
+   "skill": "闪避",
+   "from": 2,
+   "to": 3,
+   "display_from": 2,
+   "display_to": 3,
+   "cost": {
+    "基础冰结芯片": 3,
+    "丁尼": 3000
+   },
+   "order": 19,
+   "agent": "hoshimi_miyabi",
+   "name_cn": "星见雅"
+  }
+ ],
+ "budget_after": {
+  "丁尼": 40970
+ },
+ "reserve_dennies": 100000,
+ "long_term_targets": {
+  "hoshimi_miyabi": {
+   "skills": {
+    "普攻": 12,
+    "闪避": 4,
+    "支援": 4,
+    "特殊技": 11,
+    "连携技": 11
+   },
+   "core": 6,
+   "tier": "high"
+  },
+  "astra_yao": {
+   "skills": {
+    "普攻": 1,
+    "闪避": 1,
+    "支援": 4,
+    "特殊技": 12,
+    "连携技": 9
+   },
+   "core": 6,
+   "tier": "high"
+  },
+  "yanagi": {
+   "skills": {
+    "普攻": 8,
+    "闪避": 1,
+    "支援": 4,
+    "特殊技": 11,
+    "连携技": 10
+   },
+   "core": 6,
+   "tier": "high"
+  },
+  "ellen": {
+   "skills": {
+    "普攻": 11,
+    "闪避": 8,
+    "支援": 1,
+    "特殊技": 11,
+    "连携技": 11
+   },
+   "core": 6,
+   "tier": "mid"
+  },
+  "zhu_yuan": {
+   "skills": {
+    "普攻": 12,
+    "闪避": 6,
+    "支援": 1,
+    "特殊技": 10,
+    "连携技": 11
+   },
+   "core": 6,
+   "tier": "mid"
+  },
+  "jane_doe": {
+   "skills": {
+    "普攻": 10,
+    "闪避": 10,
+    "支援": 1,
+    "特殊技": 9,
+    "连携技": 9
+   },
+   "core": 6,
+   "tier": "mid"
+  },
+  "qingyi": {
+   "skills": {
+    "普攻": 11,
+    "闪避": 8,
+    "支援": 1,
+    "特殊技": 10,
+    "连携技": 8
+   },
+   "core": 6,
+   "tier": "mid"
+  },
+  "nicole": {
+   "skills": {
+    "普攻": 1,
+    "闪避": 1,
+    "支援": 5,
+    "特殊技": 9,
+    "连携技": 8
+   },
+   "core": 6,
+   "tier": "mid"
+  },
+  "lycaon": {
+   "skills": {
+    "普攻": 3,
+    "闪避": 1,
+    "支援": 9,
+    "特殊技": 11,
+    "连携技": 9
+   },
+   "core": 4,
+   "tier": "mid"
+  },
+  "soukaku": {
+   "skills": {
+    "普攻": 1,
+    "闪避": 1,
+    "支援": 1,
+    "特殊技": 8,
+    "连携技": 4
+   },
+   "core": 6,
+   "tier": "low"
+  }
+ }
+}

@@ -4,7 +4,6 @@ upgrade/logs/
 upgrade/results/
 upgrade/plan.json
 upgrade/farm_queue.json
-upgrade/templates/*.png
 upgrade/explore/
 daily/queue.json
 daily/ledger.json

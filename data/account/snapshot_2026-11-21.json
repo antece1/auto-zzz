@@ -1,0 +1,2807 @@
+{
+ "taken_at": "2026-11-21T11:47:00-08:00",
+ "source": "HoYoLAB 战绩接口（代理人、电量）+ OneDragon 截图 OCR（仓库材料、丁尼）",
+ "battery": {
+  "current": 70,
+  "max": 240
+ },
+ "battery_reserve": null,
+ "ether_battery": null,
+ "dennies": 508970,
+ "polychrome": 565,
+ "agents": [
+  {
+   "id": "astra_yao",
+   "name_cn": "耀嘉音",
+   "hoyolab_id": 1311,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 60,
+   "level_cap": 60,
+   "skills": {
+    "普攻": 1,
+    "闪避": 1,
+    "支援": 7,
+    "特殊技": 11,
+    "连携技": 9
+   },
+   "core_skill": 6,
+   "w_engine": {
+    "name_cn": "好斗的阿炮",
+    "rarity": "A",
+    "rank": 1,
+    "level": 54,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "防御力",
+       "value": "45",
+       "upgrades": 2
+      },
+      {
+       "stat": "生命值",
+       "value": "6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "19",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "静听嘉音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "316"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "9%",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "6%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "静听嘉音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "19.2%",
+       "upgrades": 3
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "38",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "静听嘉音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "防御力",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "攻击力",
+       "value": "57",
+       "upgrades": 2
+      },
+      {
+       "stat": "异常精通",
+       "value": "9",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "静听嘉音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "76",
+       "upgrades": 3
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "能量自动回复",
+      "value": "60%"
+     },
+     "sub_stats": [
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "7.2%",
+       "upgrades": 2
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "9%",
+       "upgrades": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "jane_doe",
+   "name_cn": "简",
+   "hoyolab_id": 1261,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 60,
+   "level_cap": 60,
+   "skills": {
+    "普攻": 5,
+    "闪避": 4,
+    "支援": 3,
+    "特殊技": 11,
+    "连携技": 12
+   },
+   "core_skill": 4,
+   "w_engine": {
+    "name_cn": "雨林饕客",
+    "rarity": "A",
+    "rank": 1,
+    "level": 40,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "啄木鸟电音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "自由蓝调",
+     "rarity": "A",
+     "level": 0,
+     "level_cap": 12,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "53"
+     },
+     "sub_stats": [
+      {
+       "stat": "防御力",
+       "value": "10",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "3.2%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "1.6%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "自由蓝调",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "生命值",
+       "value": "224",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "自由蓝调",
+     "rarity": "S",
+     "level": 0,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "12%"
+     },
+     "sub_stats": [
+      {
+       "stat": "异常精通",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "自由蓝调",
+     "rarity": "S",
+     "level": 0,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "7.5%"
+     },
+     "sub_stats": [
+      {
+       "stat": "异常精通",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "19",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "混沌爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "异常掌控",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "112",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "30",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "57",
+       "upgrades": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "qingyi",
+   "name_cn": "青衣",
+   "hoyolab_id": 1251,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 60,
+   "level_cap": 60,
+   "skills": {
+    "普攻": 9,
+    "闪避": 6,
+    "支援": 1,
+    "特殊技": 11,
+    "连携技": 8
+   },
+   "core_skill": 6,
+   "w_engine": {
+    "name_cn": "拘缚者",
+    "rarity": "S",
+    "rank": 1,
+    "level": 54,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "震星迪斯科",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "19.2%",
+       "upgrades": 3
+      },
+      {
+       "stat": "防御力",
+       "value": "15",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "震星迪斯科",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "316"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "12%",
+       "upgrades": 3
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "15",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "雷暴重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "7.2%",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "38",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "雷暴重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "暴击率",
+      "value": "24%"
+     },
+     "sub_stats": [
+      {
+       "stat": "生命值",
+       "value": "336",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "45",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "震星迪斯科",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "穿透率",
+      "value": "24%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "336",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "震星迪斯科",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "冲击力",
+      "value": "18%"
+     },
+     "sub_stats": [
+      {
+       "stat": "防御力",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "防御力",
+       "value": "15",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "224",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "38",
+       "upgrades": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "zhu_yuan",
+   "name_cn": "朱鸢",
+   "hoyolab_id": 1241,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 60,
+   "level_cap": 60,
+   "skills": {
+    "普攻": 12,
+    "闪避": 7,
+    "支援": 8,
+    "特殊技": 11,
+    "连携技": 11
+   },
+   "core_skill": 6,
+   "w_engine": {
+    "name_cn": "硫磺石",
+    "rarity": "S",
+    "rank": 1,
+    "level": 56,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "混沌重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "混沌重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "316"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "9%",
+       "upgrades": 2
+      },
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "啄木鸟电音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "7.2%",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "混沌重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "暴击伤害",
+      "value": "48%"
+     },
+     "sub_stats": [
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击率",
+       "value": "7.2%",
+       "upgrades": 2
+      },
+      {
+       "stat": "防御力",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "混沌重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "以太伤害加成",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "38",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "14.4%",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "啄木鸟电音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "336",
+       "upgrades": 2
+      },
+      {
+       "stat": "防御力",
+       "value": "4.8%",
+       "upgrades": 0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "yanagi",
+   "name_cn": "柳",
+   "hoyolab_id": 1221,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 60,
+   "level_cap": 60,
+   "skills": {
+    "普攻": 8,
+    "闪避": 1,
+    "支援": 1,
+    "特殊技": 11,
+    "连携技": 7
+   },
+   "core_skill": 6,
+   "w_engine": {
+    "name_cn": "嵌合编译器",
+    "rarity": "S",
+    "rank": 1,
+    "level": 50,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "混沌爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      },
+      {
+       "stat": "防御力",
+       "value": "30",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "自由蓝调",
+     "rarity": "S",
+     "level": 6,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "173"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "112",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "混沌爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "9%",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "自由蓝调",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "异常精通",
+      "value": "92"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "12%",
+       "upgrades": 3
+      },
+      {
+       "stat": "防御力",
+       "value": "15",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "混沌爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "19",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "9%",
+       "upgrades": 2
+      },
+      {
+       "stat": "生命值",
+       "value": "112",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "混沌爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "38",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ellen",
+   "name_cn": "艾莲",
+   "hoyolab_id": 1191,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 60,
+   "level_cap": 60,
+   "skills": {
+    "普攻": 12,
+    "闪避": 7,
+    "支援": 7,
+    "特殊技": 12,
+    "连携技": 11
+   },
+   "core_skill": 6,
+   "w_engine": {
+    "name_cn": "深海访客",
+    "rarity": "S",
+    "rank": 1,
+    "level": 60,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "折枝剑歌",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "12%",
+       "upgrades": 3
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "折枝剑歌",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "316"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "336",
+       "upgrades": 2
+      },
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "极地重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      },
+      {
+       "stat": "攻击力",
+       "value": "19",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "极地重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "暴击伤害",
+      "value": "48%"
+     },
+     "sub_stats": [
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "9%",
+       "upgrades": 2
+      },
+      {
+       "stat": "防御力",
+       "value": "15",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "极地重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "冰属性伤害加成",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "14.4%",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "极地重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "生命值",
+       "value": "112",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "38",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "45",
+       "upgrades": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hoshimi_miyabi",
+   "name_cn": "雅",
+   "hoyolab_id": 1091,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 60,
+   "level_cap": 60,
+   "skills": {
+    "普攻": 12,
+    "闪避": 2,
+    "支援": 6,
+    "特殊技": 11,
+    "连携技": 11
+   },
+   "core_skill": 6,
+   "w_engine": {
+    "name_cn": "霰落星殿",
+    "rarity": "S",
+    "rank": 1,
+    "level": 60,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "折枝剑歌",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "12%",
+       "upgrades": 4
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "啄木鸟电音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "316"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "19.2%",
+       "upgrades": 3
+      },
+      {
+       "stat": "防御力",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "224",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "折枝剑歌",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "7.2%",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "38",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "6%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "折枝剑歌",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "暴击伤害",
+      "value": "48%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "27",
+       "upgrades": 2
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "折枝剑歌",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "穿透率",
+      "value": "24%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      },
+      {
+       "stat": "生命值",
+       "value": "6%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "啄木鸟电音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "防御力",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "nicole",
+   "name_cn": "妮可",
+   "hoyolab_id": 1031,
+   "rarity": "A",
+   "mindscape": 4,
+   "level": 60,
+   "level_cap": 60,
+   "skills": {
+    "普攻": 4,
+    "闪避": 3,
+    "支援": 9,
+    "特殊技": 10,
+    "连携技": 7
+   },
+   "core_skill": 3,
+   "w_engine": {
+    "name_cn": "时光切片",
+    "rarity": "A",
+    "rank": 1,
+    "level": 30,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "防御力",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "57",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "316"
+     },
+     "sub_stats": [
+      {
+       "stat": "生命值",
+       "value": "224",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "9%",
+       "upgrades": 2
+      },
+      {
+       "stat": "攻击力",
+       "value": "19",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      },
+      {
+       "stat": "异常精通",
+       "value": "27",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "混沌重金属",
+     "rarity": "S",
+     "level": 12,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "异常精通",
+      "value": "78"
+     },
+     "sub_stats": [
+      {
+       "stat": "防御力",
+       "value": "30",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "9%",
+       "upgrades": 2
+      },
+      {
+       "stat": "攻击力",
+       "value": "19",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "以太伤害加成",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "穿透值",
+       "value": "27",
+       "upgrades": 2
+      },
+      {
+       "stat": "异常精通",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "14.4%",
+       "upgrades": 2
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "混沌重金属",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "能量自动回复",
+      "value": "60%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "异常精通",
+       "value": "27",
+       "upgrades": 2
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lycaon",
+   "name_cn": "莱卡恩",
+   "hoyolab_id": 1141,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 55,
+   "level_cap": null,
+   "skills": {
+    "普攻": 4,
+    "闪避": 7,
+    "支援": 7,
+    "特殊技": 9,
+    "连携技": 5
+   },
+   "core_skill": 3,
+   "w_engine": {
+    "name_cn": "拘缚者",
+    "rarity": "S",
+    "rank": 1,
+    "level": 45,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "震星迪斯科",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "2200"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击率",
+       "value": "7.2%",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "静听嘉音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "316"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "336",
+       "upgrades": 2
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "14.4%",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "静听嘉音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "184"
+     },
+     "sub_stats": [
+      {
+       "stat": "生命值",
+       "value": "336",
+       "upgrades": 2
+      },
+      {
+       "stat": "攻击力",
+       "value": "76",
+       "upgrades": 3
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "震星迪斯科",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "暴击伤害",
+      "value": "48%"
+     },
+     "sub_stats": [
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "15",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "9%",
+       "upgrades": 2
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "静听嘉音",
+     "rarity": "S",
+     "level": 6,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "16.5%"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "112",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "4.8%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "静听嘉音",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "冲击力",
+      "value": "18%"
+     },
+     "sub_stats": [
+      {
+       "stat": "生命值",
+       "value": "6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "4.8%",
+       "upgrades": 1
+      },
+      {
+       "stat": "攻击力",
+       "value": "57",
+       "upgrades": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "soukaku",
+   "name_cn": "苍角",
+   "hoyolab_id": 1131,
+   "rarity": "A",
+   "mindscape": 6,
+   "level": 55,
+   "level_cap": null,
+   "skills": {
+    "普攻": 7,
+    "闪避": 11,
+    "支援": 11,
+    "特殊技": 14,
+    "连携技": 7
+   },
+   "core_skill": 3,
+   "w_engine": {
+    "name_cn": "含羞恶面",
+    "rarity": "A",
+    "rank": 3,
+    "level": 40,
+    "level_cap": null
+   },
+   "drive_discs": [
+    {
+     "slot": 1,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 0,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "生命值",
+      "value": "550"
+     },
+     "sub_stats": [
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "穿透值",
+       "value": "9",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "set": "激素朋克",
+     "rarity": "S",
+     "level": 0,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "攻击力",
+      "value": "79"
+     },
+     "sub_stats": [
+      {
+       "stat": "防御力",
+       "value": "15",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "set": "激素朋克",
+     "rarity": "S",
+     "level": 0,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "46"
+     },
+     "sub_stats": [
+      {
+       "stat": "生命值",
+       "value": "112",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 4,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 6,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "异常精通",
+      "value": "50"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击率",
+       "value": "2.4%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "224",
+       "upgrades": 1
+      }
+     ]
+    },
+    {
+     "slot": 5,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 0,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "穿透率",
+      "value": "6%"
+     },
+     "sub_stats": [
+      {
+       "stat": "攻击力",
+       "value": "19",
+       "upgrades": 0
+      },
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "防御力",
+       "value": "15",
+       "upgrades": 0
+      }
+     ]
+    },
+    {
+     "slot": 6,
+     "set": "摇摆爵士",
+     "rarity": "S",
+     "level": 15,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "异常掌控",
+      "value": "30%"
+     },
+     "sub_stats": [
+      {
+       "stat": "防御力",
+       "value": "9.6%",
+       "upgrades": 1
+      },
+      {
+       "stat": "穿透值",
+       "value": "18",
+       "upgrades": 1
+      },
+      {
+       "stat": "防御力",
+       "value": "30",
+       "upgrades": 1
+      },
+      {
+       "stat": "生命值",
+       "value": "6%",
+       "upgrades": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "anby",
+   "name_cn": "安比",
+   "hoyolab_id": 1011,
+   "rarity": "A",
+   "mindscape": 6,
+   "level": 40,
+   "level_cap": null,
+   "skills": {
+    "普攻": 9,
+    "闪避": 5,
+    "支援": 6,
+    "特殊技": 11,
+    "连携技": 5
+   },
+   "core_skill": 1,
+   "w_engine": null,
+   "drive_discs": [
+    {
+     "slot": 3,
+     "set": "啄木鸟电音",
+     "rarity": "S",
+     "level": 0,
+     "level_cap": 15,
+     "main_stat": {
+      "stat": "防御力",
+      "value": "46"
+     },
+     "sub_stats": [
+      {
+       "stat": "暴击伤害",
+       "value": "4.8%",
+       "upgrades": 0
+      },
+      {
+       "stat": "生命值",
+       "value": "3%",
+       "upgrades": 0
+      },
+      {
+       "stat": "攻击力",
+       "value": "3%",
+       "upgrades": 0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "anton",
+   "name_cn": "安东",
+   "hoyolab_id": 1111,
+   "rarity": "A",
+   "mindscape": 6,
+   "level": 30,
+   "level_cap": null,
+   "skills": {
+    "普攻": 5,
+    "闪避": 6,
+    "支援": 6,
+    "特殊技": 5,
+    "连携技": 5
+   },
+   "core_skill": 1,
+   "w_engine": {
+    "name_cn": "仿制星徽引擎",
+    "rarity": "A",
+    "rank": 2,
+    "level": 30,
+    "level_cap": null
+   },
+   "drive_discs": []
+  },
+  {
+   "id": "seth_lowell",
+   "name_cn": "赛斯",
+   "hoyolab_id": 1271,
+   "rarity": "A",
+   "mindscape": 3,
+   "level": 20,
+   "level_cap": null,
+   "skills": {
+    "普攻": 3,
+    "闪避": 3,
+    "支援": 3,
+    "特殊技": 3,
+    "连携技": 3
+   },
+   "core_skill": 1,
+   "w_engine": null,
+   "drive_discs": []
+  },
+  {
+   "id": "lucy",
+   "name_cn": "露西",
+   "hoyolab_id": 1151,
+   "rarity": "A",
+   "mindscape": 5,
+   "level": 20,
+   "level_cap": null,
+   "skills": {
+    "普攻": 5,
+    "闪避": 7,
+    "支援": 6,
+    "特殊技": 5,
+    "连携技": 5
+   },
+   "core_skill": 0,
+   "w_engine": {
+    "name_cn": "「残响」-Ⅰ型",
+    "rarity": "B",
+    "rank": 5,
+    "level": 0,
+    "level_cap": null
+   },
+   "drive_discs": []
+  },
+  {
+   "id": "ben",
+   "name_cn": "本",
+   "hoyolab_id": 1121,
+   "rarity": "A",
+   "mindscape": 6,
+   "level": 20,
+   "level_cap": null,
+   "skills": {
+    "普攻": 5,
+    "闪避": 5,
+    "支援": 5,
+    "特殊技": 5,
+    "连携技": 5
+   },
+   "core_skill": 0,
+   "w_engine": {
+    "name_cn": "光影刻刀",
+    "rarity": "A",
+    "rank": 5,
+    "level": 0,
+    "level_cap": null
+   },
+   "drive_discs": []
+  },
+  {
+   "id": "billy",
+   "name_cn": "比利",
+   "hoyolab_id": 1081,
+   "rarity": "A",
+   "mindscape": 6,
+   "level": 20,
+   "level_cap": null,
+   "skills": {
+    "普攻": 6,
+    "闪避": 6,
+    "支援": 6,
+    "特殊技": 5,
+    "连携技": 5
+   },
+   "core_skill": 1,
+   "w_engine": {
+    "name_cn": "「月相」-朔",
+    "rarity": "B",
+    "rank": 5,
+    "level": 20,
+    "level_cap": null
+   },
+   "drive_discs": []
+  },
+  {
+   "id": "corin",
+   "name_cn": "可琳",
+   "hoyolab_id": 1061,
+   "rarity": "A",
+   "mindscape": 5,
+   "level": 11,
+   "level_cap": null,
+   "skills": {
+    "普攻": 5,
+    "闪避": 5,
+    "支援": 5,
+    "特殊技": 5,
+    "连携技": 5
+   },
+   "core_skill": 0,
+   "w_engine": {
+    "name_cn": "「月相」-望",
+    "rarity": "B",
+    "rank": 5,
+    "level": 0,
+    "level_cap": null
+   },
+   "drive_discs": []
+  },
+  {
+   "id": "rina",
+   "name_cn": "丽娜",
+   "hoyolab_id": 1211,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 10,
+   "level_cap": null,
+   "skills": {
+    "普攻": 1,
+    "闪避": 1,
+    "支援": 1,
+    "特殊技": 1,
+    "连携技": 1
+   },
+   "core_skill": 0,
+   "w_engine": null,
+   "drive_discs": []
+  },
+  {
+   "id": "grace",
+   "name_cn": "格莉丝",
+   "hoyolab_id": 1181,
+   "rarity": "S",
+   "mindscape": 1,
+   "level": 10,
+   "level_cap": null,
+   "skills": {
+    "普攻": 1,
+    "闪避": 1,
+    "支援": 1,
+    "特殊技": 1,
+    "连携技": 1
+   },
+   "core_skill": 0,
+   "w_engine": null,
+   "drive_discs": []
+  },
+  {
+   "id": "soldier_11",
+   "name_cn": "11号",
+   "hoyolab_id": 1041,
+   "rarity": "S",
+   "mindscape": 0,
+   "level": 10,
+   "level_cap": null,
+   "skills": {
+    "普攻": 1,
+    "闪避": 1,
+    "支援": 1,
+    "特殊技": 1,
+    "连携技": 1
+   },
+   "core_skill": 0,
+   "w_engine": null,
+   "drive_discs": []
+  },
+  {
+   "id": "panyinhu",
+   "name_cn": "潘引壶",
+   "hoyolab_id": 1421,
+   "rarity": "A",
+   "mindscape": 6,
+   "level": 10,
+   "level_cap": null,
+   "skills": {
+    "普攻": 5,
+    "闪避": 5,
+    "支援": 5,
+    "特殊技": 5,
+    "连携技": 5
+   },
+   "core_skill": 0,
+   "w_engine": null,
+   "drive_discs": []
+  },
+  {
+   "id": "pulchra",
+   "name_cn": "波可娜",
+   "hoyolab_id": 1351,
+   "rarity": "A",
+   "mindscape": 6,
+   "level": 10,
+   "level_cap": null,
+   "skills": {
+    "普攻": 5,
+    "闪避": 5,
+    "支援": 5,
+    "特殊技": 5,
+    "连携技": 5
+   },
+   "core_skill": 0,
+   "w_engine": null,
+   "drive_discs": []
+  },
+  {
+   "id": "piper",
+   "name_cn": "派派",
+   "hoyolab_id": 1281,
+   "rarity": "A",
+   "mindscape": 6,
+   "level": 10,
+   "level_cap": null,
+   "skills": {
+    "普攻": 5,
+    "闪避": 5,
+    "支援": 5,
+    "特殊技": 5,
+    "连携技": 5
+   },
+   "core_skill": 0,
+   "w_engine": {
+    "name_cn": "「电磁暴」-壹式",
+    "rarity": "B",
+    "rank": 5,
+    "level": 0,
+    "level_cap": null
+   },
+   "drive_discs": []
+  },
+  {
+   "id": "manato",
+   "name_cn": "真斗",
+   "hoyolab_id": 1441,
+   "rarity": "A",
+   "mindscape": 0,
+   "level": 1,
+   "level_cap": null,
+   "skills": {
+    "普攻": 1,
+    "闪避": 1,
+    "支援": 1,
+    "特殊技": 1,
+    "连携技": 1
+   },
+   "core_skill": 0,
+   "w_engine": null,
+   "drive_discs": []
+  }
+ ],
+ "materials": [
+  {
+   "name_cn": "基础引燃芯片",
+   "count": 6
+  },
+  {
+   "name_cn": "基础冰结芯片",
+   "count": 4
+  },
+  {
+   "name_cn": "基础电击芯片",
+   "count": 7
+  },
+  {
+   "name_cn": "基础以太芯片",
+   "count": 15
+  },
+  {
+   "name_cn": "进阶物理芯片",
+   "count": 64
+  },
+  {
+   "name_cn": "进阶引燃芯片",
+   "count": 12
+  },
+  {
+   "name_cn": "进阶冰结芯片",
+   "count": 4
+  },
+  {
+   "name_cn": "进阶电击芯片",
+   "count": 61
+  },
+  {
+   "name_cn": "进阶以太芯片",
+   "count": 25
+  },
+  {
+   "name_cn": "特化引燃芯片",
+   "count": 25
+  },
+  {
+   "name_cn": "特化电击芯片",
+   "count": 20
+  },
+  {
+   "name_cn": "特化以太芯片",
+   "count": 14
+  },
+  {
+   "name_cn": "初阶强攻认证章",
+   "count": 40
+  },
+  {
+   "name_cn": "初阶击破认证章",
+   "count": 10
+  },
+  {
+   "name_cn": "初阶异常认证章",
+   "count": 2
+  },
+  {
+   "name_cn": "初阶支援认证章",
+   "count": 8
+  },
+  {
+   "name_cn": "初阶防护认证章",
+   "count": 10
+  },
+  {
+   "name_cn": "初阶命破认证章",
+   "count": 6
+  },
+  {
+   "name_cn": "高阶强攻认证章",
+   "count": 10
+  },
+  {
+   "name_cn": "高阶击破认证章",
+   "count": 7
+  },
+  {
+   "name_cn": "高阶支援认证章",
+   "count": 1
+  },
+  {
+   "name_cn": "高阶防护认证章",
+   "count": 3
+  },
+  {
+   "name_cn": "破阵者认证章",
+   "count": 5
+  },
+  {
+   "name_cn": "「仓鼠笼」访问器",
+   "count": 6
+  },
+  {
+   "name_cn": "调律校音器",
+   "count": 6
+  },
+  {
+   "name_cn": "谐振核心仪",
+   "count": 1
+  },
+  {
+   "name_cn": "强攻组件",
+   "count": 2
+  },
+  {
+   "name_cn": "击破组件",
+   "count": 1
+  },
+  {
+   "name_cn": "异常组件",
+   "count": 2
+  },
+  {
+   "name_cn": "防护组件",
+   "count": 4
+  },
+  {
+   "name_cn": "增强型强攻组件",
+   "count": 22
+  },
+  {
+   "name_cn": "增强型击破组件",
+   "count": 17
+  },
+  {
+   "name_cn": "增强型异常组件",
+   "count": 2
+  },
+  {
+   "name_cn": "增强型支援组件",
+   "count": 9
+  },
+  {
+   "name_cn": "增强型防护组件",
+   "count": 2
+  },
+  {
+   "name_cn": "特化型异常组件",
+   "count": 7
+  },
+  {
+   "name_cn": "以太电解液",
+   "count": 21
+  },
+  {
+   "name_cn": "能量循环液",
+   "count": 12
+  },
+  {
+   "name_cn": "浓缩型冷却液",
+   "count": 23
+  },
+  {
+   "name_cn": "音质增强母盘",
+   "count": 6
+  },
+  {
+   "name_cn": "降噪处理母盘",
+   "count": 176
+  },
+  {
+   "name_cn": "高保真母盘",
+   "count": 60
+  },
+  {
+   "name_cn": "腥风之握",
+   "count": 2
+  },
+  {
+   "name_cn": "终幕舞鞋",
+   "count": 1
+  },
+  {
+   "name_cn": "高维数据：凶刑讣告",
+   "count": 5
+  },
+  {
+   "name_cn": "高维数据：追袭骸影",
+   "count": 21
+  },
+  {
+   "name_cn": "高维数据：拳坠如陨",
+   "count": 30
+  },
+  {
+   "name_cn": "见习调查员记录",
+   "count": 15
+  },
+  {
+   "name_cn": "正式调查员记录",
+   "count": 42
+  },
+  {
+   "name_cn": "资深调查员记录",
+   "count": 94
+  },
+  {
+   "name_cn": "音擎蓄电池",
+   "count": 7
+  },
+  {
+   "name_cn": "变频音擎电源",
+   "count": 3
+  },
+  {
+   "name_cn": "音擎能源模块",
+   "count": 31
+  },
+  {
+   "name_cn": "塑化镀剂",
+   "count": 90
+  },
+  {
+   "name_cn": "晶质镀剂",
+   "count": 56
+  },
+  {
+   "name_cn": "以太镀剂",
+   "count": 9
+  },
+  {
+   "name_cn": "邦布软件补丁",
+   "count": 55
+  },
+  {
+   "name_cn": "邦布算法模块",
+   "count": 87
+  },
+  {
+   "name_cn": "邦布系统控件",
+   "count": 375
+  }
+ ],
+ "weekly": {
+  "恶名狩猎剩余次数": 0
+ },
+ "notes": [
+  "储蓄电量、以太电池本次没截到；体力计划日志 2026-11-21 00:20 读到的是储蓄电量 2400、以太电池 44（之后可能变了）。",
+  "恶名狩猎剩余次数来自 OneDragon 运行记录 app_run_record/notorious_hunt.yml（left_times 0，2026-11-21 00:13）。",
+  "OCR 把部分「增强」识别成繁体「增強」，已改回简体。",
+  "腥风之握（初生死路屠夫掉落）2 个，终幕舞鞋 1 个。",
+  "代理人 24 个全部来自 HoYoLAB avatar/info 接口（2026-11-21 11:46）。技能映射：skill_type 0 普攻、2 闪避、6 支援、1 特殊技、3 连携技、5 核心技。",
+  "core_skill 用 0-6 表示（0=未解锁，6=F 满级），= 接口核心技等级 - 1；耀嘉音接口值 7，游戏里 A-F 全亮，对得上。",
+  "level_cap：接口不给突破上限，只有 60 级的填 60，其余填 null。音擎 level_cap 同理填 null。",
+  "电量 70/240 来自 HoYoLAB note 接口 11:46；仓库截图时是 69。",
+  "驱动盘来自 HoYoLAB avatar/info 的 equip 字段（11:55）。sub_stats.upgrades = 该副词条强化命中次数（接口 add 字段）。level_cap 按稀有度推算：S 15 / A 12 / B 9。只记录已装备的盘，仓库里没装备的盘接口不提供。"
+ ]
+}

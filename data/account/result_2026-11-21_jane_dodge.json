@@ -1,0 +1,53 @@
+{
+  "started_at": "2026-11-21T13:18:57",
+  "finished_at": "2026-11-21T13:19:36",
+  "applied": true,
+  "plan": "plan.json",
+  "only": [
+    1
+  ],
+  "agents": [
+    {
+      "id": "jane_doe",
+      "name_cn": "简",
+      "before": {
+        "sk": [
+          5,
+          4,
+          3,
+          11,
+          12
+        ]
+      },
+      "after": {
+        "sk": [
+          5,
+          5,
+          3,
+          11,
+          12
+        ]
+      },
+      "steps": [
+        {
+          "order": 1,
+          "what": "技能 闪避 4→5",
+          "status": "ok",
+          "cost": {
+            "进阶物理芯片": 3,
+            "丁尼": 9000
+          },
+          "verified": "弹窗变为 等级5→等级6；进阶物理芯片 64→61；丁尼 660959→651959；详情页显示 等级5"
+        }
+      ],
+      "stopped_reason": null
+    }
+  ],
+  "dennies_before": 660959,
+  "dennies_after": 651959,
+  "skipped": [],
+  "notes": [
+    "确定 由脚本的点击封装执行（点前 OCR 核对 技能强化/等级4/等级5/确定），用户在本会话说 pressit 后执行。",
+    "upgrade.py 自动导航这次没走通：用户手动打开了弹窗。已修：列表页识别、繁体 OCR、日志检查。"
+  ]
+}

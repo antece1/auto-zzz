@@ -18,7 +18,8 @@
 | 刷取队列 | `daily/queue.json` | 升级时材料不够，自动记下来，第二天优先刷 |
 | 优先培养 | `upgrade/state/plan/focus.json` | 给角色打星：它的材料排最前，并每天刷它的驱动盘套装 |
 | 规划网页 | `planner/zzz-planner.html` | 培养材料清单、缺口、每日排期、驱动盘检查（单个 HTML，浏览器直接打开） |
-| 参考数据 | `reference/` | 升级消耗、掉落、各代理人核心技材料、培养优先级（附来源） |
+| 参考数据 | `reference/` | 升级消耗、掉落、各代理人核心技材料、培养优先级（附来源）；`reference/agents/` 是 24 个代理人各自的升级消耗表 |
+| 真实账号示例 | `data/account/` | 作者 2026-11-21 的账号快照、规划状态、确认过的升级清单和第一次升级结果（不含 UID） |
 
 ## 自动升级的流程
 
@@ -64,7 +65,7 @@ auto-zzz 自己用到的是前两项：OCR 读界面文字和数字（技能等�
 
 ## 使用
 
-1. **准备账号数据**：把 `upgrade/state.example/` 复制成 `upgrade/state/`，按你的账号改等级、技能、背包（字段说明见 `upgrade/SPEC.md`）。`upgrade/state/` 不会被提交。
+1. **准备账号数据**：把 `upgrade/state.example/` 复制成 `upgrade/state/`，按你的账号改等级、技能、背包（字段说明见 `upgrade/SPEC.md`）。想先看一份真实账号的效果，可以复制 `data/account/state/`。`upgrade/state/` 不会被提交。
 2. **生成升级清单**：
    ```
    python upgrade/allocate.py --state upgrade/state --prio reference/agent_investment.json --out upgrade/plan.json --reserve 100000
@@ -82,7 +83,7 @@ auto-zzz 自己用到的是前两项：OCR 读界面文字和数字（技能等�
 
 - 本项目是非官方的第三方工具，与 HoYoverse / 米哈游无关。自动化操作游戏可能违反游戏的用户协议，使用风险自负。
 - 消耗和掉落数据整理自 B 站 wiki、Prydwen、Game8 等社区资料，标"估算"的数字没有可靠来源；游戏更新后可能变化。
-- 仓库不附带游戏截图或素材。
+- 仓库只附带一张代理人头像模板（`upgrade/templates/jane_doe_card.png`），用于确认角色；其他头像请自己截。
 
 ## 许可证
 
