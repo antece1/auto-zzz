@@ -1,0 +1,617 @@
+{
+  "meta": {
+    "title": "Zenless Zone Zero (CN) resource planner reference data",
+    "generated": "2026-11-21",
+    "game_version_at_generation": "3.3 (Phase 2: 2026-11-11 to 2026-12-01); 3.4 releases 2026-12-02 (Game8 3.3/3.4 pages)",
+    "language": "Simplified Chinese in-game names (name_cn) with English (name_en)",
+    "conventions": {
+      "tiers": "C = lowest (初阶/基础/见习/蓄电池), B = mid (高阶/进阶/正式/电源), A = top (认证章 A-name / 特化 / 资深 / 能源模块), S = boss/special items",
+      "c_equivalent": "Crafting is 3 lower -> 1 higher, so 1 B = 3 C and 1 A = 9 C in C-equivalents",
+      "amount_fields": "null means no source found; see 'uncertain' list for single-source or derived numbers",
+      "confidence": "confirmed = 2+ independent sources agree; single_source = one source only; derived = computed from a source's totals, not stated directly; inferred = name/semantic mapping, not stated by a source"
+    }
+  },
+
+  "battery": {
+    "name_cn": "电量",
+    "name_en": "Battery Charge",
+    "max_cap": 240,
+    "regen_minutes_per_point": 6,
+    "regen_per_hour": 10,
+    "regen_per_day": 240,
+    "overflow": "Manual refills can push above 240; natural regen pauses until back under 240.",
+    "confidence": "confirmed",
+    "sources": ["icy_battery", "g8_recover_battery", "pry_modes"],
+    "backup_battery": {
+      "name_cn": "储蓄电量",
+      "name_en": "Backup Battery Charge",
+      "gain_rule": "While Battery Charge is at the 240 cap, gain 1 Backup Battery Charge every 18 minutes (80 per full day at cap)",
+      "max_cap": 2400,
+      "conversion": "1 储蓄电量 -> 1 电量",
+      "introduced": "1.2",
+      "confidence": "confirmed (3 third-party sources; no official page read)",
+      "sources": ["gb_backup_battery", "animonlife_backup", "buffget_refill", "icy_battery"]
+    },
+    "refills": [
+      {"name_cn": "以太电池", "name_en": "Ether Battery", "restores": 60, "confidence": "confirmed", "sources": ["g8_ether_battery", "icy_battery"]},
+      {"name_cn": "咖啡 (COFF CAFE)", "name_en": "Coff Cafe coffee, once per day", "restores": 60, "confidence": "uncertain", "note": "Game8 says 60; Icy Veins says 60-80", "sources": ["g8_recover_battery", "icy_battery"]},
+      {"name_cn": "菲林补充", "name_en": "Polychrome refill", "restores": 60, "max_per_day": 8, "polychrome_cost_per_refill": null, "confidence": "single_source for the 8/day limit", "sources": ["icy_battery", "g8_recover_battery"]}
+    ]
+  },
+
+  "modes": [
+    {
+      "id": "combat_simulation",
+      "name_cn": "实战模拟室",
+      "name_en": "Combat Simulation",
+      "onedragon_path": "训练 > 实战模拟室 > <mission_type> > <mission>",
+      "cost": {"battery_per_card": 20, "cards_min": 1, "cards_max": 5, "max_battery_per_run": 100,
+               "note": "Before Inter-Knot Lv 30 the preset lineup is 3 cards (60 battery); at Lv 30+ up to 5 cards (100). OneDragon card_num = 默认数量 / 1张卡片..5张卡片, estimated cost card_num x 20.",
+               "confidence": "confirmed", "sources": ["g8_combat_sim", "pry_modes", "od_charge_plan_md", "od_charge_plan_config"]},
+      "sub_modes": [
+        {
+          "mission_type_cn": "基础材料", "mission_type_en": "Basic Materials",
+          "missions": [
+            {
+              "name_cn": "调查专项", "name_en": "Investigation Specialization (Agent EXP)",
+              "drops_per_card_max_level": [
+                {"item_cn": "资深调查员记录", "item_en": "Senior Investigator Log", "tier": "A", "amount_min": 3, "amount_max": 4, "amount_avg": 3.5},
+                {"item_cn": "正式调查员记录", "item_en": "Official Investigator Log", "tier": "B", "amount_min": 3, "amount_max": 4, "amount_avg": 3.5}
+              ],
+              "exp_per_card_estimate": 12500,
+              "confidence": "derived",
+              "note": "No source states per-card drops. The TapTap 2024-08 guide (highest stage) plans Agent 1->60 (900,000 EXP) as 36 runs x 2 EXP cards = 72 cards, implying ~12,500 EXP per card; it also says it averaged '3-4 A and 3-4 B' drops as 3.5, which gives 3.5x3000 + 3.5x600 = 12,600. Treat both as estimates.",
+              "sources": ["taptap_custom_template"]
+            },
+            {
+              "name_cn": "音擎专项", "name_en": "W-Engine EXP Specialization",
+              "drops_per_card_max_level": [
+                {"item_cn": "音擎能源模块", "item_en": "W-Engine Energy Module", "tier": "A", "amount_min": null, "amount_max": null, "amount_avg": null},
+                {"item_cn": "变频音擎电源", "item_en": "W-Engine Power Supply", "tier": "B", "amount_min": null, "amount_max": null, "amount_avg": null}
+              ],
+              "exp_per_card_estimate": 15800,
+              "confidence": "derived",
+              "note": "TapTap guide plans S W-Engine 1->60 (600,000 EXP) as 19 runs x 2 EXP cards = 38 cards, implying ~15,800 EXP per card (only valid if EXP was the limiting resource). Per-tier counts not found.",
+              "sources": ["taptap_custom_template"]
+            },
+            {
+              "name_cn": "赏金专项", "name_en": "Bounty Specialization (Dennies)",
+              "drops_per_card_max_level": [
+                {"item_cn": "丁尼", "item_en": "Denny", "tier": null, "amount_min": null, "amount_max": null, "amount_avg": 21000}
+              ],
+              "confidence": "derived",
+              "note": "TapTap guide: core skill dennies (405,000) = 4 runs x 5 denny cards (20 cards) -> ~20,250/card; one skill 1->12 (500,000) uses 22 denny cards -> ~22,700/card; S W-Engine (400,000) uses 19 -> ~21,050/card. Game8 says '~30,000+ per clear' at the LOWEST level without saying how many cards. Use ~20,000-22,700 per card at max level as an estimate.",
+              "sources": ["taptap_custom_template", "g8_denny"]
+            },
+            {
+              "name_cn": "镀剂专项", "name_en": "Plating Agent Specialization (Drive Disc EXP)",
+              "drops_per_card_max_level": [
+                {"item_cn": "以太镀剂", "item_en": "Ether Plating Agent", "tier": "A", "amount_min": null, "amount_max": null, "amount_avg": null},
+                {"item_cn": "晶质镀剂", "item_en": "Crystallized Plating Agent", "tier": "B", "amount_min": null, "amount_max": null, "amount_avg": null},
+                {"item_cn": "塑化镀剂", "item_en": "Molded Plating Agent", "tier": "C", "amount_min": null, "amount_max": null, "amount_avg": null}
+              ],
+              "confidence": "names only",
+              "sources": ["od_compendium", "g8_data_bounty", "bw_material_filter"]
+            }
+          ]
+        },
+        {
+          "mission_type_cn": "代理人晋升", "mission_type_en": "Agent Promotion",
+          "missions": [
+            {"name_cn": "强攻演练", "specialty_cn": "强攻", "specialty_en": "Attack"},
+            {"name_cn": "击破演练", "specialty_cn": "击破", "specialty_en": "Stun"},
+            {"name_cn": "异常演练", "specialty_cn": "异常", "specialty_en": "Anomaly"},
+            {"name_cn": "支援演练", "specialty_cn": "支援", "specialty_en": "Support"},
+            {"name_cn": "防护演练", "specialty_cn": "防护", "specialty_en": "Defense"},
+            {"name_cn": "命破演练", "specialty_cn": "命破", "specialty_en": "Rupture"},
+            {"name_cn": "锋御演练", "specialty_cn": "锋御", "specialty_en": "Armorer"}
+          ],
+          "drops_per_card_max_level": [
+            {"item": "<A-tier seal of the specialty>", "tier": "A", "amount_min": 1, "amount_max": 1, "amount_avg": 1},
+            {"item": "高阶<specialty>认证章", "tier": "B", "amount_min": 1, "amount_max": 2, "amount_avg": 1.5}
+          ],
+          "c_equivalent_per_card_estimate": 13.5,
+          "confidence": "single_source",
+          "note": "Game8 (agent material pages, 2026): 'a total of 5 A Rank Certification Seals and 5-10 B Rank Certification Seals when you add five cards' -> per card 1 A + 1-2 B. C seals may also drop (not quantified).",
+          "sources": ["g8_dialyn", "g8_combat_sim"]
+        },
+        {
+          "mission_type_cn": "音擎改装", "mission_type_en": "W-Engine Modification",
+          "missions": [
+            {"name_cn": "强攻极片试验", "specialty_cn": "强攻"},
+            {"name_cn": "击破振膜试验", "specialty_cn": "击破"},
+            {"name_cn": "异常磁体试验", "specialty_cn": "异常"},
+            {"name_cn": "支援分频试验", "specialty_cn": "支援"},
+            {"name_cn": "防护音圈试验", "specialty_cn": "防护"},
+            {"name_cn": "命破共鸣试验", "specialty_cn": "命破"},
+            {"name_cn": "锋御耦合试验", "specialty_cn": "锋御"}
+          ],
+          "drops_per_card_max_level": [
+            {"item": "特化型<specialty>组件", "tier": "A", "amount_min": null, "amount_max": null, "amount_avg": null},
+            {"item": "增强型<specialty>组件", "tier": "B", "amount_min": null, "amount_max": null, "amount_avg": null}
+          ],
+          "confidence": "names only",
+          "note": "No per-card amounts found. Likely similar to 代理人晋升 but not confirmed.",
+          "sources": ["od_compendium", "g8_data_bounty"]
+        },
+        {
+          "mission_type_cn": "代理人技能", "mission_type_en": "Agent Skill",
+          "missions": [
+            {"name_cn": "刚性测试", "attribute_cn": "物理", "chip_cn": "物理芯片", "chip_en": "Physical Chip"},
+            {"name_cn": "升温测试", "attribute_cn": "火", "chip_cn": "引燃芯片", "chip_en": "Burn Chip"},
+            {"name_cn": "冰结测试", "attribute_cn": "冰", "chip_cn": "冰结芯片", "chip_en": "Freeze Chip"},
+            {"name_cn": "电流测试", "attribute_cn": "电", "chip_cn": "电击芯片", "chip_en": "Shock Chip"},
+            {"name_cn": "共鸣测试", "attribute_cn": "以太", "chip_cn": "以太芯片", "chip_en": "Ether Chip"},
+            {"name_cn": "风切测试", "attribute_cn": "风", "chip_cn": "风蚀芯片", "chip_en": "Windbite Chip"},
+            {"name_cn": "琢光测试", "attribute_cn": "流明", "chip_cn": "流明芯片", "chip_en": "Lumiflux Chip"}
+          ],
+          "drops_per_card_max_level": [
+            {"item": "特化<attribute>芯片", "tier": "A", "amount_min": 1, "amount_max": 1, "amount_avg": 1},
+            {"item": "进阶<attribute>芯片", "tier": "B", "amount_min": 1, "amount_max": 3, "amount_avg": 2}
+          ],
+          "c_equivalent_per_card_estimate": 15,
+          "confidence": "confirmed (one stated, one derived)",
+          "note": "Game8: '5 A Rank Skill Chips and 5-15 B Rank Skill Chips when you add five cards' -> per card 1 A + 1-3 B (12-18 C-eq). TapTap guide: one skill (500 C-eq) from 33 skill cards -> ~15.2 C-eq per card. They agree.",
+          "sources": ["g8_dialyn", "taptap_custom_template"]
+        },
+        {"mission_type_cn": "自定义模板", "mission_type_en": "Custom", "missions": ["自定义卡组1", "自定义卡组2", "自定义卡组3", "自定义卡组4", "自定义卡组5"], "note": "Mix any unlocked enemy cards; unlocks at Inter-Knot Lv 30 (Game8).", "sources": ["od_compendium", "g8_combat_sim"]},
+        {"mission_type_cn": "代理人方案培养", "mission_type_display_cn": "特训目标", "mission_type_en": "Agent training plan target", "note": "OneDragon entry that follows the in-game 特训目标; appears under every category.", "sources": ["od_compendium"]}
+      ]
+    },
+    {
+      "id": "expert_challenge",
+      "name_cn": "专业挑战室",
+      "name_en": "Expert Challenge",
+      "onedragon_path": "训练 > 专业挑战室 > <boss name> (no sub-mission)",
+      "cost": {"battery_per_run": 40, "burnout_battery_per_run": 80, "burnout_reward_multiplier": 2,
+               "burnout_cn": "燃竭", "burnout_en": "Burnout",
+               "note": "Burnout (since 1.6) applies to bosses tied to current banner S-rank agents, rotates about every 21 days, can be toggled off. OneDragon turns Burnout off automatically.",
+               "confidence": "confirmed", "sources": ["g8_expert_challenge", "g8_burnout", "g8_thunderous_dragon", "pry_modes", "od_charge_plan_md"]},
+      "drops_per_run_max_level": [
+        {"item": "高维数据：<boss>", "tier": "A", "amount_min": 5, "amount_max": 5, "amount_avg": 5, "confidence": "confirmed (one stated, one derived)",
+         "note": "Game8 boss pages: 'x5 (per session)'. TapTap: 60 HDD cost 480 battery = 12 runs -> 5 per run."},
+        {"item_cn": "音质增强母盘", "item_en": "Audio Booster Master Copy", "tier": "B", "amount_min": null, "amount_max": null, "amount_avg": null},
+        {"item_cn": "丁尼", "item_en": "Denny", "amount_min": null, "amount_max": null, "amount_avg": null}
+      ],
+      "bosses": [
+        {"name_cn": "恶名·杜拉罕", "name_en": "Notorious - Dullahan", "drop_cn": "高维数据：凶刑讣告", "drop_en": "Higher Dimensional Data: Murderous Obituary", "mapping": "confirmed (BWiki item description names 恶名•杜拉罕)"},
+        {"name_cn": "祸首·通缉打手", "name_en": "Troublemaker - Wanted Enforcer", "drop_cn": "高维数据：殷红震慑", "drop_en": "Higher Dimensional Data: Crimson Awe", "mapping": "inferred"},
+        {"name_cn": "恶名·装甲哈提", "name_en": "Notorious - Armored Hati", "drop_cn": "高维数据：追袭骸影", "drop_en": "Higher Dimensional Data: Ethereal Pursuit", "mapping": "confirmed (BWiki item description)"},
+        {"name_cn": "汉斯·蓄能型", "name_en": "Hans - Energized", "drop_cn": "高维数据：钢铁恶意", "drop_en": "Higher Dimensional Data: Steel Malice", "mapping": "inferred"},
+        {"name_cn": "「提丰·重击者型」", "name_en": "Typhon Slugger", "drop_cn": "高维数据：毁荡突进", "drop_en": "Higher Dimensional Data: Destructive Advance", "mapping": "confirmed (BWiki item description)"},
+        {"name_cn": "蛮横力士", "name_en": "Rampant Brute", "drop_cn": "高维数据：拳坠如陨", "drop_en": "Higher Dimensional Data: Falling Fist", "mapping": "inferred"},
+        {"name_cn": "多佩冈亚·简", "name_en": "Ionized Doppelganger Jane Doe", "drop_cn": "高维数据：潜袭魅影", "drop_en": "Higher Dimensional Data: Stealth Phantom", "mapping": "inferred"},
+        {"name_cn": "色雷斯人", "name_en": "Thracian", "drop_cn": "高维数据：游鳞雷动", "drop_en": "Higher Dimensional Data: Thunderous Dragon", "mapping": "confirmed (BWiki item description names 色雷斯人)"},
+        {"name_cn": "伐木机", "name_en": "Lumberjack", "drop_cn": "高维数据：索命切割", "drop_en": "Higher Dimensional Data: Mortal Cleave", "mapping": "inferred"},
+        {"name_cn": "秽息蚀者·阿瓦鲁斯", "name_en": "Miasma Ravager Avarus", "drop_cn": "高维数据：鞘翅秽种", "drop_en": "Higher Dimensional Data: Miasmic Elytron", "mapping": "inferred"},
+        {"name_cn": "牲鬼·凶魁愚者", "name_en": "Sacrifice - Heretic Jester", "drop_cn": "高维数据：诡运毒锋", "drop_en": "Higher Dimensional Data: Toxic Edge", "mapping": "inferred"},
+        {"name_cn": "秽蚀·狛野真斗", "name_en": "Miasmic Komano Manato", "drop_cn": "高维数据：蚀梦残铁", "drop_en": "Higher Dimensional Data: Corrupted Dreamsteel", "mapping": "inferred"},
+        {"name_cn": "秽息行者·蝎骸", "name_en": "Miasma Walker - Scorpse", "drop_cn": "高维数据：淬刺蚀芯", "drop_en": "Higher Dimensional Data: Spiked Corruption Core", "mapping": "inferred"},
+        {"name_cn": "牲鬼·卫律使者", "name_en": null, "drop_cn": "高维数据：喋血秽羽", "drop_en": null, "mapping": "inferred by elimination (16 bosses in OneDragon, 16 HDD items on BWiki; Game8 list lacks this boss)"},
+        {"name_cn": "空域戒戍者", "name_en": "Airspace Sentinel", "drop_cn": "高维数据：深蚀回路", "drop_en": "Higher Dimensional Data: Deep Erosion Circuit", "mapping": "inferred"},
+        {"name_cn": "「征服者」", "name_en": "Autonomous Tactical Unit - Conqueror", "drop_cn": "高维数据：拟造核心", "drop_en": "Higher Dimensional Data: Imitation Core", "mapping": "inferred", "added": "3.2"}
+      ],
+      "sources": ["od_compendium", "g8_expert_challenge", "bw_material_filter", "bw_hdd_obituary", "bw_hdd_pursuit", "bw_hdd_advance", "bw_hdd_dragon"]
+    },
+    {
+      "id": "notorious_hunt",
+      "name_cn": "恶名狩猎",
+      "name_en": "Notorious Hunt",
+      "onedragon_path": "训练 > 恶名狩猎 > <boss name>",
+      "cost": {"free_reward_runs_per_week": 3, "free_runs_shared_across_bosses": true, "battery_per_free_run": 0,
+               "deep_hunt_cn": "深度追猎", "deep_hunt_en": "Pursuit to the Depths", "battery_per_deep_hunt_run": 60,
+               "difficulty_levels": [30, 40, 50, 60, 65],
+               "note": "After the 3 weekly free reward runs, 深度追猎 spends 60 battery per run for full rewards. OneDragon's charge plan only uses 深度追猎 and skips the plan while free runs remain (the separate 恶名狩猎 app spends the 3 free runs). Weekly reset Monday.",
+               "confidence": "confirmed", "sources": ["g8_notorious_hunt", "g8_dialyn", "pry_modes", "od_charge_plan_md", "od_nh_run_record"]},
+      "drops_per_run_max_level": [
+        {"item": "<boss core-skill material>", "tier": "S", "amount_min": 1, "amount_max": 1, "amount_avg": 1, "confidence": "confirmed", "note": "Game8 'x1 (per session)'; another guide says you get one per clear regardless of difficulty; TopupLive (1.5) 'One Ferocious Grip'."},
+        {"item_cn": "丁尼", "item_en": "Denny", "amount_min": 3000, "amount_max": 3000, "amount_avg": 3000, "confidence": "single_source", "note": "Game8 Lv65 list; Charlie Intel (2024-07, older) said 2,000"},
+        {"item_cn": null, "item_en": "Inter-Knot Credit", "amount_avg": 400, "confidence": "confirmed", "note": "Game8 and Charlie Intel both list 400"},
+        {"item_cn": "高保真母盘", "item_en": "Hi-Fi Master Copy", "amount_avg": null, "confidence": "name mapping inferred"},
+        {"item_cn": null, "item_en": "W-Engine Chip (newer bosses) / Crystallized Plating Agent (older bosses)", "amount_avg": null}
+      ],
+      "special_skill_item": {
+        "name_cn": "「仓鼠笼」访问器", "name_en": "Hamster Cage Pass", "tier": "S",
+        "use": "Skill level 11 -> 12 (1 per skill, 5 per agent); agent must be Lv 60",
+        "dropped_by_notorious_hunt": false,
+        "sources_cn": "丽都城募 (New Eridu City Fund: 1 free + 1 paid per season), limited events",
+        "note": "No item named 哈尔莎苏 was found in any source; the top-level skill item is 「仓鼠笼」访问器. Core skill uses no special item beyond the boss material.",
+        "sources": ["bw_material_filter", "oneesports_hamster", "sk_skill_costs"]
+      },
+      "bosses": [
+        {"name_cn": "初生死路屠夫", "name_en": "Newborn Dead End Butcher", "drop_cn": "腥风之握", "drop_en": "Ferocious Grip", "mapping": "confirmed (BWiki description: 取自「死路屠夫」)"},
+        {"name_cn": "未知复合侵蚀体", "name_en": "Unknown Corruption Complex", "drop_cn": "活态驱动", "drop_en": "Living Drive", "mapping": "confirmed (BWiki description)"},
+        {"name_cn": "冥宁芙·双子", "name_en": "Twin Marionettes", "drop_cn": "终幕舞鞋", "drop_en": "Finale Dance Shoes", "mapping": "confirmed (BWiki description)"},
+        {"name_cn": "「霸主侵蚀体·庞培」", "name_en": "Corrupted Overlord - Pompey", "drop_cn": "猩红引擎", "drop_en": "Scarlet Engine", "mapping": "inferred"},
+        {"name_cn": "牲鬼·布林格", "name_en": "Sacrifice - Bringer", "drop_cn": "狂信之塑", "drop_en": "Sycophant's Refinement", "mapping": "confirmed (BWiki description)"},
+        {"name_cn": "秽息司祭", "name_en": "Miasma Priest", "drop_cn": "塑炼遗蜕", "drop_en": "Exuvia of Refinement", "mapping": "inferred"},
+        {"name_cn": "彷徨猎手", "name_en": "Wandering Hunter", "drop_cn": "秽红晶刺", "drop_en": "Crimson Miasma Spike", "mapping": "inferred"},
+        {"name_cn": "魇缚者·叶释渊", "name_en": "Ye Shiyuan the Thrall", "drop_cn": "浊纹晶质", "drop_en": "Clouded Crystalline Substance", "mapping": "inferred"},
+        {"name_cn": "猎血清道夫", "name_en": "Sanguine Sweeper", "drop_cn": "吮髓之棘", "drop_en": "Marrow-Draining Thorn", "mapping": "inferred"},
+        {"name_cn": "基塔布鲁", "name_en": "Girtablullu", "drop_cn": "刻命残蜕", "drop_en": "Timeworn Husk", "mapping": "inferred"},
+        {"name_cn": "库萨里库", "name_en": "Kusarikku", "drop_cn": "赝造离核", "drop_en": "Counterfeit Nucleus", "mapping": "inferred"}
+      ],
+      "sources": ["od_compendium", "g8_notorious_hunt", "bw_material_filter", "bw_nh_grip", "bw_nh_shoes", "bw_nh_refinement", "bw_nh_drive"]
+    },
+    {
+      "id": "area_patrol",
+      "name_cn": "区域巡防",
+      "name_en": "Area Patrol (formerly Routine Cleanup)",
+      "old_name_cn": "定期清剿 (old name; BWiki material list writes 定期围剿, spelling uncertain)",
+      "onedragon_path": "训练 > 区域巡防 > <stage, e.g. 怪兽与怪客>",
+      "cost": {"battery_per_run": 60, "confidence": "confirmed", "sources": ["pry_modes", "icy_battery_search", "od_charge_plan_md"]},
+      "drops_per_run_max_level": [
+        {"item": "驱动盘 (2 sets per stage; stage display names in OneDragon compendium)", "amount_avg": null},
+        {"item": "镀剂 (Plating Agents)", "amount_avg": null}
+      ],
+      "note": "Not an upgrade-material mode (drive discs + plating). Stage levels 30-60. 家政券 removed in 2.5 (OneDragon doc).",
+      "sources": ["g8_area_patrol", "od_compendium", "od_charge_plan_md"]
+    },
+    {
+      "id": "synthesize_ether_battery",
+      "name_cn": "合成电池",
+      "name_en": "Synthesize Ether Battery",
+      "cost": {"battery_per_craft": 60, "confidence": "single_source (OneDragon only)"},
+      "drops_per_run_max_level": [{"item_cn": "以太电池", "item_en": "Ether Battery", "amount_avg": 1, "confidence": "inferred"}],
+      "note": "OneDragon charge-plan category; it treats one max-batch craft as one plan run. Recipe details not confirmed on a wiki.",
+      "sources": ["od_charge_plan_md"]
+    }
+  ],
+
+  "items": [
+    {"name_cn": "见习调查员记录", "name_en": "Trainee Investigator Log", "category": "agent_exp", "tier": "C", "exp_value": 100},
+    {"name_cn": "正式调查员记录", "name_en": "Official Investigator Log", "category": "agent_exp", "tier": "B", "exp_value": 600},
+    {"name_cn": "资深调查员记录", "name_en": "Senior Investigator Log", "category": "agent_exp", "tier": "A", "exp_value": 3000},
+    {"name_cn": "音擎蓄电池", "name_en": "W-Engine Battery", "category": "wengine_exp", "tier": "C", "exp_value": 100},
+    {"name_cn": "变频音擎电源", "name_en": "W-Engine Power Supply", "category": "wengine_exp", "tier": "B", "exp_value": 600},
+    {"name_cn": "音擎能源模块", "name_en": "W-Engine Energy Module", "category": "wengine_exp", "tier": "A", "exp_value": 3000},
+
+    {"name_cn": "初阶强攻认证章", "name_en": "Basic Attack Certification Seal", "category": "agent_promotion", "specialty": "强攻", "tier": "C"},
+    {"name_cn": "高阶强攻认证章", "name_en": "Advanced Attack Certification Seal", "category": "agent_promotion", "specialty": "强攻", "tier": "B"},
+    {"name_cn": "先行者认证章", "name_en": "Pioneer's Certification Seal", "category": "agent_promotion", "specialty": "强攻", "tier": "A"},
+    {"name_cn": "初阶击破认证章", "name_en": "Basic Stun Certification Seal", "category": "agent_promotion", "specialty": "击破", "tier": "C"},
+    {"name_cn": "高阶击破认证章", "name_en": "Advanced Stun Certification Seal", "category": "agent_promotion", "specialty": "击破", "tier": "B"},
+    {"name_cn": "破阵者认证章", "name_en": "Buster Certification Seal", "category": "agent_promotion", "specialty": "击破", "tier": "A"},
+    {"name_cn": "初阶异常认证章", "name_en": "Basic Anomaly Certification Seal", "category": "agent_promotion", "specialty": "异常", "tier": "C"},
+    {"name_cn": "高阶异常认证章", "name_en": "Advanced Anomaly Certification Seal", "category": "agent_promotion", "specialty": "异常", "tier": "B"},
+    {"name_cn": "掌控者认证章", "name_en": "Controller Certification Seal", "category": "agent_promotion", "specialty": "异常", "tier": "A"},
+    {"name_cn": "初阶支援认证章", "name_en": "Basic Support Certification Seal", "category": "agent_promotion", "specialty": "支援", "tier": "C"},
+    {"name_cn": "高阶支援认证章", "name_en": "Advanced Support Certification Seal", "category": "agent_promotion", "specialty": "支援", "tier": "B"},
+    {"name_cn": "统御者认证章", "name_en": "Ruler Certification Seal", "category": "agent_promotion", "specialty": "支援", "tier": "A"},
+    {"name_cn": "初阶防护认证章", "name_en": "Basic Defense Certification Seal", "category": "agent_promotion", "specialty": "防护", "tier": "C"},
+    {"name_cn": "高阶防护认证章", "name_en": "Advanced Defense Certification Seal", "category": "agent_promotion", "specialty": "防护", "tier": "B"},
+    {"name_cn": "捍卫者认证章", "name_en": "Defender Certification Seal", "category": "agent_promotion", "specialty": "防护", "tier": "A"},
+    {"name_cn": "初阶命破认证章", "name_en": "Basic Rupture Certification Seal", "category": "agent_promotion", "specialty": "命破", "tier": "C"},
+    {"name_cn": "高阶命破认证章", "name_en": "Advanced Rupture Certification Seal", "category": "agent_promotion", "specialty": "命破", "tier": "B"},
+    {"name_cn": "裁决者认证章", "name_en": "Arbiter Certification Seal", "category": "agent_promotion", "specialty": "命破", "tier": "A"},
+    {"name_cn": "初阶锋御认证章", "name_en": "Basic Armorer Certification Seal", "category": "agent_promotion", "specialty": "锋御", "tier": "C"},
+    {"name_cn": "高阶锋御认证章", "name_en": "Advanced Armorer Certification Seal", "category": "agent_promotion", "specialty": "锋御", "tier": "B"},
+    {"name_cn": "执锋者认证章", "name_en": "Bladebearer Certification Seal", "category": "agent_promotion", "specialty": "锋御", "tier": "A"},
+    {"name_cn": "初铸勋章", "name_en": "Prototype Seal", "category": "agent_promotion_substitute", "tier": "A", "note": "substitute: 1 = 1 C, 3 = 1 B, 9 = 1 A seal"},
+
+    {"name_pattern_cn": "基础<attr>芯片 / 进阶<attr>芯片 / 特化<attr>芯片", "name_pattern_en": "Basic / Advanced / Specialized <attr> Chip", "category": "skill", "tiers": {"C": "基础", "B": "进阶", "A": "特化"},
+     "attributes": [
+       {"attr_cn": "物理", "attr_en": "Physical", "agent_attribute": "物理"},
+       {"attr_cn": "引燃", "attr_en": "Burn", "agent_attribute": "火"},
+       {"attr_cn": "冰结", "attr_en": "Freeze", "agent_attribute": "冰 (incl. 烈霜)"},
+       {"attr_cn": "电击", "attr_en": "Shock", "agent_attribute": "电"},
+       {"attr_cn": "以太", "attr_en": "Ether", "agent_attribute": "以太"},
+       {"attr_cn": "风蚀", "attr_en": "Windbite", "agent_attribute": "风"},
+       {"attr_cn": "流明", "attr_en": "Lumiflux", "agent_attribute": "流明"}
+     ]},
+    {"name_cn": "原装芯片", "name_en": "Original Chip", "category": "skill_substitute", "tier": "A", "note": "substitute: 1 = 1 C, 3 = 1 B, 9 = 1 A chip"},
+    {"name_cn": "「仓鼠笼」访问器", "name_en": "Hamster Cage Pass", "category": "skill_top", "tier": "S"},
+
+    {"name_pattern_cn": "<sp>组件 / 增强型<sp>组件 / 特化型<sp>组件", "name_pattern_en": "<sp> Component / Reinforced <sp> Component / Specialized <sp> Component", "category": "wengine_promotion", "tiers": {"C": "<sp>组件", "B": "增强型", "A": "特化型"},
+     "specialties": [
+       {"sp_cn": "强攻", "sp_en": "Attack"}, {"sp_cn": "击破", "sp_en": "Stun"}, {"sp_cn": "异常", "sp_en": "Anomaly"},
+       {"sp_cn": "支援", "sp_en": "Support"}, {"sp_cn": "防护", "sp_en": "Defense"}, {"sp_cn": "命破", "sp_en": "Rupture"}, {"sp_cn": "锋御", "sp_en": "Armorer"}
+     ]},
+    {"name_cn": "通用组件", "name_en": "Master Component", "category": "wengine_promotion_substitute", "tier": "A", "note": "substitute: 1 = 1 C, 3 = 1 B, 9 = 1 A component"},
+
+    {"name_cn": "以太电池", "name_en": "Ether Battery", "category": "battery", "tier": "A", "battery_value": 60},
+    {"name_cn": "丁尼", "name_en": "Denny", "category": "currency"},
+    {"name_cn": "以太镀剂", "name_en": "Ether Plating Agent", "category": "drive_disc_exp", "tier": "A"},
+    {"name_cn": "晶质镀剂", "name_en": "Crystallized Plating Agent", "category": "drive_disc_exp", "tier": "B"},
+    {"name_cn": "塑化镀剂", "name_en": "Molded Plating Agent", "category": "drive_disc_exp", "tier": "C"},
+    {"name_cn": "音质增强母盘", "name_en": "Audio Booster Master Copy", "category": "drive_disc_material", "tier": "B"},
+    {"name_cn": "高保真母盘", "name_en": "Hi-Fi Master Copy", "category": "drive_disc_material", "tier": "S"}
+  ],
+  "items_sources": ["bw_material_filter", "calc_data_js", "g8_combat_sim", "g8_data_bounty", "g8_senior_log", "mobalytics_items_search", "icy_agent_leveling"],
+
+  "conversions": {
+    "craft_up": {"ratio": "3 lower tier -> 1 next tier", "applies_to": ["认证章", "芯片", "组件"], "denny_cost": null, "confidence": "confirmed (Game8 item pages for two seal tiers; generic 3:1 guide)", "sources": ["g8_adv_support_seal", "g8_buster_seal"]},
+    "dismantle_down": {"ratio": "1 higher tier -> 3 next lower tier", "confidence": "single_source", "sources": ["g8_adv_support_seal"]},
+    "c_equivalents": {"C": 1, "B": 3, "A": 9},
+    "substitutes": {"items_cn": ["初铸勋章", "原装芯片", "通用组件"], "items_en": ["Prototype Seal", "Original Chip", "Master Component"], "rate": {"C": 1, "B": 3, "A": 9}, "confidence": "single_source", "sources": ["icy_agent_leveling"]},
+    "backup_battery_to_battery": {"ratio": "1:1", "sources": ["gb_backup_battery", "icy_battery"]},
+    "ether_battery_to_battery": {"ratio": "1 -> 60", "sources": ["g8_ether_battery", "icy_battery"]}
+  },
+
+  "costs": {
+    "agent_level": {
+      "note": "Same for S and A agents. Leveling with EXP items costs no dennies (implied: Icy Veins' 4,105,000 denny total contains only promotions, skills, core and W-Engine promotions).",
+      "exp_by_band": [
+        {"from": 1, "to": 10, "exp": 6000, "senior_logs": 2},
+        {"from": 10, "to": 20, "exp": 24000, "senior_logs": 8},
+        {"from": 20, "to": 30, "exp": 60000, "senior_logs": 20},
+        {"from": 30, "to": 40, "exp": 135000, "senior_logs": 45},
+        {"from": 40, "to": 50, "exp": 225000, "senior_logs": 75},
+        {"from": 50, "to": 60, "exp": 450000, "senior_logs": 150}
+      ],
+      "exp_total": 900000,
+      "senior_logs_total": 300,
+      "promotion_phases": [
+        {"at_level": 10, "new_cap": 20, "seal_tier": "C", "seal_name": "初阶<sp>认证章", "seal_count": 4, "dennies": 24000},
+        {"at_level": 20, "new_cap": 30, "seal_tier": "B", "seal_name": "高阶<sp>认证章", "seal_count": 12, "dennies": 56000},
+        {"at_level": 30, "new_cap": 40, "seal_tier": "B", "seal_name": "高阶<sp>认证章", "seal_count": 20, "dennies": 120000},
+        {"at_level": 40, "new_cap": 50, "seal_tier": "A", "seal_name": "<A-seal of sp>", "seal_count": 10, "dennies": 200000},
+        {"at_level": 50, "new_cap": 60, "seal_tier": "A", "seal_name": "<A-seal of sp>", "seal_count": 20, "dennies": 400000}
+      ],
+      "promotion_total": {"C": 4, "B": 32, "A": 30, "dennies": 800000, "c_equivalent": 370},
+      "confidence": "confirmed",
+      "sources": ["oneesports_exp", "calc_data_js", "icy_agent_leveling", "bw_ellen", "bw_lycaon", "bw_astra", "bw_miyabi", "bw_yanagi", "g8_dialyn"]
+    },
+    "skill": {
+      "skills_cn": ["普通攻击", "闪避", "支援技", "特殊技", "连携技"],
+      "skills_en": ["Basic Attack", "Dodge", "Assist", "Special Attack", "Chain Attack"],
+      "per_level_one_skill": [
+        {"from": 1, "to": 2, "chip_tier": "C", "chips": 2, "dennies": 2000},
+        {"from": 2, "to": 3, "chip_tier": "C", "chips": 3, "dennies": 3000},
+        {"from": 3, "to": 4, "chip_tier": "B", "chips": 2, "dennies": 6000},
+        {"from": 4, "to": 5, "chip_tier": "B", "chips": 3, "dennies": 9000},
+        {"from": 5, "to": 6, "chip_tier": "B", "chips": 4, "dennies": 12000},
+        {"from": 6, "to": 7, "chip_tier": "B", "chips": 6, "dennies": 18000},
+        {"from": 7, "to": 8, "chip_tier": "A", "chips": 5, "dennies": 45000},
+        {"from": 8, "to": 9, "chip_tier": "A", "chips": 8, "dennies": 67500},
+        {"from": 9, "to": 10, "chip_tier": "A", "chips": 10, "dennies": 90000},
+        {"from": 10, "to": 11, "chip_tier": "A", "chips": 12, "dennies": 112500},
+        {"from": 11, "to": 12, "chip_tier": "A", "chips": 15, "dennies": 135000, "special_cn": "「仓鼠笼」访问器", "special_count": 1, "requires_agent_level": 60}
+      ],
+      "one_skill_total": {"C": 5, "B": 15, "A": 50, "hamster_cage_pass": 1, "dennies": 500000, "c_equivalent": 500},
+      "all_five_skills_total": {"C": 25, "B": 75, "A": 250, "hamster_cage_pass": 5, "dennies": 2500000, "c_equivalent": 2500},
+      "confidence": "confirmed",
+      "note": "Game8's Dialyn page shows 90,500 and 135,500 for Lv9->10 and Lv11->12; those look like typos (its totals and all other sources give 90,000 / 135,000 and 500,000 per skill). Mindscape bonus levels (+2 at M3 and M5) need no materials.",
+      "sources": ["calc_data_js", "sk_skill_costs", "icy_agent_leveling", "bw_ellen", "bw_astra", "g8_dialyn", "oneesports_hamster"]
+    },
+    "core_skill": {
+      "name_cn": "核心技",
+      "steps": [
+        {"step": "A", "requires_agent_level": 15, "ec_hdd": 0, "nh_boss_mat": 0, "dennies": 5000},
+        {"step": "B", "requires_agent_level": 25, "ec_hdd": 2, "nh_boss_mat": 0, "dennies": 12000},
+        {"step": "C", "requires_agent_level": 35, "ec_hdd": 4, "nh_boss_mat": 0, "dennies": 28000},
+        {"step": "D", "requires_agent_level": 45, "ec_hdd": 9, "nh_boss_mat": 2, "dennies": 60000},
+        {"step": "E", "requires_agent_level": 55, "ec_hdd": 15, "nh_boss_mat": 3, "dennies": 100000},
+        {"step": "F", "requires_agent_level": 60, "ec_hdd": 30, "nh_boss_mat": 4, "dennies": 200000}
+      ],
+      "total": {"ec_hdd": 60, "nh_boss_mat": 9, "dennies": 405000, "other": "none"},
+      "battery_to_farm_one_agent": {"ec_runs": 12, "ec_battery": 480, "nh_clears": 9, "nh_weeks_free_only": 3, "nh_battery_if_all_deep_hunt": 540},
+      "confidence": "confirmed (materials); level gates single_source-ish (Fandom via search snippet + Prydwen '15, 25, and so on')",
+      "sources": ["bw_ellen", "bw_lycaon", "bw_astra", "bw_miyabi", "bw_yanagi", "calc_data_js", "icy_agent_leveling", "g8_dialyn", "fandom_core_gates_search", "pry_progression"]
+    },
+    "wengine": {
+      "note": "Leveling with EXP items costs no dennies (implied by Icy Veins totals). Promotion components use the W-Engine's own specialty.",
+      "S": {
+        "exp_by_band": [{"from": 1, "to": 10, "exp": 4000}, {"from": 10, "to": 20, "exp": 16000}, {"from": 20, "to": 30, "exp": 40000}, {"from": 30, "to": 40, "exp": 90000}, {"from": 40, "to": 50, "exp": 150000}, {"from": 50, "to": 60, "exp": 300000}],
+        "exp_total": 600000, "energy_modules_total": 200,
+        "promotion_phases": [
+          {"at_level": 10, "tier": "C", "count": 4, "dennies": 12000},
+          {"at_level": 20, "tier": "B", "count": 12, "dennies": 28000},
+          {"at_level": 30, "tier": "B", "count": 20, "dennies": 60000},
+          {"at_level": 40, "tier": "A", "count": 10, "dennies": 100000},
+          {"at_level": 50, "tier": "A", "count": 20, "dennies": 200000}
+        ],
+        "promotion_total": {"C": 4, "B": 32, "A": 30, "dennies": 400000},
+        "confidence": "confirmed (totals: Icy Veins, Game8, calculator; 1->50 = 100 modules per Gamersky); per-band EXP from calculator only",
+        "sources": ["calc_data_js", "icy_agent_leveling", "g8_dialyn", "gamersky_wengine"]
+      },
+      "A": {
+        "exp_by_band": [{"from": 1, "to": 10, "exp": 3200}, {"from": 10, "to": 20, "exp": 12800}, {"from": 20, "to": 30, "exp": 32000}, {"from": 30, "to": 40, "exp": 72000}, {"from": 40, "to": 50, "exp": 120000}, {"from": 50, "to": 60, "exp": 240000}],
+        "exp_total": 480000, "energy_modules_total": 160,
+        "promotion_phases": [
+          {"at_level": 10, "tier": "C", "count": 3, "dennies": 9600},
+          {"at_level": 20, "tier": "B", "count": 10, "dennies": 22400},
+          {"at_level": 30, "tier": "B", "count": 16, "dennies": 48000},
+          {"at_level": 40, "tier": "A", "count": 8, "dennies": 80000},
+          {"at_level": 50, "tier": "A", "count": 16, "dennies": 160000}
+        ],
+        "promotion_total": {"C": 3, "B": 26, "A": 24, "dennies": 320000},
+        "confidence": "confirmed (promotion: Game8 + calculator + BWiki 德玛拉电池Ⅱ型 dennies; EXP total: calculator + TapTap 48w); per-band EXP from calculator only",
+        "sources": ["calc_data_js", "g8_dialyn", "bw_demara_search", "taptap_custom_template"]
+      },
+      "B": {
+        "exp_total": 360000,
+        "promotion_total": {"C": 2, "B": 19, "A": 18, "dennies": 240000},
+        "promotion_phases": [
+          {"at_level": 10, "tier": "C", "count": 2, "dennies": 7200},
+          {"at_level": 20, "tier": "B", "count": 7, "dennies": 16800},
+          {"at_level": 30, "tier": "B", "count": 12, "dennies": 36000},
+          {"at_level": 40, "tier": "A", "count": 6, "dennies": 60000},
+          {"at_level": 50, "tier": "A", "count": 12, "dennies": 120000}
+        ],
+        "confidence": "promotion totals confirmed (Game8 + calculator); EXP single_source (calculator)",
+        "sources": ["calc_data_js", "g8_dialyn"]
+      }
+    },
+    "per_agent_grand_total": {
+      "agent_only_dennies": 3705000,
+      "agent_plus_S_wengine_dennies": 4105000,
+      "sources": ["icy_agent_leveling"]
+    }
+  },
+
+  "agents": {
+    "艾莲": {
+      "name_en": "Ellen Joe", "onedragon_id": "ellen", "rarity": "S",
+      "specialty_cn": "强攻", "specialty_en": "Attack", "attribute_cn": "冰", "attribute_en": "Ice",
+      "promotion_seals": {"C": "初阶强攻认证章", "B": "高阶强攻认证章", "A": "先行者认证章"},
+      "skill_chips": {"C": "基础冰结芯片", "B": "进阶冰结芯片", "A": "特化冰结芯片"},
+      "combat_sim_promotion_stage": "实战模拟室 > 代理人晋升 > 强攻演练",
+      "combat_sim_skill_stage": "实战模拟室 > 代理人技能 > 冰结测试",
+      "expert_challenge": {"boss_cn": "恶名·杜拉罕", "boss_en": "Notorious - Dullahan", "material_cn": "高维数据：凶刑讣告", "material_en": "Higher Dimensional Data: Murderous Obituary"},
+      "notorious_hunt": {"boss_cn": "初生死路屠夫", "boss_en": "Newborn Dead End Butcher", "material_cn": "腥风之握", "material_en": "Ferocious Grip"},
+      "confidence": "confirmed", "sources": ["bw_ellen", "od_agent_py", "g8_notorious_hunt", "bw_hdd_obituary", "bw_nh_grip"]
+    },
+    "莱卡恩": {
+      "name_en": "Von Lycaon", "onedragon_id": "lycaon", "rarity": "S",
+      "specialty_cn": "击破", "specialty_en": "Stun", "attribute_cn": "冰", "attribute_en": "Ice",
+      "promotion_seals": {"C": "初阶击破认证章", "B": "高阶击破认证章", "A": "破阵者认证章"},
+      "skill_chips": {"C": "基础冰结芯片", "B": "进阶冰结芯片", "A": "特化冰结芯片"},
+      "combat_sim_promotion_stage": "实战模拟室 > 代理人晋升 > 击破演练",
+      "combat_sim_skill_stage": "实战模拟室 > 代理人技能 > 冰结测试",
+      "expert_challenge": {"boss_cn": "恶名·装甲哈提", "boss_en": "Notorious - Armored Hati", "material_cn": "高维数据：追袭骸影", "material_en": "Higher Dimensional Data: Ethereal Pursuit"},
+      "notorious_hunt": {"boss_cn": "冥宁芙·双子", "boss_en": "Twin Marionettes", "material_cn": "终幕舞鞋", "material_en": "Finale Dance Shoes"},
+      "confidence": "confirmed", "sources": ["bw_lycaon", "od_agent_py", "g8_notorious_hunt", "g8_buster_seal", "bw_hdd_pursuit", "bw_nh_shoes"]
+    },
+    "耀嘉音": {
+      "name_en": "Astra Yao", "onedragon_id": "astra_yao", "rarity": "S",
+      "specialty_cn": "支援", "specialty_en": "Support", "attribute_cn": "以太", "attribute_en": "Ether",
+      "promotion_seals": {"C": "初阶支援认证章", "B": "高阶支援认证章", "A": "统御者认证章"},
+      "skill_chips": {"C": "基础以太芯片", "B": "进阶以太芯片", "A": "特化以太芯片"},
+      "combat_sim_promotion_stage": "实战模拟室 > 代理人晋升 > 支援演练",
+      "combat_sim_skill_stage": "实战模拟室 > 代理人技能 > 共鸣测试",
+      "expert_challenge": {"boss_cn": "色雷斯人", "boss_en": "Thracian", "material_cn": "高维数据：游鳞雷动", "material_en": "Higher Dimensional Data: Thunderous Dragon"},
+      "notorious_hunt": {"boss_cn": "冥宁芙·双子", "boss_en": "Twin Marionettes", "material_cn": "终幕舞鞋", "material_en": "Finale Dance Shoes"},
+      "confidence": "confirmed", "note": "A pre-release Sportskeeda leak listed different mats (Falling Fist / Living Drive); later sources and BWiki agree on 游鳞雷动 + 终幕舞鞋.",
+      "sources": ["bw_astra", "od_agent_py", "g8_thunderous_dragon", "g8_notorious_hunt", "astra_search"]
+    },
+    "星见雅": {
+      "name_en": "Hoshimi Miyabi", "onedragon_id": "hoshimi_miyabi", "onedragon_display_name": "雅", "rarity": "S",
+      "specialty_cn": "异常", "specialty_en": "Anomaly", "attribute_cn": "烈霜 (冰)", "attribute_en": "Frost (Ice variant)",
+      "promotion_seals": {"C": "初阶异常认证章", "B": "高阶异常认证章", "A": "掌控者认证章"},
+      "skill_chips": {"C": "基础冰结芯片", "B": "进阶冰结芯片", "A": "特化冰结芯片"},
+      "combat_sim_promotion_stage": "实战模拟室 > 代理人晋升 > 异常演练",
+      "combat_sim_skill_stage": "实战模拟室 > 代理人技能 > 冰结测试",
+      "expert_challenge": {"boss_cn": "色雷斯人", "boss_en": "Thracian", "material_cn": "高维数据：游鳞雷动", "material_en": "Higher Dimensional Data: Thunderous Dragon"},
+      "notorious_hunt": {"boss_cn": "牲鬼·布林格", "boss_en": "Sacrifice - Bringer", "material_cn": "狂信之塑", "material_en": "Sycophant's Refinement"},
+      "confidence": "confirmed", "sources": ["bw_miyabi", "od_agent_py", "g8_thunderous_dragon", "g8_notorious_hunt", "miyabi_search", "bw_nh_refinement"]
+    },
+    "柳": {
+      "name_en": "Tsukishiro Yanagi", "onedragon_id": "yanagi", "rarity": "S",
+      "specialty_cn": "异常", "specialty_en": "Anomaly", "attribute_cn": "电", "attribute_en": "Electric",
+      "promotion_seals": {"C": "初阶异常认证章", "B": "高阶异常认证章", "A": "掌控者认证章"},
+      "skill_chips": {"C": "基础电击芯片", "B": "进阶电击芯片", "A": "特化电击芯片"},
+      "combat_sim_promotion_stage": "实战模拟室 > 代理人晋升 > 异常演练",
+      "combat_sim_skill_stage": "实战模拟室 > 代理人技能 > 电流测试",
+      "expert_challenge": {"boss_cn": "「提丰·重击者型」", "boss_en": "Typhon Slugger", "material_cn": "高维数据：毁荡突进", "material_en": "Higher Dimensional Data: Destructive Advance"},
+      "notorious_hunt": {"boss_cn": "未知复合侵蚀体", "boss_en": "Unknown Corruption Complex", "material_cn": "活态驱动", "material_en": "Living Drive"},
+      "confidence": "confirmed", "sources": ["bw_yanagi", "od_agent_py", "g8_notorious_hunt", "bw_hdd_advance", "bw_nh_drive"]
+    },
+    "shared_notes": [
+      "耀嘉音 and 星见雅 share 色雷斯人 (游鳞雷动): 120 HDD for both = 24 runs / 960 battery (or 12 Burnout runs).",
+      "莱卡恩 and 耀嘉音 share 冥宁芙·双子 (终幕舞鞋): 18 needed for both = 6 weeks of free NH runs if used only there.",
+      "星见雅 and 柳 share 异常 seals (掌控者认证章 etc.); 艾莲, 莱卡恩 and 星见雅 share 冰结 chips."
+    ]
+  },
+
+  "current_version_modifiers": {
+    "version": "3.3 (until 2026-12-01); 3.4 from 2026-12-02",
+    "events": [
+      {"name_cn": "「数据悬赏-实战模拟」", "name_en": "Data Bounty: Combat Simulation", "effect": "实战模拟室 rewards x2 for up to 5 enemy cards per day (remaining count shown top-left)", "status": "Listed among 3.3 events; Game8 (updated 2026-11-11) says date not yet announced. Last confirmed run 2026-10-14 to 10-19.", "confidence": "uncertain whether active on 2026-11-21", "sources": ["g8_data_bounty", "g8_v33"]},
+      {"name_cn": null, "name_en": "Advanced Bounty: Area Patrol", "effect": "double drive disc drops in 区域巡防", "status": "Listed among 3.3 events; dates not found", "sources": ["g8_v33"]},
+      {"name_cn": "「实战特训-三倍悬赏」", "name_en": "Combat Training - Triple Bounty", "effect": "实战模拟室 rewards x3 (limited cards)", "status": "Last seen 3.1, 2026-09-02 to 09-07; not listed for 3.3", "sources": ["g8_triple_bounty", "bw_triple_bounty_search"]},
+      {"name_cn": "「深度巡防-三倍赏金」", "name_en": null, "effect": "triple bounty (Area Patrol)", "status": "Last seen 2026-08-12 to 08-17", "sources": ["bw_events"]}
+    ],
+    "burnout_rotation": {"current_targets_en": ["Conqueror", "Airspace Sentinel"], "current_targets_cn": ["「征服者」", "空域戒戍者"], "reset": "2026-12-02",
+      "note": "Game8 table says Conqueror + Airspace Sentinel; the same page's text also lists Airspace Sentinel, Miasmic Komano Manato, Heretic Jester, Thracian and Doppelganger Jane, so check in game. If 色雷斯人 is under Burnout it helps 耀嘉音/星见雅.",
+      "confidence": "uncertain", "sources": ["g8_burnout"]}
+  },
+
+  "onedragon": {
+    "repo": "OneDragon-Anything/ZenlessZoneZero-OneDragon",
+    "repo_last_commit_seen": "2026-11-20T20:58:17Z",
+    "charge_plan_item_fields": {"tab_name": "训练", "category_name": "实战模拟室 | 区域巡防 | 专业挑战室 | 恶名狩猎 | 合成电池", "mission_type_name": "e.g. 基础材料 / boss name", "mission_name": "e.g. 调查专项 (null for EC/NH)", "level": "默认等级", "card_num": "默认数量 | 1..5", "plan_times": "int", "predefined_team_idx": "-1 = current team", "notorious_hunt_buff_num": "int"},
+    "card_num": {"values": ["默认数量", "1", "2", "3", "4", "5"], "meaning": "Number of enemy cards per 实战模拟室 run. Each card costs 20 battery and drops its own rewards, so more cards = more battery and more drops per run. 默认数量 keeps the in-game default and is pre-estimated as 20 battery."},
+    "estimated_charge_power": {"实战模拟室": "card_num x 20 (默认 = 20)", "区域巡防": 60, "专业挑战室": 40, "恶名狩猎": 60, "合成电池": 60},
+    "double_reward": {
+      "config_key": "double_reward (bool) + combat_simulation_double_reward_config (a ChargePlanItem)",
+      "meaning": "Opt-in check for the 实战模拟室 double-drop event (数据悬赏). On the first compendium visit of a run it opens 实战模拟室, looks for the '每日怪物卡双倍掉落次数' text and OCRs the remaining count (expects 'N/5'). If any remain, it inserts a one-off temp plan using combat_simulation_double_reward_config with card_num = min(current battery // 20, remaining). It is not written to the plan list. Drive-disc (Area Patrol) doubles are deliberately not handled.",
+      "sources": ["od_charge_plan_app", "od_charge_plan_config", "od_charge_plan_md"]
+    },
+    "restore_charge": {"values": ["不使用", "使用储蓄电量", "使用以太电池", "同时使用储蓄电量和以太电池"]},
+    "expert_challenge_burnout": "Turned off automatically (关闭燃竭模式) before each EC run.",
+    "notorious_hunt_in_charge_plan": "Uses 深度追猎 (60 battery). Skipped while weekly free reward runs remain; those belong to the separate 恶名狩猎 app (left_times default 3).",
+    "naming_note": "锋御演练 is under 实战模拟室 > 代理人晋升, not under 专业挑战室. 蛮横力士 is a 专业挑战室 boss with no sub-mission (drops 高维数据：拳坠如陨)."
+  },
+
+  "sources": [
+    {"id": "bw_material_filter", "url": "https://wiki.biligame.com/zzz/%E6%9D%90%E6%96%99%E7%AD%9B%E9%80%89", "title": "材料筛选 - 绝区零WIKI (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_ellen", "url": "https://wiki.biligame.com/zzz/%E8%89%BE%E8%8E%B2", "title": "艾莲 - 绝区零WIKI (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_lycaon", "url": "https://wiki.biligame.com/zzz/%E8%8E%B1%E5%8D%A1%E6%81%A9", "title": "莱卡恩 - 绝区零WIKI (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_astra", "url": "https://wiki.biligame.com/zzz/%E8%80%80%E5%98%89%E9%9F%B3", "title": "耀嘉音 - 绝区零WIKI (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_miyabi", "url": "https://wiki.biligame.com/zzz/%E6%98%9F%E8%A7%81%E9%9B%85", "title": "星见雅 - 绝区零WIKI (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_yanagi", "url": "https://wiki.biligame.com/zzz/%E6%9F%B3", "title": "柳 - 绝区零WIKI (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_hdd_obituary", "url": "https://wiki.biligame.com/zzz/%E9%AB%98%E7%BB%B4%E6%95%B0%E6%8D%AE%EF%BC%9A%E5%87%B6%E5%88%91%E8%AE%A3%E5%91%8A", "title": "高维数据：凶刑讣告 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_hdd_pursuit", "url": "https://wiki.biligame.com/zzz/%E9%AB%98%E7%BB%B4%E6%95%B0%E6%8D%AE%EF%BC%9A%E8%BF%BD%E8%A2%AD%E9%AA%B8%E5%BD%B1", "title": "高维数据：追袭骸影 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_hdd_advance", "url": "https://wiki.biligame.com/zzz/%E9%AB%98%E7%BB%B4%E6%95%B0%E6%8D%AE%EF%BC%9A%E6%AF%81%E8%8D%A1%E7%AA%81%E8%BF%9B", "title": "高维数据：毁荡突进 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_hdd_dragon", "url": "https://wiki.biligame.com/zzz/%E9%AB%98%E7%BB%B4%E6%95%B0%E6%8D%AE%EF%BC%9A%E6%B8%B8%E9%B3%9E%E9%9B%B7%E5%8A%A8", "title": "高维数据：游鳞雷动 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_nh_grip", "url": "https://wiki.biligame.com/zzz/%E8%85%A5%E9%A3%8E%E4%B9%8B%E6%8F%A1", "title": "腥风之握 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_nh_shoes", "url": "https://wiki.biligame.com/zzz/%E7%BB%88%E5%B9%95%E8%88%9E%E9%9E%8B", "title": "终幕舞鞋 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_nh_refinement", "url": "https://wiki.biligame.com/zzz/%E7%8B%82%E4%BF%A1%E4%B9%8B%E5%A1%91", "title": "狂信之塑 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_nh_drive", "url": "https://wiki.biligame.com/zzz/%E6%B4%BB%E6%80%81%E9%A9%B1%E5%8A%A8", "title": "活态驱动 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_events", "url": "https://wiki.biligame.com/zzz/%E6%B4%BB%E5%8A%A8%E4%B8%80%E8%A7%88", "title": "活动一览 (BWiki)", "accessed": "2026-11-21"},
+    {"id": "bw_triple_bounty_search", "url": "https://wiki.biligame.com/zzz/%E3%80%8C%E5%AE%9E%E6%88%98%E7%89%B9%E8%AE%AD-%E4%B8%89%E5%80%8D%E6%82%AC%E8%B5%8F%E3%80%8D%E7%AC%AC%E4%BA%8C%E6%9C%9F", "title": "「实战特训-三倍悬赏」第二期 (BWiki, seen in search only)", "accessed": "2026-11-21"},
+    {"id": "bw_demara_search", "url": "https://wiki.biligame.com/zzz/%E5%BE%B7%E7%8E%9B%E6%8B%89%E7%94%B5%E6%B1%A0%E2%85%A1%E5%9E%8B", "title": "德玛拉电池Ⅱ型 (BWiki, via search snippet)", "accessed": "2026-11-21"},
+    {"id": "calc_data_js", "url": "https://github.com/congealPlume/zzz-ascend-calculator/blob/main/data.js", "title": "zzz-ascend-calculator data.js (backs BWiki 消耗计算器; v0.1.1, 2024 data)", "accessed": "2026-11-21"},
+    {"id": "pry_modes", "url": "https://www.prydwen.gg/zenless/guides/game-modes", "title": "Prydwen - Game modes", "accessed": "2026-11-21"},
+    {"id": "pry_progression", "url": "https://www.prydwen.gg/zenless/guides/agents-progression", "title": "Prydwen - Agents progression", "accessed": "2026-11-21"},
+    {"id": "g8_combat_sim", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/455375", "title": "Game8 - Combat Simulation Guide and Rewards (updated 2026-09-09)", "accessed": "2026-11-21"},
+    {"id": "g8_expert_challenge", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/457214", "title": "Game8 - Expert Challenge Guide and Rewards (updated 2026-09-08)", "accessed": "2026-11-21"},
+    {"id": "g8_notorious_hunt", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/455454", "title": "Game8 - Notorious Hunt Boss Guide (updated 2026-09-09)", "accessed": "2026-11-21"},
+    {"id": "g8_burnout", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/504677", "title": "Game8 - Burnout Guide (updated 2026-11-11)", "accessed": "2026-11-21"},
+    {"id": "g8_thunderous_dragon", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/491371", "title": "Game8 - Higher Dimensional Data - Thunderous Dragon", "accessed": "2026-11-21"},
+    {"id": "g8_dialyn", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/560175", "title": "Game8 - Dialyn Promotion and Skill Materials (per-level tables, drops per card/session)", "accessed": "2026-11-21"},
+    {"id": "g8_data_bounty", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/473592", "title": "Game8 - Data Bounty: Combat Simulation (updated 2026-10-13)", "accessed": "2026-11-21"},
+    {"id": "g8_triple_bounty", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/523552", "title": "Game8 - Combat Training Triple Bounty (3.1)", "accessed": "2026-11-21"},
+    {"id": "g8_v33", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/622039", "title": "Game8 - 3.3 Release Date and Banners (updated 2026-11-11)", "accessed": "2026-11-21"},
+    {"id": "g8_v34", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/633149", "title": "Game8 - 3.4 Release Date (updated 2026-11-20)", "accessed": "2026-11-21"},
+    {"id": "g8_area_patrol", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/455386", "title": "Game8 - Area Patrol Guide", "accessed": "2026-11-21"},
+    {"id": "g8_recover_battery", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/460262", "title": "Game8 - How to Recover Battery Charge", "accessed": "2026-11-21"},
+    {"id": "g8_ether_battery", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/460249", "title": "Game8 - How to Get and Use Ether Battery", "accessed": "2026-11-21"},
+    {"id": "g8_denny", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/460148", "title": "Game8 - Best Ways to Farm Denny", "accessed": "2026-11-21"},
+    {"id": "g8_senior_log", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/460090", "title": "Game8 - Senior Investigator Log", "accessed": "2026-11-21"},
+    {"id": "g8_adv_support_seal", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/460182", "title": "Game8 - Advanced Support Certification Seal (craft/dismantle)", "accessed": "2026-11-21"},
+    {"id": "g8_buster_seal", "url": "https://game8.co/games/Zenless-Zone-Zero/archives/460105", "title": "Game8 - Buster Certification Seal (craft)", "accessed": "2026-11-21"},
+    {"id": "icy_agent_leveling", "url": "https://www.icy-veins.com/zenless-zone-zero/agent-leveling", "title": "Icy Veins - Agent Leveling Guide (updated 2025-07-28)", "accessed": "2026-11-21"},
+    {"id": "icy_battery", "url": "https://www.icy-veins.com/zenless-zone-zero/battery-charge", "title": "Icy Veins - Battery Charge Explained (updated 2025-07-28)", "accessed": "2026-11-21"},
+    {"id": "icy_battery_search", "url": "https://www.icy-veins.com/zenless-zone-zero/battery-charge", "title": "Icy Veins (via search summary: Routine Cleanup 60)", "accessed": "2026-11-21"},
+    {"id": "oneesports_exp", "url": "https://www.oneesports.gg/zenless-zone-zero/exp-level-60-investigator-log/", "title": "ONE Esports - EXP to level 60 (2024-11-01)", "accessed": "2026-11-21"},
+    {"id": "oneesports_hamster", "url": "https://www.oneesports.gg/zenless-zone-zero/hamster-cage-pass-where-to-get/", "title": "ONE Esports - Hamster Cage Pass (2024-10-11)", "accessed": "2026-11-21"},
+    {"id": "sk_skill_costs", "url": "https://sportskeeda.com/esports/zenless-zone-zero-zzz-grace-howard-materials-farming-locations", "title": "Sportskeeda - per-skill cost tables (via search summary)", "accessed": "2026-11-21"},
+    {"id": "taptap_custom_template", "url": "https://www.taptap.cn/moment/574711534937181924", "title": "TapTap - 实战模拟室的自定义模板用起来吧 (2024-08-19)", "accessed": "2026-11-21"},
+    {"id": "gamersky_wengine", "url": "https://www.gamersky.com/handbook/202408/1797482.shtml", "title": "游民星空 - 专属音擎1-50级突破材料 (2024-08, via search snippet)", "accessed": "2026-11-21"},
+    {"id": "gb_backup_battery", "url": "https://genshin-builds.com/en/zenless/items/backup_battery_charge", "title": "GenshinBuilds - Backup Battery Charge (via search summary)", "accessed": "2026-11-21"},
+    {"id": "animonlife_backup", "url": "https://www.animonlifeofficial.com/zenless-zone-zero-info/ns8pha0vrptpqq16zph3unlv85bo2p", "title": "Backup Battery Charge Details (notice repost, via search summary)", "accessed": "2026-11-21"},
+    {"id": "buffget_refill", "url": "https://buffget.com/zh-CN/news/zzz-battery-refill-guide-worth-polychromes-at-level-50", "title": "buffget - 电量补充指南 (low reliability)", "accessed": "2026-11-21"},
+    {"id": "fandom_core_gates_search", "url": "https://zenless-zone-zero.fandom.com/wiki/Soldier_11", "title": "Fandom - Soldier 11 (core skill level gates, via search summary; direct fetch blocked)", "accessed": "2026-11-21"},
+    {"id": "astra_search", "url": "https://esports.gg/guides/zenless-zone-zero-zzz/astra-yao-materials-farming-guide", "title": "esports.gg - Astra Yao materials (via search summary)", "accessed": "2026-11-21"},
+    {"id": "miyabi_search", "url": "https://www.lootbar.com/blog/en/zenless-zone-zero-miyabi-materials.html", "title": "LootBar - Miyabi materials (via search summary)", "accessed": "2026-11-21"},
+    {"id": "mobalytics_items_search", "url": "https://mobalytics.gg/?p=79681", "title": "Mobalytics - Item Guide (log EXP values, via search summary)", "accessed": "2026-11-21"},
+    {"id": "od_compendium", "url": "https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon/blob/main/assets/game_data/compendium_data.yml", "title": "OneDragon compendium_data.yml", "accessed": "2026-11-21"},
+    {"id": "od_charge_plan_md", "url": "https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon/blob/main/docs/develop/zzz/application/charge_plan.md", "title": "OneDragon docs - 体力计划运行流程", "accessed": "2026-11-21"},
+    {"id": "od_charge_plan_config", "url": "https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon/blob/main/src/zzz_od/application/charge_plan/charge_plan_config.py", "title": "OneDragon charge_plan_config.py", "accessed": "2026-11-21"},
+    {"id": "od_charge_plan_app", "url": "https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon/blob/main/src/zzz_od/application/charge_plan/charge_plan_app.py", "title": "OneDragon charge_plan_app.py", "accessed": "2026-11-21"},
+    {"id": "od_nh_run_record", "url": "https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon/blob/main/src/zzz_od/application/notorious_hunt/notorious_hunt_run_record.py", "title": "OneDragon notorious_hunt_run_record.py", "accessed": "2026-11-21"},
+    {"id": "od_agent_py", "url": "https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon/blob/main/src/zzz_od/game_data/agent.py", "title": "OneDragon game_data/agent.py", "accessed": "2026-11-21"}
+  ],
+
+  "uncertain": [
+    {"field": "modes.combat_simulation 调查专项 / 音擎专项 / 赏金专项 per-card drops", "detail": "No source states per-card amounts. Values (~12,500 agent EXP, ~15,800 W-Engine EXP, ~20,000-22,700 dennies per card at max level) are derived from a 2024-08 TapTap planning post. Game8 only says Bounty gives '~30,000+ per clear' at the lowest level."},
+    {"field": "modes.combat_simulation 代理人晋升 per-card drops", "detail": "Only Game8 (1 A + 1-2 B per card). C-tier drops not quantified."},
+    {"field": "modes.combat_simulation 音擎改装 per-card drops", "detail": "Not found anywhere; left null."},
+    {"field": "modes.combat_simulation 镀剂专项 per-card drops", "detail": "Not found; left null."},
+    {"field": "modes.expert_challenge non-HDD drops", "detail": "Audio Booster Master Copy and Denny amounts not found."},
+    {"field": "modes.notorious_hunt dennies", "detail": "Game8 (Lv65, 2026) says 3000; Charlie Intel (2024-07) said 2000."},
+    {"field": "modes.notorious_hunt and expert_challenge CN<->EN boss/material mappings marked 'inferred'", "detail": "Confirmed via BWiki item descriptions only for 凶刑讣告, 追袭骸影, 毁荡突进, 游鳞雷动, 腥风之握, 终幕舞鞋, 狂信之塑, 活态驱动 (all the user's agents). Others are name-translation matches, and 牲鬼·卫律使者 -> 喋血秽羽 is by elimination (no English name found)."},
+    {"field": "modes.synthesize_ether_battery", "detail": "60 battery per Ether Battery comes from OneDragon code/docs only; no wiki confirmation (BWiki 以太电池 page was blocked)."},
+    {"field": "battery.refills coffee", "detail": "Game8 60 vs Icy Veins 60-80."},
+    {"field": "battery.refills polychrome cost", "detail": "Per-refill Polychrome cost not confirmed (buffget says 50-200, low reliability)."},
+    {"field": "conversions.craft_up denny_cost", "detail": "Not found; null."},
+    {"field": "costs.core_skill requires_agent_level", "detail": "15/25/35/45/55/60 from a Fandom snippet (direct fetch blocked) plus Prydwen ('15, 25, and so on')."},
+    {"field": "costs.wengine per-band EXP and B-rank EXP total", "detail": "Per-band split only in the calculator data (2024). S total (600,000), S 1->50 (300,000) and A total (480,000) are cross-checked."},
+    {"field": "current_version_modifiers.events Data Bounty", "detail": "Listed as a 3.3 event, but no start date found; can't confirm if active on 2026-11-21."},
+    {"field": "current_version_modifiers.burnout_rotation", "detail": "Game8 page contradicts itself about current Burnout targets."},
+    {"field": "area_patrol old CN name", "detail": "定期清剿 vs 定期围剿 (BWiki material list) vs 定期清理 (one guide); current in-game name per OneDragon is 区域巡防."},
+    {"field": "哈尔莎苏 chip", "detail": "No item by that name found. The skill 11->12 item is 「仓鼠笼」访问器 (events / 丽都城募), not a Notorious Hunt drop."}
+  ]
+}

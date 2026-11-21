@@ -1,0 +1,24 @@
+{
+  "_说明": "账号快照模板。fork 读取游戏后复制成 snapshots/YYYY-MM-DD_HHMM.json 再填。读不到的填 null，不要猜。",
+  "taken_at": "2026-11-21T00:00:00-08:00",
+  "source": "OneDragon MCP 截图 + 人工核对",
+  "battery": { "current": null, "max": 240 },
+  "dennies": null,
+  "agents": [
+    {
+      "id": "ellen",
+      "name_cn": "艾莲",
+      "level": null,
+      "level_cap": null,
+      "skills": { "普攻": null, "闪避": null, "支援": null, "特殊技": null, "连携技": null },
+      "core_skill": null,
+      "w_engine": { "name_cn": null, "rank": null, "level": null, "level_cap": null }
+    }
+  ],
+  "materials": [
+    { "name_cn": "调查员记录（示例）", "count": null }
+  ],
+  "weekly": { "恶名狩猎剩余次数": null },
+  "screenshots": [],
+  "notes": []
+}

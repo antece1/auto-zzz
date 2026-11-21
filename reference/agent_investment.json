@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "date": "2026-11-21",
+    "game_version": "3.3",
+    "core_target_scale": "0=none, 1=A, 2=B, 3=C, 4=D, 5=E, 6=F",
+    "skill_target_note": "Skill targets are a synthesis for a limited-materials account (12 = worth the Hamster Cage Pass, 11 = stop before the pass, 9-10 = solid, 1-6 = minimal). No guide publishes exact numeric targets; the orders come from the guides, the numbers are my synthesis.",
+    "source_dates": "Prydwen character pages say 'Last updated 10-11 Nov 2026' (tier list labelled 3.2 and updated 11 Nov 2026), but some review/build sections date from earlier patches. BWIKI 角色搭配推荐 sections are dated v1.7-v3.1. genshin-builds labels its pages v3.3 but has internally contradictory FAQ orders, so only its prose/table was used.",
+    "prydwen_tier_list_3.2": {
+      "T0.5": ["星见雅", "耀嘉音", "妮可(M6)"],
+      "T1": ["简(P6)", "柳", "莱卡恩(P6)"],
+      "T1.5": ["艾莲(P6)", "朱鸢", "青衣", "苍角(M6)"]
+    },
+    "suggested_team_split_for_this_roster": {
+      "team1": "星见雅 + 柳 + 耀嘉音 (best team; BWIKI 雅柳通用配队, Prydwen top synergy)",
+      "team2": "艾莲 + 莱卡恩 + 苍角 (BWIKI 冰伤输出队 basic setup)",
+      "team3": "朱鸢 + 青衣 + 妮可 (BWIKI and genshin-builds Ether team)",
+      "bench": "简 (her best partners Velina/Remielle/Alice/Yuzuha are not in this roster; she can take 朱鸢's slot with 青衣/妮可 or borrow 耀嘉音)"
+    }
+  },
+  "agents": {
+    "星见雅": {
+      "priority_tier": "high",
+      "teams": ["星见雅+柳+耀嘉音", "星见雅+莱卡恩+苍角 (雅狼队)", "星见雅+柳+苍角"],
+      "skill_order": ["普攻", "连携技", "特殊技", "支援", "闪避"],
+      "skill_targets": {"普攻": 12, "闪避": 4, "支援": 4, "特殊技": 11, "连携技": 11},
+      "core_target": 6,
+      "core_note": "Core priority is equal to or above Basic in BWIKI and genshin-builds. Core levels raise the Frostburn-Break multiplier (750% ATK at Lv1). Take it to F: F needs agent Lv60.",
+      "level60": "important",
+      "wengine_note": "霰落星殿 Hailstorm Shrine is her clear best W-engine (98% usage on Prydwen). It has no real substitute. Level it to 60: its base ATK and CRIT main stat feed all of her damage.",
+      "reason": "Prydwen rates her T0.5 and the clear top DPS on this roster. Her team with 柳 and 耀嘉音 is one of the strongest Disorder cores for Shiyu Defense and Deadly Assault.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/miyabi", "https://wiki.biligame.com/zzz/星见雅", "https://genshin-builds.com/en/zenless/characters/miyabi", "https://www.prydwen.gg/zenless/tier-list"],
+      "disagreements": "Prydwen ranks Basic >> Chain >> Special >> Assist >> Dodge. BWIKI and genshin-builds put Special ahead of Chain. Everyone agrees on Basic first and Dodge/Assist last. BWIKI says to raise Dodge a little at high mindscape."
+    },
+    "耀嘉音": {
+      "priority_tier": "high",
+      "teams": ["星见雅+柳+耀嘉音", "朱鸢+青衣+耀嘉音", "朱鸢+妮可+耀嘉音", "艾莲+莱卡恩+耀嘉音", "简+耀嘉音"],
+      "skill_order": ["特殊技", "连携技", "支援", "闪避", "普攻"],
+      "skill_targets": {"普攻": 1, "闪避": 1, "支援": 4, "特殊技": 12, "连携技": 9},
+      "core_target": 6,
+      "core_note": "Core is the top priority in BWIKI and genshin-builds. With core F she needs about 3429-3430 ATK to cap her team ATK buff at 1200. Prydwen calls hitting this ATK breakpoint the most important thing in her build.",
+      "level60": "important",
+      "wengine_note": "Her signature is 玲珑妆匣 Elegant Vanity. Good alternatives are 含羞恶面 Bashful Demon S5, 好斗的阿炮 Kaboom S5 and 聚宝箱 The Vault S5. Level it to 60, because base ATK goes straight into the 3430 ATK target.",
+      "reason": "Prydwen rates her T0.5 as a universal support that fits every DPS on this roster. Her special skill gives team-wide damage and CRIT DMG buffs.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/astra-yao", "https://wiki.biligame.com/zzz/耀嘉音", "https://genshin-builds.com/en/zenless/characters/astra_yao"],
+      "disagreements": "All sources agree on Special first and Chain second. Prydwen puts Assist third. BWIKI calls Dodge, Basic and Assist optional and says Chain matters only if the team needs more healing. genshin-builds ranks Basic above Dodge and Assist."
+    },
+    "柳": {
+      "priority_tier": "high",
+      "teams": ["星见雅+柳+耀嘉音", "星见雅+柳+苍角", "柳+妮可 (驻场)", "柳+青衣"],
+      "skill_order": ["特殊技", "连携技", "普攻", "支援", "闪避"],
+      "skill_targets": {"普攻": 8, "闪避": 1, "支援": 4, "特殊技": 11, "连携技": 10},
+      "core_target": 6,
+      "core_note": "BWIKI calls core her most important skill because it raises Disorder damage. genshin-builds also puts core first. Take it to F.",
+      "level60": "important",
+      "wengine_note": "Her signature is 时流贤者 Timeweaver (71% usage on Prydwen). 双生泣星 Weeping Gemini S5 reaches about 99% of Timeweaver S1, so the F2P option is fine. Level it to 60: ATK and Anomaly Proficiency both scale her Disorder damage.",
+      "reason": "Prydwen rates her T1 and she is 星见雅's best partner. Prydwen notes she copes with low skill investment because she can work as a Disorder bot in 雅 teams.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/yanagi", "https://wiki.biligame.com/zzz/月城柳", "https://genshin-builds.com/en/zenless/characters/yanagi"],
+      "disagreements": "The sources mostly agree on Special > Chain > Basic > Assist/Dodge. BWIKI ties Assist and Dodge. genshin-builds puts Assist above Dodge for Daze utility."
+    },
+    "艾莲": {
+      "priority_tier": "mid",
+      "teams": ["艾莲+莱卡恩+苍角", "艾莲+莱卡恩+耀嘉音", "艾莲+苍角 (+other stunner)"],
+      "skill_order": ["普攻", "特殊技", "连携技", "闪避", "支援"],
+      "skill_targets": {"普攻": 11, "闪避": 8, "支援": 1, "特殊技": 11, "连携技": 11},
+      "core_target": 6,
+      "core_note": "BWIKI puts core first because it adds CRIT DMG to her dash and basic attacks. Per Prydwen and BWIKI, her Potential also lets Chain and Ultimate benefit from the core passive. Take it to F.",
+      "level60": "important",
+      "wengine_note": "Her signature is 深海访客 Deep Sea Visitor. 千面日陨 Myriad Eclipse reaches about 99% of it. 硫磺石 Brimstone is the best non-limited substitute (BWIKI). Level it to 60: it gives CRIT and ATK.",
+      "reason": "Prydwen rates her T1.5 (P6). She leads the second team (Ice), which matters for Deadly Assault's three teams.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/ellen", "https://wiki.biligame.com/zzz/艾莲", "https://genshin-builds.com/en/zenless/characters/ellen"],
+      "disagreements": "Prydwen ranks Chain >> Special >> Basic >> Dodge >> Assist. BWIKI has Core > Basic > Special = Chain > Dodge > Assist. genshin-builds has Core = Basic = Special > Dodge > Chain > Assist. All agree that Assist comes last and that Dodge (dash attack) matters a bit."
+    },
+    "朱鸢": {
+      "priority_tier": "mid",
+      "teams": ["朱鸢+青衣+妮可", "朱鸢+青衣+耀嘉音", "朱鸢+妮可+耀嘉音"],
+      "skill_order": ["普攻", "连携技", "特殊技", "闪避", "支援"],
+      "skill_targets": {"普攻": 12, "闪避": 6, "支援": 1, "特殊技": 10, "连携技": 11},
+      "core_target": 6,
+      "core_note": "BWIKI ties core with Basic for first place. Core levels alternate CRIT DMG and +25 base ATK, and raise her shotshell damage against stunned enemies. Take it to F.",
+      "level60": "important",
+      "wengine_note": "Her signature is 防暴者VI型 Riot Suppressor Mark VI. Prydwen rates 牺牲洁纯 Cordis Germina and 硫磺石 Brimstone slightly higher. BWIKI says Brimstone R2 matches the signature. Level it to 60 for base ATK and CRIT.",
+      "reason": "Prydwen rates her T1.5 and says she is outclassed in Ether by Yixuan at high investment. She is still a solid third-team DPS with 青衣 and 妮可.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/zhu-yuan", "https://wiki.biligame.com/zzz/朱鸢", "https://genshin-builds.com/en/zenless/characters/zhu_yuan"],
+      "disagreements": "Prydwen ranks Basic >> Chain >> Special >> Dodge >> Assist. BWIKI has Core = Basic > Chain = Special > Dodge = Assist. genshin-builds prose ranks Basic and Dodge first, but its FAQ ranks Assist highest, which is unreliable. All agree that Basic matters most."
+    },
+    "简": {
+      "priority_tier": "mid",
+      "teams": ["简+耀嘉音 (+stunner)", "简+青衣+妮可 (substitute for 朱鸢)", "简+柳 (only if 柳 is free)"],
+      "skill_order": ["闪避", "普攻", "连携技", "特殊技", "支援"],
+      "skill_targets": {"普攻": 10, "闪避": 10, "支援": 1, "特殊技": 9, "连携技": 9},
+      "core_target": 6,
+      "core_note": "Core lets her Assault damage CRIT, so it is the top priority in BWIKI and genshin-builds. Take it to F.",
+      "level60": "important",
+      "wengine_note": "Her signature is 淬锋钳刺 Sharpened Stinger. Prydwen puts Practiced Perfection above Sharpened Stinger S1; BWIKI lists 十方锻星 as graduation. Level it to 60: ATK and Anomaly Proficiency scale her Assault damage.",
+      "reason": "Prydwen rates her T1 (P6), but her best partners (Velina, Remielle, Alice, Yuzuha) are not on this roster. She competes with 朱鸢 for the third-team slot, so decide on one before spending past 9.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/jane-doe", "https://wiki.biligame.com/zzz/简", "https://genshin-builds.com/en/zenless/characters/jane"],
+      "disagreements": "This is the biggest disagreement. Prydwen ranks Chain >> Special >> Basic >> Dodge >> Assist. BWIKI has Core > Dodge > Chain > Special = Basic > Assist. genshin-builds has Core > Dodge > Basic > Special > Chain > Assist. BWIKI adds that most of her damage is Anomaly, so skill levels are optional and 7 is enough when resources are tight. The targets above are a middle ground."
+    },
+    "青衣": {
+      "priority_tier": "mid",
+      "teams": ["朱鸢+青衣+妮可", "朱鸢+青衣+耀嘉音", "简+青衣+妮可"],
+      "skill_order": ["普攻", "特殊技", "闪避", "连携技", "支援"],
+      "skill_targets": {"普攻": 11, "闪避": 8, "支援": 1, "特殊技": 10, "连携技": 8},
+      "core_target": 6,
+      "core_note": "BWIKI calls core the most important skill and says to max it directly. It raises her Stun DMG multiplier (Subjugation), which helps her whole team.",
+      "level60": "nice",
+      "wengine_note": "Her signature is 玉壶青冰 Ice-Jade Teapot. 拘缚者 The Restrained, 燃狱齿轮 Hellfire Gears, 贵重骨核 Precious Fossilized Core and 德玛拉电池II型 Steam Oven all work. Leveling to 60 helps less, because her Impact main stat is what matters, but it is still worthwhile.",
+      "reason": "Prydwen rates her T1.5. She is the best stunner for 朱鸢 on this roster, but she takes a lot of field time.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/qingyi", "https://wiki.biligame.com/zzz/青衣", "https://genshin-builds.com/en/zenless/characters/qingyi"],
+      "disagreements": "Prydwen ranks Basic >> Special >> Chain >> Dodge >> Assist. BWIKI has Core > Basic > Special = Dodge > Chain > Assist, with Basic giving about 70% of her Daze and damage. genshin-builds matches BWIKI. The sources disagree on Dodge versus Chain."
+    },
+    "妮可": {
+      "priority_tier": "mid",
+      "teams": ["朱鸢+青衣+妮可", "朱鸢+妮可+耀嘉音", "柳+妮可", "简+妮可"],
+      "skill_order": ["特殊技", "连携技", "支援", "普攻", "闪避"],
+      "skill_targets": {"普攻": 1, "闪避": 1, "支援": 5, "特殊技": 9, "连携技": 8},
+      "core_target": 6,
+      "core_note": "BWIKI says to reach at least D early, then max it, because max core gives large DEF shred (about 40%). Core is the cheapest high-value upgrade for her.",
+      "level60": "nice",
+      "wengine_note": "Her signature is 聚宝箱 The Vault (87% usage on Prydwen). Its effect does not depend on level, so leveling it to 60 is low value.",
+      "reason": "Prydwen rates her T0.5 at M6 and says she needs minimal investment. Her DEF shred carries the Ether team. Invest in her core, not her skills.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/nicole-demara", "https://wiki.biligame.com/zzz/妮可", "https://genshin-builds.com/en/zenless/characters/nicole"],
+      "disagreements": "Prydwen ranks Chain >> Special >> Basic >> Assist >> Dodge. BWIKI has Core > Special > Chain > Assist > Basic = Dodge. genshin-builds has Special = Core > Assist. BWIKI notes that her skill levels make only a small practical difference."
+    },
+    "莱卡恩": {
+      "priority_tier": "mid",
+      "teams": ["艾莲+莱卡恩+苍角", "星见雅+莱卡恩+苍角 (雅狼队)", "艾莲+莱卡恩+耀嘉音"],
+      "skill_order": ["特殊技", "支援", "连携技", "普攻", "闪避"],
+      "skill_targets": {"普攻": 3, "闪避": 1, "支援": 9, "特殊技": 11, "连携技": 9},
+      "core_target": 4,
+      "core_note": "BWIKI rates core 'very low' priority: its extra Daze needs basic attacks, and its Ice RES shred does not scale with level. C or D is enough; F is optional.",
+      "level60": "nice",
+      "wengine_note": "Prydwen's best is 炽焰桂冠 Blazing Laurel. 贵重骨核 Precious Fossilized Core S5 and 德玛拉电池II型 Steam Oven S5 are close, and BWIKI picks 燃狱齿轮 Hellfire Gears. Impact is a W-engine main stat that does not grow with level, so leveling to 60 is mid value.",
+      "reason": "Prydwen rates him T1 (P6) as the stunner for 艾莲 and also 星见雅. His Ice RES shred and Stun multiplier are valuable, but he is only worth it in Ice teams.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/lycaon", "https://wiki.biligame.com/zzz/莱卡恩", "https://genshin-builds.com/en/zenless/characters/lycaon"],
+      "disagreements": "Prydwen ranks Special >> Assist >> Chain >> Basic >> Dodge. BWIKI has Special > Chain > Assist > Core > Basic = Dodge and says Basic and Dodge can stay at 1. genshin-builds is self-contradictory and was ignored. The sources disagree on Assist versus Chain for second place."
+    },
+    "苍角": {
+      "priority_tier": "low",
+      "teams": ["艾莲+莱卡恩+苍角", "星见雅+莱卡恩+苍角", "星见雅+柳+苍角"],
+      "skill_order": ["特殊技", "连携技", "普攻", "支援", "闪避"],
+      "skill_targets": {"普攻": 1, "闪避": 1, "支援": 1, "特殊技": 8, "连携技": 4},
+      "core_target": 6,
+      "core_note": "BWIKI says a support 苍角 only needs core maxed. The core passive raises her ATK buff from 10% (Lv1) to 20% (Lv7), and the buff caps at 1000 when consuming Vortex. Prydwen's ATK targets are about 2777 at core passive Lv4 versus 2500 at Lv6, so higher core lowers the ATK you need.",
+      "level60": "important",
+      "wengine_note": "Her signature is 含羞恶面 Bashful Demon (A-rank). Leveling it to 60 is cheap, and its base ATK helps her reach the ATK buff target.",
+      "reason": "Prydwen rates her T1.5 (M6) as a free Ice support for the 艾莲 team. Her skills are almost a no-invest; spend only on core and ATK.",
+      "sources": ["https://www.prydwen.gg/zenless/characters/soukaku", "https://wiki.biligame.com/zzz/苍角", "https://genshin-builds.com/en/zenless/characters/soukaku"],
+      "disagreements": "Prydwen ranks Special >> Chain >> Basic >> Assist >> Dodge. BWIKI has Core > Special > Basic > Chain > Assist = Dodge and says support builds need only core. genshin-builds calls Basic unnecessary."
+    }
+  },
+  "general_rules": [
+    "Core skill comes first for almost every DPS and support (BWIKI ranks it first or tied first for 雅, 耀嘉音, 柳, 艾莲, 朱鸢, 简, 青衣, 妮可, 苍角). The exception is 莱卡恩, where BWIKI rates core 'very low'.",
+    "Core F requires agent level 60 (fandom wiki tables for several agents). So level 60 is effectively mandatory for any agent whose core you plan to max.",
+    "Dodge and Assist are the 'don't bother' skills for most agents. The exceptions are when the kit uses them: 莱卡恩 Assist for parry Daze, 简 and 艾莲 Dodge for dash attacks and dodge counters, and 青衣/朱鸢 Dodge to a modest level.",
+    "Supports (耀嘉音, 妮可, 苍角) mainly need core plus the one skill that applies their buff (Special for all three). Basic and Dodge can stay at 1.",
+    "Skill cost curve per skill: 1→7 costs 50,000 dennies, 1→9 costs 162,500, 1→11 costs 365,000 and 1→12 costs 500,000. Level 12 alone costs 135,000 dennies, 15 specialized chips and 1 Hamster Cage Pass (仓鼠笼通行证). So 7→12 is 90% of the dennies, and level 12 should be saved for the top one or two skills of high-tier DPS and 耀嘉音's Special.",
+    "Core cost: A→C costs 45,000 dennies, A→E costs 205,000, and F costs about 200,000 more. D onward also needs weekly-boss-type materials, so plan core D-F around weekly limits.",
+    "Spend first on the best team (雅+柳+耀嘉音), then the second and third Deadly Assault teams (Ice: 艾莲/莱卡恩/苍角; Ether: 朱鸢/青衣/妮可 or 简). Do not spread skills to 12 across all ten agents.",
+    "W-engine level 60 matters most for ATK-scaling agents (DPS, 耀嘉音's 3430 ATK target, 苍角's ATK buff). It matters least for agents whose value is a fixed effect or Impact (妮可, 莱卡恩, 青衣)."
+  ]
+}

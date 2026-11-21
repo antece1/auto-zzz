@@ -1,0 +1,26 @@
+{
+  "简": {
+    "disc_sets": {
+      "four": "獠牙重金属",
+      "two": ["河豚电音", "法厄同之歌", "自由蓝调", "混沌爵士"],
+      "alt": [
+        "2件套次选: 静听嘉音 / 激素朋克 (攻击力+10%)",
+        "2件套次选: 沧浪行歌 (物理伤害+10%)",
+        "4件套替代: 自由蓝调4 + 獠牙重金属2 / 混沌爵士2 / 法厄同之歌2 (BWIKI)"
+      ]
+    },
+    "disc_main": {
+      "4": "异常精通",
+      "5": "穿透率 > 物理伤害加成 > 攻击力% (Prydwen); BWIKI: 按需, 低练度物伤, 高练度攻击%, 音擎副词条为穿透时选穿透率",
+      "6": "异常掌控 (> 攻击力%)"
+    },
+    "disc_subs": ["异常精通 (先堆到局内约375-420)", "攻击力%", "穿透值", "攻击力(固定)", "暴击/暴伤基本无用"],
+    "sources": [
+      "https://www.prydwen.gg/zenless/characters/jane-doe",
+      "https://wiki.biligame.com/zzz/简",
+      "https://wiki.biligame.com/zzz/沧浪行歌",
+      "https://wiki.biligame.com/zzz/河豚电音"
+    ],
+    "notes": "Both sources agree on 獠牙重金属 4pc, slot 4 异常精通, slot 6 异常掌控, and 异常精通 and 攻击力% as the top substats. Prydwen (updated Nov 2026) ranks the 2pc as 河豚电音 (recommended) > 法厄同之歌 > 自由蓝调/混沌爵士 > 静听嘉音/激素朋克 > 沧浪行歌. I read the paired names as interchangeable groups because of how the page lays them out; that reading is my inference. Prydwen's slot 5 is 穿透率 > 物理伤害 > 攻击力%. BWIKI's disc section was last updated for v2.1. It lists only 自由蓝调/混沌爵士/法厄同之歌 as 2pc and leaves slot 5 to the build. Its 4pc alternative is 自由蓝调 4pc, which Prydwen does not list. Prydwen's in-combat targets are 异常精通 375-420+ (420 caps Passion's 600 flat ATK) and 异常掌控 192+. BWIKI likewise says to prioritize 异常精通 until 420."
+  }
+}

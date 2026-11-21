@@ -1,0 +1,314 @@
+{
+ "agents": {
+  "简": {
+   "specialty_cn": "异常",
+   "attribute_cn": "物理",
+   "chip_attr_cn": "物理",
+   "ec_boss_cn": "盗洞暴徒·蛮横力士",
+   "hdd_cn": "高维数据：拳坠如陨",
+   "nh_boss_cn": "初生死路屠夫",
+   "nh_mat_cn": "腥风之握",
+   "promotion_seal_a_cn": "掌控者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E7%AE%80",
+    "https://zzz.gachabase.net/items/materials/110506?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110001?lang=chs"
+   ]
+  },
+  "青衣": {
+   "specialty_cn": "击破",
+   "attribute_cn": "电",
+   "chip_attr_cn": "电击",
+   "ec_boss_cn": "恶名·装甲哈提",
+   "hdd_cn": "高维数据：追袭骸影",
+   "nh_boss_cn": "未知复合侵蚀体",
+   "nh_mat_cn": "活态驱动",
+   "promotion_seal_a_cn": "破阵者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E9%9D%92%E8%A1%A3",
+    "https://zzz.gachabase.net/items/materials/110503?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110002?lang=chs"
+   ]
+  },
+  "朱鸢": {
+   "specialty_cn": "强攻",
+   "attribute_cn": "以太",
+   "chip_attr_cn": "以太",
+   "ec_boss_cn": "恶名·装甲哈提",
+   "hdd_cn": "高维数据：追袭骸影",
+   "nh_boss_cn": "未知复合侵蚀体",
+   "nh_mat_cn": "活态驱动",
+   "promotion_seal_a_cn": "先行者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E6%9C%B1%E9%B8%A2",
+    "https://zzz.gachabase.net/items/materials/110503?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110002?lang=chs"
+   ]
+  },
+  "妮可": {
+   "specialty_cn": "支援",
+   "attribute_cn": "以太",
+   "chip_attr_cn": "以太",
+   "ec_boss_cn": "恶名·杜拉罕",
+   "hdd_cn": "高维数据：凶刑讣告",
+   "nh_boss_cn": "初生死路屠夫",
+   "nh_mat_cn": "腥风之握",
+   "promotion_seal_a_cn": "统御者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E5%A6%AE%E5%8F%AF",
+    "https://zzz.gachabase.net/items/materials/110501?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110001?lang=chs"
+   ]
+  },
+  "苍角": {
+   "specialty_cn": "支援",
+   "attribute_cn": "冰",
+   "chip_attr_cn": "冰结",
+   "ec_boss_cn": "恶名·杜拉罕",
+   "hdd_cn": "高维数据：凶刑讣告",
+   "nh_boss_cn": "冥宁芙·双子",
+   "nh_mat_cn": "终幕舞鞋",
+   "promotion_seal_a_cn": "统御者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E8%8B%8D%E8%A7%92",
+    "https://zzz.gachabase.net/items/materials/110501?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110003?lang=chs"
+   ]
+  },
+  "安比": {
+   "specialty_cn": "击破",
+   "attribute_cn": "电",
+   "chip_attr_cn": "电击",
+   "ec_boss_cn": "恶名·杜拉罕",
+   "hdd_cn": "高维数据：凶刑讣告",
+   "nh_boss_cn": "初生死路屠夫",
+   "nh_mat_cn": "腥风之握",
+   "promotion_seal_a_cn": "破阵者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E5%AE%89%E6%AF%94",
+    "https://zzz.gachabase.net/items/materials/110501?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110001?lang=chs"
+   ]
+  },
+  "安东": {
+   "specialty_cn": "强攻",
+   "attribute_cn": "电",
+   "chip_attr_cn": "电击",
+   "ec_boss_cn": "提丰·重击者型",
+   "hdd_cn": "高维数据：毁荡突进",
+   "nh_boss_cn": "未知复合侵蚀体",
+   "nh_mat_cn": "活态驱动",
+   "promotion_seal_a_cn": "先行者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E5%AE%89%E4%B8%9C",
+    "https://zzz.gachabase.net/items/materials/110505?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110002?lang=chs"
+   ]
+  },
+  "赛斯": {
+   "specialty_cn": "防护",
+   "attribute_cn": "电",
+   "chip_attr_cn": "电击",
+   "ec_boss_cn": "盗洞暴徒·蛮横力士",
+   "hdd_cn": "高维数据：拳坠如陨",
+   "nh_boss_cn": "未知复合侵蚀体",
+   "nh_mat_cn": "活态驱动",
+   "promotion_seal_a_cn": "捍卫者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E8%B5%9B%E6%96%AF",
+    "https://zzz.gachabase.net/items/materials/110506?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110002?lang=chs"
+   ]
+  },
+  "露西": {
+   "specialty_cn": "支援",
+   "attribute_cn": "火",
+   "chip_attr_cn": "引燃",
+   "ec_boss_cn": "汉斯·蓄能型",
+   "hdd_cn": "高维数据：钢铁恶意",
+   "nh_boss_cn": "初生死路屠夫",
+   "nh_mat_cn": "腥风之握",
+   "promotion_seal_a_cn": "统御者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E9%9C%B2%E8%A5%BF",
+    "https://zzz.gachabase.net/items/materials/110504?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110001?lang=chs"
+   ]
+  },
+  "本": {
+   "specialty_cn": "防护",
+   "attribute_cn": "火",
+   "chip_attr_cn": "引燃",
+   "ec_boss_cn": "汉斯·蓄能型",
+   "hdd_cn": "高维数据：钢铁恶意",
+   "nh_boss_cn": "未知复合侵蚀体",
+   "nh_mat_cn": "活态驱动",
+   "promotion_seal_a_cn": "捍卫者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E6%9C%AC",
+    "https://zzz.gachabase.net/items/materials/110504?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110002?lang=chs"
+   ]
+  },
+  "比利": {
+   "specialty_cn": "强攻",
+   "attribute_cn": "物理",
+   "chip_attr_cn": "物理",
+   "ec_boss_cn": "恶名·装甲哈提",
+   "hdd_cn": "高维数据：追袭骸影",
+   "nh_boss_cn": "初生死路屠夫",
+   "nh_mat_cn": "腥风之握",
+   "promotion_seal_a_cn": "先行者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E6%AF%94%E5%88%A9",
+    "https://zzz.gachabase.net/items/materials/110503?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110001?lang=chs"
+   ]
+  },
+  "可琳": {
+   "specialty_cn": "强攻",
+   "attribute_cn": "物理",
+   "chip_attr_cn": "物理",
+   "ec_boss_cn": "祸首·通缉打手",
+   "hdd_cn": "高维数据：殷红震慑",
+   "nh_boss_cn": "冥宁芙·双子",
+   "nh_mat_cn": "终幕舞鞋",
+   "promotion_seal_a_cn": "先行者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E5%8F%AF%E7%90%B3",
+    "https://zzz.gachabase.net/items/materials/110502?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110003?lang=chs"
+   ]
+  },
+  "丽娜": {
+   "specialty_cn": "支援",
+   "attribute_cn": "电",
+   "chip_attr_cn": "电击",
+   "ec_boss_cn": "提丰·重击者型",
+   "hdd_cn": "高维数据：毁荡突进",
+   "nh_boss_cn": "冥宁芙·双子",
+   "nh_mat_cn": "终幕舞鞋",
+   "promotion_seal_a_cn": "统御者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E4%B8%BD%E5%A8%9C",
+    "https://zzz.gachabase.net/items/materials/110505?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110003?lang=chs"
+   ]
+  },
+  "格莉丝": {
+   "specialty_cn": "异常",
+   "attribute_cn": "电",
+   "chip_attr_cn": "电击",
+   "ec_boss_cn": "提丰·重击者型",
+   "hdd_cn": "高维数据：毁荡突进",
+   "nh_boss_cn": "未知复合侵蚀体",
+   "nh_mat_cn": "活态驱动",
+   "promotion_seal_a_cn": "掌控者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E6%A0%BC%E8%8E%89%E4%B8%9D",
+    "https://zzz.gachabase.net/items/materials/110505?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110002?lang=chs"
+   ]
+  },
+  "11号": {
+   "specialty_cn": "强攻",
+   "attribute_cn": "火",
+   "chip_attr_cn": "引燃",
+   "ec_boss_cn": "提丰·重击者型",
+   "hdd_cn": "高维数据：毁荡突进",
+   "nh_boss_cn": "冥宁芙·双子",
+   "nh_mat_cn": "终幕舞鞋",
+   "promotion_seal_a_cn": "先行者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/11%E5%8F%B7",
+    "https://zzz.gachabase.net/items/materials/110505?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110003?lang=chs"
+   ]
+  },
+  "潘引壶": {
+   "specialty_cn": "防护",
+   "attribute_cn": "物理",
+   "chip_attr_cn": "物理",
+   "ec_boss_cn": "阿瓦鲁斯",
+   "hdd_cn": "高维数据：鞘翅秽种",
+   "nh_boss_cn": "秽息司祭",
+   "nh_mat_cn": "塑炼遗蜕",
+   "promotion_seal_a_cn": "捍卫者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E6%BD%98%E5%BC%95%E5%A3%B6",
+    "https://zzz.gachabase.net/items/materials/110510?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110006?lang=chs"
+   ]
+  },
+  "波可娜": {
+   "specialty_cn": "击破",
+   "attribute_cn": "物理",
+   "chip_attr_cn": "物理",
+   "ec_boss_cn": "多佩冈亚·简",
+   "hdd_cn": "高维数据：潜袭魅影",
+   "nh_boss_cn": "霸主侵蚀体·庞培",
+   "nh_mat_cn": "猩红引擎",
+   "promotion_seal_a_cn": "破阵者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E6%B3%A2%E5%8F%AF%E5%A8%9C",
+    "https://zzz.gachabase.net/items/materials/110507?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110004?lang=chs"
+   ]
+  },
+  "派派": {
+   "specialty_cn": "异常",
+   "attribute_cn": "物理",
+   "chip_attr_cn": "物理",
+   "ec_boss_cn": "祸首·通缉打手",
+   "hdd_cn": "高维数据：殷红震慑",
+   "nh_boss_cn": "冥宁芙·双子",
+   "nh_mat_cn": "终幕舞鞋",
+   "promotion_seal_a_cn": "掌控者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E6%B4%BE%E6%B4%BE",
+    "https://zzz.gachabase.net/items/materials/110502?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110003?lang=chs"
+   ]
+  },
+  "真斗": {
+   "specialty_cn": "命破",
+   "attribute_cn": "火",
+   "chip_attr_cn": "引燃",
+   "ec_boss_cn": "秽蚀·多佩冈亚·狛野真斗",
+   "hdd_cn": "高维数据：蚀梦残铁",
+   "nh_boss_cn": "侵蚀体·彷徨猎手",
+   "nh_mat_cn": "秽红晶刺",
+   "promotion_seal_a_cn": "裁决者认证章",
+   "confidence": "materials/specialty/attribute: high (2 sources); boss names: medium (gachabase item description only)",
+   "sources": [
+    "https://wiki.biligame.com/zzz/%E7%9C%9F%E6%96%97",
+    "https://zzz.gachabase.net/items/materials/110512?lang=chs",
+    "https://zzz.gachabase.net/items/materials/110007?lang=chs"
+   ]
+  }
+ },
+ "notes": {
+  "materials": "每位代理人的 hdd 与 nh_mat 均经 BWIKI 代理人页（核心被动强化F）与 gachabase 物品“使用者”列表双源确认。",
+  "boss_names": "ec_boss_cn 取自 gachabase 高维数据描述“与「X」的作战记录”；nh_boss_cn 取自 boss 材料描述“取自「X」”（单源）。腥风之握描述写「死路屠夫」，关卡名为「初生死路屠夫」（依据：已知参考 + Charlie Intel）。蛮横力士描述全名「盗洞暴徒·蛮横力士」。庞培/秽息司祭/彷徨猎手/阿瓦鲁斯/狛野真斗 的游戏内关卡菜单显示名未另行核实。",
+  "promotion_seals": "A级突破材料命名均为 X认证章（先行者/破阵者/掌控者/统御者/捍卫者/裁决者认证章），无例外；B级为 基础X认证章（gachabase 示例：basic-stun-certification-seal）。",
+  "attribute_note": "BWIKI 属性栏写作 火/冰/电/以太/物理；芯片名用 引燃/冰结/电击/以太/物理。"
+ }
+}

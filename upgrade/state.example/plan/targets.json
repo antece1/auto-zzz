@@ -1,0 +1,32 @@
+{
+ "tgt": {
+  "jane_doe": {
+   "lv": 60,
+   "sk": [
+    10,
+    10,
+    3,
+    11,
+    12
+   ],
+   "core": 6,
+   "wl": 60
+  },
+  "hoshimi_miyabi": {
+   "lv": 60,
+   "sk": [
+    12,
+    4,
+    6,
+    11,
+    11
+   ],
+   "core": 6,
+   "wl": 60
+  }
+ },
+ "on": {
+  "jane_doe": true,
+  "hoshimi_miyabi": true
+ }
+}
