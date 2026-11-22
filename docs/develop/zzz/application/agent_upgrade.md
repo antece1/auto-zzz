@@ -6,13 +6,13 @@
 
 ## 怎么用
 
-1. 准备清单：复制 `assets/agent_upgrade/plan.example.json` 到 `config/agent_upgrade/plan.json`（该目录已 gitignore），按账号改步骤。
+1. 准备清单：在 [资源调度员 2.0](https://antece1.github.io/auto-zzz/) 网页（源码 `docs/index.html`）的「升级清单」里按背包生成并下载 `plan.json`，放到 `config/agent_upgrade/plan.json`（该目录已 gitignore）；也可以复制 `assets/agent_upgrade/plan.example.json` 手改。
 2. 游戏设置为 1920×1080、简体中文；要练的代理人在游戏里标星，让其排在代理人列表第一位。
 3. 「应用运行」里找到「代理人升级」，设置里：
    - **升级清单**：留空用默认位置。
    - **只执行这些步骤**：填 order，如 `1`，第一次建议只跑一步。
    - **真的升级**：默认关闭，只演练。开启后还要清单里 `approved_by_user: true` 才会真的花材料。
-4. 运行。结果写到 `.log/agent_upgrade/<时间>.json`，关键步骤截图在同名文件夹。
+4. 运行。结果写到 `.log/agent_upgrade/<时间>.json`，关键步骤截图在同名文件夹。把这个结果文件拖进网页的「导入升级结果」，网页会按成功的步骤更新技能等级和背包。
 
 不默认进一条龙列表（`DEFAULT_GROUP = False`），因为它会花材料和丁尼。
 
