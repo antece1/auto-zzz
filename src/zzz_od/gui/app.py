@@ -70,12 +70,9 @@ try:
             MainAppWindowBase.__init__(
                 self,
                 ctx=ctx,
-                win_title=(
-                    f'{gt(ctx.project_config.project_name)} '
-                    f'{ctx.one_dragon_config.current_active_instance.name}'
-                ),
+                win_title=f'绝区零一条龙 antece版 {ctx.one_dragon_config.current_active_instance.name}',
                 project_config=ctx.project_config,
-                app_icon="logo.ico",
+                app_icon="antece_logo.ico",
                 parent=parent,
             )
             self.ctx.listen_event(ContextInstanceEventEnum.instance_active.value, self._on_instance_active_event)
@@ -240,9 +237,8 @@ try:
             切换实例后 更新title 这是Signal 可以更新UI
             :return:
             """
-            project_name = gt(self.ctx.project_config.project_name)
             instance_name = self.ctx.one_dragon_config.current_active_instance.name
-            self.setWindowTitle(f'{project_name} {instance_name}')
+            self.setWindowTitle(f'绝区零一条龙 antece版 {instance_name}')
 
         def _update_version(self, versions: tuple[str, str, str]) -> None:
             """
