@@ -1,0 +1,167 @@
+{
+ "id": "lucy",
+ "name_cn": "露西",
+ "source": "通用消耗表（reference/costs_reference.json，B站wiki/Game8/Icy Veins 核对）+ 该代理人的职业、芯片属性和核心技材料（reference/agents_materials.json）；main 2026-11-21 生成，未在游戏里逐项核对",
+ "promotion": [
+  {
+   "at_level": 10,
+   "item": "初阶支援认证章",
+   "count": 4,
+   "dennies": 24000
+  },
+  {
+   "at_level": 20,
+   "item": "高阶支援认证章",
+   "count": 12,
+   "dennies": 56000
+  },
+  {
+   "at_level": 30,
+   "item": "高阶支援认证章",
+   "count": 20,
+   "dennies": 120000
+  },
+  {
+   "at_level": 40,
+   "item": "统御者认证章",
+   "count": 10,
+   "dennies": 200000
+  },
+  {
+   "at_level": 50,
+   "item": "统御者认证章",
+   "count": 20,
+   "dennies": 400000
+  }
+ ],
+ "skill_per_level": [
+  {
+   "from": 1,
+   "to": 2,
+   "item": "基础引燃芯片",
+   "count": 2,
+   "dennies": 2000
+  },
+  {
+   "from": 2,
+   "to": 3,
+   "item": "基础引燃芯片",
+   "count": 3,
+   "dennies": 3000
+  },
+  {
+   "from": 3,
+   "to": 4,
+   "item": "进阶引燃芯片",
+   "count": 2,
+   "dennies": 6000
+  },
+  {
+   "from": 4,
+   "to": 5,
+   "item": "进阶引燃芯片",
+   "count": 3,
+   "dennies": 9000
+  },
+  {
+   "from": 5,
+   "to": 6,
+   "item": "进阶引燃芯片",
+   "count": 4,
+   "dennies": 12000
+  },
+  {
+   "from": 6,
+   "to": 7,
+   "item": "进阶引燃芯片",
+   "count": 6,
+   "dennies": 18000
+  },
+  {
+   "from": 7,
+   "to": 8,
+   "item": "特化引燃芯片",
+   "count": 5,
+   "dennies": 45000
+  },
+  {
+   "from": 8,
+   "to": 9,
+   "item": "特化引燃芯片",
+   "count": 8,
+   "dennies": 67500
+  },
+  {
+   "from": 9,
+   "to": 10,
+   "item": "特化引燃芯片",
+   "count": 10,
+   "dennies": 90000
+  },
+  {
+   "from": 10,
+   "to": 11,
+   "item": "特化引燃芯片",
+   "count": 12,
+   "dennies": 112500
+  },
+  {
+   "from": 11,
+   "to": 12,
+   "item": "特化引燃芯片",
+   "count": 15,
+   "dennies": 135000,
+   "extra": {
+    "「仓鼠笼」访问器": 1
+   }
+  }
+ ],
+ "core": [
+  {
+   "step": "A",
+   "高维数据：钢铁恶意": 0,
+   "腥风之握": 0,
+   "dennies": 5000,
+   "agent_level": 15
+  },
+  {
+   "step": "B",
+   "高维数据：钢铁恶意": 2,
+   "腥风之握": 0,
+   "dennies": 12000,
+   "agent_level": 25
+  },
+  {
+   "step": "C",
+   "高维数据：钢铁恶意": 4,
+   "腥风之握": 0,
+   "dennies": 28000,
+   "agent_level": 35
+  },
+  {
+   "step": "D",
+   "高维数据：钢铁恶意": 9,
+   "腥风之握": 2,
+   "dennies": 60000,
+   "agent_level": 45
+  },
+  {
+   "step": "E",
+   "高维数据：钢铁恶意": 15,
+   "腥风之握": 3,
+   "dennies": 100000,
+   "agent_level": 55
+  },
+  {
+   "step": "F",
+   "高维数据：钢铁恶意": 30,
+   "腥风之握": 4,
+   "dennies": 200000,
+   "agent_level": 60
+  }
+ ],
+ "core_bosses": {
+  "专业挑战室": "汉斯·蓄能型",
+  "恶名狩猎": "初生死路屠夫"
+ }
+}

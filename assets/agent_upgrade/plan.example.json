@@ -1,0 +1,53 @@
+{
+ "generated_at": null,
+ "approved_by_user": false,
+ "approved_note": null,
+ "steps": [
+  {
+   "what": "skill",
+   "skill": "闪避",
+   "from": 4,
+   "to": 5,
+   "display_from": 4,
+   "display_to": 5,
+   "cost": {
+    "进阶物理芯片": 3,
+    "丁尼": 9000
+   },
+   "order": 1,
+   "agent": "jane_doe",
+   "name_cn": "简"
+  },
+  {
+   "what": "skill",
+   "skill": "闪避",
+   "from": 5,
+   "to": 6,
+   "display_from": 5,
+   "display_to": 6,
+   "cost": {
+    "进阶物理芯片": 4,
+    "丁尼": 12000
+   },
+   "order": 2,
+   "agent": "jane_doe",
+   "name_cn": "简"
+  },
+  {
+   "what": "skill",
+   "skill": "普攻",
+   "from": 5,
+   "to": 6,
+   "display_from": 5,
+   "display_to": 6,
+   "cost": {
+    "进阶物理芯片": 4,
+    "丁尼": 12000
+   },
+   "order": 3,
+   "agent": "jane_doe",
+   "name_cn": "简"
+  }
+ ],
+ "_说明": "示例清单：allocate.py 会按你的账号生成真正的 plan.json。approved_by_user 为 false 时 upgrade.py 只演练。"
+}
