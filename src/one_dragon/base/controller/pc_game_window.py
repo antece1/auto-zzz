@@ -83,27 +83,51 @@ class PcGameWindow:
             if self._is_binding_valid():
                 return
             self._clear_cached_window()
-            for title in self._win_titles:
-                windows = [win for win in pyautogui.getWindowsWithTitle(title)
-                           if win.title == title and ctypes.windll.user32.IsWindow(win._hWnd)]
-                if len(windows) > 1:
-                    raise WindowAmbiguousError(f'找到多个标题为“{title}”的窗口，请关闭多余窗口后重试')
-                if not windows:
-                    continue
-                win = windows[0]
-                try:
-                    thread_id, pid = win32process.GetWindowThreadProcessId(win._hWnd)
-                    process = psutil.Process(pid)
-                except (pywintypes.error, psutil.NoSuchProcess):
-                    log.debug('绑定窗口时进程已退出', exc_info=True)
-                    return
-                self._win = win
-                self._hWnd = win._hWnd
-                self._process = process
-                self._thread_id = thread_id
-                if not self._is_binding_valid():
-                    self._clear_cached_window()
-                return
+            titles = self._win_titles
+
+        # 查找窗口时不能持有 _binding_lock：枚举窗口会调用 GetWindowText，
+        # 它对本进程其他线程（如 Qt 主线程的叠加层）的窗口是同步发消息、等对方回应。
+        # 如果主线程这时正在等这把锁（叠加层定时器调用 is_win_valid），两边会互相等待，程序假死。
+        found = self._find_window(titles)
+        if found is None:
+            return
+        win, thread_id, process = found
+
+        with self._binding_lock:
+            if self._win_titles != titles:
+                return  # 查找期间候选标题被修改，交给下次调用按新标题查找
+            if self._is_binding_valid():
+                return  # 查找期间其他线程已经完成绑定
+            self._win = win
+            self._hWnd = win._hWnd
+            self._process = process
+            self._thread_id = thread_id
+            if not self._is_binding_valid():
+                self._clear_cached_window()
+
+    @staticmethod
+    def _find_window(titles: tuple[str, ...]) -> tuple[Win32Window, int, psutil.Process] | None:
+        """按标题优先级查找唯一窗口，不读写绑定状态，调用时不要持有 _binding_lock。
+
+        Raises:
+            WindowAmbiguousError: 首个匹配标题对应多个窗口。
+        """
+        for title in titles:
+            windows = [win for win in pyautogui.getWindowsWithTitle(title)
+                       if win.title == title and ctypes.windll.user32.IsWindow(win._hWnd)]
+            if len(windows) > 1:
+                raise WindowAmbiguousError(f'找到多个标题为“{title}”的窗口，请关闭多余窗口后重试')
+            if not windows:
+                continue
+            win = windows[0]
+            try:
+                thread_id, pid = win32process.GetWindowThreadProcessId(win._hWnd)
+                process = psutil.Process(pid)
+            except (pywintypes.error, psutil.NoSuchProcess):
+                log.debug('绑定窗口时进程已退出', exc_info=True)
+                return None
+            return win, thread_id, process
+        return None
 
     def update_win_titles(self, titles: list[str]) -> None:
         """设置有序精确标题候选，仅配置实际改变时释放绑定。"""
@@ -125,14 +149,14 @@ class PcGameWindow:
 
     def get_win(self) -> Win32Window | None:
         """获取唯一控制窗口，失效时重新发现。"""
+        self.init_win()  # 必须在锁外调用，原因见 init_win
         with self._binding_lock:
-            self.init_win()
             return self._win
 
     def get_hwnd(self) -> int | None:
         """获取唯一控制句柄，失效时重新发现。"""
+        self.init_win()  # 必须在锁外调用，原因见 init_win
         with self._binding_lock:
-            self.init_win()
             return self._hWnd
 
     def get_executable_path(self) -> str:
@@ -143,8 +167,8 @@ class PcGameWindow:
             psutil.AccessDenied: 系统拒绝读取进程信息。
             WindowAmbiguousError: 无法唯一选择控制窗口。
         """
+        self.init_win()  # 必须在锁外调用，原因见 init_win
         with self._binding_lock:
-            self.init_win()
             if self._process is None:
                 raise FileNotFoundError('未找到运行中的游戏窗口，请先启动游戏')
             process = self._process
@@ -182,8 +206,8 @@ class PcGameWindow:
         当前窗口是否正常
         :return:
         """
+        self.init_win()  # 必须在锁外调用，原因见 init_win
         with self._binding_lock:
-            self.init_win()
             return self._is_binding_valid()
 
     @property
