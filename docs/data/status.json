@@ -1,9 +1,9 @@
 {
  "battery": {
-  "current": 33,
+  "current": 155,
   "max": 240
  },
- "synced_at": "2026-11-21T23:45:25-08:00",
+ "synced_at": "2026-11-22T11:54:59-08:00",
  "source": "HoYoLAB 战绩接口",
  "agents": 25,
  "changes": []
