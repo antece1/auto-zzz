@@ -5,22 +5,12 @@ repositories:
     main:
       label: 主分支
       desc: 选择后请点击同步最新代码
-    test:
-      label: 测试分支
-      desc: 选择后请点击同步最新代码
+  # antece版只从 antece1/auto-zzz 同步代码，不回退到官方仓库（官方代码会覆盖 antece版的改动）
   options:
     github:
-      label: GitHub
-      url: "https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon.git"
+      label: GitHub（antece版）
+      url: "https://github.com/antece1/auto-zzz.git"
       use_proxy: true
-    cnb:
-      label: CNB
-      url: "https://cnb.cool/OneDragon-Anything/ZenlessZoneZero-OneDragon.git"
-      use_proxy: false
-    gitee:
-      label: Gitee
-      url: "https://gitee.com/OneDragon-Anything/ZenlessZoneZero-OneDragon.git"
-      use_proxy: false
 env_source:
   default: cnb
   options:
@@ -124,7 +114,7 @@ resource_download:
 regions:
   china_cnb:
     label: 中国 - CNB
-    repository: cnb
+    repository: github
     values:
       env_source: "https://cnb.cool/OneDragon-Anything/OneDragon-Env/-/releases/download"
       pip_source: "https://mirrors.aliyun.com/pypi/simple"
@@ -132,7 +122,7 @@ regions:
       resource_source: cnb
   china_gitee:
     label: 中国 - Gitee
-    repository: gitee
+    repository: github
     values:
       env_source: "https://gitee.com/OneDragon-Anything/OneDragon-Env/releases/download"
       pip_source: "https://mirrors.aliyun.com/pypi/simple"
