@@ -54,6 +54,7 @@ config/lost_void_challenge/*
 config/yolo.yml
 config/model.yml
 config/overlay.yml
+config/agent_upgrade/
 custom/assets/ui/banner
 assets/ui/version_poster.webp
 assets/ui/static_background.webp
