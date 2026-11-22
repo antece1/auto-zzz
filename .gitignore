@@ -13,3 +13,6 @@ snapshots/
 scripts/*.log
 __pycache__/
 *.pyc
+daily/hoyolab_config.json
+daily/hoyolab_raw/
+daily/*.log

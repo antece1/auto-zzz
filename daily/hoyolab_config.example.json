@@ -1,0 +1,9 @@
+{
+ "_说明": "复制成 hoyolab_config.json 再填。HoYoLAB 登录凭证只存在本机，不要上传。ltoken_v2 / ltuid_v2 从浏览器 Cookie 复制；role_id 是游戏 UID（只用来请求接口，不会写进任何发布的数据）。",
+ "ltoken_v2": "",
+ "ltuid_v2": "",
+ "server": "prod_gf_us",
+ "role_id": "",
+ "repo_dir": "",
+ "push_to_github": false
+}

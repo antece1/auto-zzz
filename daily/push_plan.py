@@ -14,7 +14,7 @@
 """
 import argparse, datetime as dt, json, math, os, shutil, sys, uuid
 
-__version__ = "0.2.0"  # auto-zzz 版本，见仓库根目录 VERSION
+__version__ = "0.3.0"  # auto-zzz 版本，见仓库根目录 VERSION
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "upgrade"))
@@ -44,8 +44,8 @@ def read_json(p, default):
 
 
 def state_stamp():
-    return max(os.path.getmtime(os.path.join(STATE, *p)) for p in
-               [("plan", "current.json"), ("plan", "targets.json"), ("plan", "inventory.json"), ("meta", "agents.json")])
+    # 只看背包：ledger 记的是"上次读背包之后刷到的东西"。每晚 HoYoLAB 同步只改等级，不该清掉这些记录。
+    return os.path.getmtime(os.path.join(STATE, "plan", "inventory.json"))
 
 
 def apply_ledger(own, ledger):

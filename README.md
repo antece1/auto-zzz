@@ -1,6 +1,6 @@
 # auto-zzz
 
-**v0.2.0** · [在线打开资源调度员](https://antece1.github.io/auto-zzz/) · [更新记录](CHANGELOG.md)
+**v0.3.0** · [在线打开资源调度员](https://antece1.github.io/auto-zzz/) · [更新记录](CHANGELOG.md)
 
 绝区零（Zenless Zone Zero）培养自动化：算出该练谁、练到多少、缺什么材料，每天把刷取任务排进一条龙，并在游戏里自动点技能升级。
 
@@ -16,6 +16,7 @@
 |---|---|---|
 | 资源分配 | `upgrade/allocate.py` | 按攻略优先级和你的背包，挑出"现在就付得起、最划算"的升级步骤，生成 `plan.json` |
 | 自动升级 | `upgrade/upgrade.py` | 按 `plan.json` 在游戏里升级；默认只演练，确认过的清单加 `--apply` 才会花材料 |
+| 每晚同步 | `daily/hoyolab_sync.py` | 每晚从 HoYoLAB 战绩接口读代理人、技能、核心技、音擎、驱动盘、电量，更新规划数据，并把数据（不含 UID）推到 GitHub Pages |
 | 每日推送 | `daily/push_plan.py` | 每天把缺口换算成副本，写进 OneDragon 的体力计划（charge_plan.yml），然后一条龙照常跑 |
 | 刷取队列 | `daily/queue.json` | 升级时材料不够，自动记下来，第二天优先刷 |
 | 优先培养 | `upgrade/state/plan/focus.json` | 给角色打星：它的材料排最前，并每天刷它的驱动盘套装 |
@@ -79,7 +80,8 @@ auto-zzz 自己用到的是前两项：OCR 读界面文字和数字（技能等�
    python upgrade/upgrade.py --plan upgrade/plan.json --apply --only 1
    ```
    第一次建议只跑第 1 步，在游戏里核对后再继续。
-4. **每日推送**：`python daily/push_plan.py --dry-run` 先看预览；`scripts/run_daily.ps1` 是一个"推送后启动一条龙"的示例，可以挂到 Windows 计划任务。每天的电量和是否启用在 `daily/config.json`。
+4. **每晚同步**：把 `daily/hoyolab_config.example.json` 复制成 `daily/hoyolab_config.json`，填上 HoYoLAB 的 `ltoken_v2`、`ltuid_v2`（浏览器 F12 → Application → Cookies → hoyolab.com）和游戏 UID。`python daily/hoyolab_sync.py --dry-run` 先试读。作者的安排是 Windows 计划任务 23:00 同步、23:05 跑一条龙。
+5. **每日推送**：`python daily/push_plan.py --dry-run` 先看预览；`scripts/run_daily.ps1` 是一个"推送后启动一条龙"的示例，可以挂到 Windows 计划任务。每天的电量和是否启用在 `daily/config.json`。
 
 ## 免责声明
 

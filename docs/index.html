@@ -129,7 +129,8 @@ button.ghost{background:transparent;color:var(--ink)}
     <h1><span class="tag">ZZZ</span>资源调度员</h1>
     <span id="state" class="state example">当前等级是示例值，等快照导入</span>
     <span id="dbst" class="db">数据库：连接中…</span>
-    <span class="state" title="auto-zzz 版本">auto-zzz v0.2.0</span>
+    <span id="syncst" class="state" hidden></span>
+    <span class="state" title="auto-zzz 版本">auto-zzz v0.3.0</span>
   </div>
   <p class="lede">设置每个代理人的当前和目标，下面自动算出要多少材料、背包缺多少、大概要花多少电量。按版本 3.3 的数据计算，标“估算”的掉落量没有可靠来源，只能参考。</p>
   <div class="stats">
@@ -178,7 +179,7 @@ button.ghost{background:transparent;color:var(--ink)}
     <div class="btns">
       <button id="btn-import">导入</button>
       <button id="btn-reset" class="ghost">恢复示例值</button>
-      <button id="btn-sample" class="ghost">加载作者账号示例</button>
+      <button id="btn-sample" class="ghost">重新载入最新账号数据</button>
       <span class="msg" id="msg"></span>
     </div>
     <ul class="hist" id="hist"></ul>
@@ -195,8 +196,9 @@ button.ghost{background:transparent;color:var(--ink)}
     <li>「仓鼠笼」访问器（技能 11→12 级用）不能用电量刷，来自丽都城募和活动。</li>
     <li>音擎组件按代理人自己的职业计算；如果装的是别的职业的音擎，组件种类会不同。</li>
     <li>等级经验在每个等级段内按线性估算，误差在一个等级段以内。</li>
-    <li>在 claude.ai 上打开时，数据存在网页自己的数据库里；在 GitHub Pages 或本地打开时，只存在你这台电脑的浏览器里。</li>
-    <li>auto-zzz v0.2.0 · <a href="https://github.com/antece1/auto-zzz">github.com/antece1/auto-zzz</a></li>
+    <li>账号数据每晚 23:00 从 HoYoLAB 同步（代理人、技能、核心技、音擎、驱动盘、电量），打开网页时自动载入。背包材料和丁尼 HoYoLAB 不提供，保持上次读背包的数量。</li>
+    <li>你在网页上改的目标、星标只存在这台电脑的浏览器里。</li>
+    <li>auto-zzz v0.3.0 · <a href="https://github.com/antece1/auto-zzz">github.com/antece1/auto-zzz</a></li>
   </ul>
 </section>
 </div>
@@ -285,6 +287,7 @@ function freshState(){
 }
 let S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
+const HAD_LOCAL=!!(S&&S.cur);
 if(!S||!S.cur)S=freshState();
 S.star=Array.isArray(S.star)?S.star:[];S.discRuns=Number.isFinite(S.discRuns)?S.discRuns:2;
 /* backend: artifact db. plan/current, plan/targets, plan/inventory, snapshots/<stamp> */
@@ -312,7 +315,7 @@ function applyRemote(k,d){
 }
 async function connectDb(){
   let x=null;try{x=await window.claude?.use?.("db")}catch(e){}
-  if(!x){setDb("","数据库不可用：只存本机");return}
+  if(!x){setDb("","改动只存在这台电脑的浏览器里");loadLatest(true);return}
   db=x;setDb("","数据库：读取中…");
   const timer=setTimeout(()=>setDb("err","数据库暂时连不上，先用本机数据"),10000);
   for(const k of Object.keys(DOCS)){
@@ -568,18 +571,24 @@ document.getElementById("perday").addEventListener("input",renderDays);
 document.getElementById("discruns").value=S.discRuns;
 document.getElementById("discruns").addEventListener("input",e=>{S.discRuns=clamp(e.target.value,0,10);save(["focus"]);update();});
 document.getElementById("showall").addEventListener("change",e=>{showAll=e.target.checked;renderAgents();update();});
-/* sample account (docs/sample/, served next to this page on GitHub Pages) */
-document.getElementById("btn-sample").onclick=async()=>{
+/* latest account data (docs/data/, refreshed every night at 23:00 by daily/hoyolab_sync.py) */
+async function loadLatest(auto){
   const msg=document.getElementById("msg");
+  const g=async f=>{const r=await fetch("data/"+f,{cache:"no-store"});if(!r.ok)throw new Error(f);const j=await r.json();return j.data||j};
   try{
-    const g=async f=>{const r=await fetch("sample/"+f);if(!r.ok)throw new Error(f);const j=await r.json();return j.data||j};
+    const st=await g("status.json");
     applyRemote("meta",await g("meta_agents.json"));applyRemote("current",await g("plan_current.json"));
-    applyRemote("targets",await g("plan_targets.json"));applyRemote("inventory",await g("plan_inventory.json"));
-    applyRemote("focus",await g("plan_focus.json"));DISCS=(await g("discs.json")).agents;
-    S.source="snapshot";S.snapAt="2026-11-21 11:47（作者账号示例）";save();renderAgents();update();
-    msg.textContent="已加载作者 2026-11-21 的账号：24 个代理人、背包、驱动盘，简已打星。";
-  }catch(e){msg.textContent="示例数据只能在 GitHub Pages 上加载（这里读不到 sample/ 文件夹）。"}
-};
+    applyRemote("inventory",await g("plan_inventory.json"));
+    if(!auto||!HAD_LOCAL){applyRemote("targets",await g("plan_targets.json"));applyRemote("focus",await g("plan_focus.json"));}
+    try{DISCS=(await g("discs.json")).agents}catch(e){}
+    const when=String(st.synced_at||"").replace("T"," ").slice(0,16);
+    S.source="snapshot";S.snapAt=when+"（HoYoLAB）";save();renderAgents();update();
+    const s=document.getElementById("syncst");s.hidden=false;s.className="state real";
+    s.textContent=`账号同步 ${when}`+(st.battery&&st.battery.current!=null?` · 电量 ${st.battery.current}/${st.battery.max}`:"");
+    if(!auto)msg.textContent=`已载入 ${when} 的账号数据。`+(st.changes&&st.changes.length?`这次的变化：${st.changes.slice(0,5).join("；")}`:"");
+  }catch(e){if(!auto)msg.textContent="读不到 data/ 文件夹：这个按钮只在 GitHub Pages 上可用。"}
+}
+document.getElementById("btn-sample").onclick=()=>loadLatest(false);
 renderAgents();update();connectDb();
 </script>
 </body>
