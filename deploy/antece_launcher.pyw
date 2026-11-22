@@ -2,6 +2,7 @@
 绝区零一条龙 antece版 启动器。
 
 桌面快捷方式用 .venv\\Scripts\\pythonw.exe 运行本文件（不弹黑框）：
+0. 不是管理员就弹 UAC，以管理员身份重新运行（游戏是管理员进程，一条龙不是管理员就点不动游戏）。
 1. 在 main 分支、没有未提交的改动时，从 antece1/auto-zzz 拉取最新代码（只快进，不覆盖本地改动）。
 2. 代码更新里 pyproject.toml / uv.lock 有变化时，用 uv 同步依赖。
 3. 启动一条龙界面。
@@ -98,8 +99,34 @@ def start_gui() -> None:
     log('已启动一条龙界面')
 
 
+def ensure_admin() -> bool:
+    """
+    游戏 ZenlessZoneZero.exe 只能以管理员身份运行。一条龙不是管理员时，Windows 会丢掉它发给游戏的点击和按键，
+    截图也只能退回到复制屏幕像素（游戏被别的窗口挡住时就截不到游戏）。
+    和官方 OneDragon-Launcher.exe 一样：不是管理员就弹 UAC，以管理员身份重新运行本文件，之后启动的界面也是管理员。
+    :return: 已是管理员返回 True；否则已请求重新运行（或被拒绝），返回 False，调用方直接退出
+    """
+    if ctypes.windll.shell32.IsUserAnAdmin():
+        return True
+    shell_execute = ctypes.windll.shell32.ShellExecuteW
+    shell_execute.argtypes = [ctypes.c_void_p, ctypes.c_wchar_p, ctypes.c_wchar_p,
+                              ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_int]
+    shell_execute.restype = ctypes.c_void_p
+    rc = shell_execute(None, 'runas', sys.executable, f'"{Path(__file__).resolve()}"', str(ROOT), 1) or 0
+    if rc <= 32:  # 返回值不大于 32 表示失败；在 UAC 里点了「否」是 5
+        log(f'没有获得管理员权限（ShellExecuteW 返回 {rc}），不启动')
+        ctypes.windll.user32.MessageBoxW(
+            None, '游戏以管理员身份运行，一条龙也需要管理员权限才能点击游戏。\n请重新打开，并在弹出的提示里选「是」。',
+            '绝区零一条龙 antece版', 0x30)
+    else:
+        log('不是管理员，已请求以管理员身份重新启动')
+    return False
+
+
 def main() -> None:
-    log(f'---- 启动 antece版（{ROOT}）')
+    if not ensure_admin():
+        return
+    log(f'---- 启动 antece版（{ROOT}，管理员）')
     try:
         if update_code():
             sync_deps()
