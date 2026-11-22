@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QVBoxLayout
 
 from one_dragon_qt.utils.config_utils import get_prop_adapter
 from one_dragon_qt.widgets.app_setting.app_setting_flyout import AppSettingFlyout
+from one_dragon_qt.widgets.setting_card.help_card import HelpCard
 from one_dragon_qt.widgets.setting_card.switch_setting_card import SwitchSettingCard
 from one_dragon_qt.widgets.setting_card.text_setting_card import TextSettingCard
 from zzz_od.application.agent_upgrade import agent_upgrade_const
@@ -14,6 +15,14 @@ class AgentUpgradeSettingFlyout(AppSettingFlyout):
     """代理人升级配置弹出框"""
 
     def _setup_ui(self, layout: QVBoxLayout) -> None:
+        self.planner_card = HelpCard(
+            url=agent_upgrade_const.PLANNER_URL,
+            text='打开网页',
+            title='资源调度员 2.0',
+            content='在网页上生成升级清单，跑完后导入结果',
+        )
+        layout.addWidget(self.planner_card)
+
         self.plan_path_opt = TextSettingCard(
             icon='',
             title='升级清单',

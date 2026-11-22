@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>资源调度员 2.0</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap">
+<style>
+/* Layout: 培养清单 — 顶部汇总条，代理人卡片网格，材料格子墙，刷取建议表；危险警示黄作唯一强调色 */
+:root{
+  --bg:#eef0f4; --panel:#ffffff; --ink:#151821; --muted:#5d6475; --line:#d5d9e2; --soft:#e3e6ed;
+  --accent:#e8b400; --accent-ink:#1a1500; --good:#1f8a4c; --warn:#b86e00; --bad:#c23b3b;
+  --tC:#2f9c8a; --tB:#3570d4; --tA:#8a4fd6; --tS:#d98a00;
+  --display:"Oswald","Noto Sans SC",system-ui,sans-serif;
+  --body:"Noto Sans SC",system-ui,-apple-system,"Microsoft YaHei",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12141a; --panel:#1b1e27; --ink:#e9ebf1; --muted:#9aa1b2; --line:#2e3240; --soft:#252935;
+  --accent:#f5c518; --accent-ink:#1a1500; --good:#4cc47f; --warn:#e7a23b; --bad:#ef6b6b;
+  --tC:#46c2ad; --tB:#5b93f0; --tA:#a978ee; --tS:#f0a52a; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#12141a; --panel:#1b1e27; --ink:#e9ebf1; --muted:#9aa1b2; --line:#2e3240; --soft:#252935;
+  --accent:#f5c518; --accent-ink:#1a1500; --good:#4cc47f; --warn:#e7a23b; --bad:#ef6b6b;
+  --tC:#46c2ad; --tB:#5b93f0; --tA:#a978ee; --tS:#f0a52a; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+header{display:grid;gap:14px}
+.brand{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,36px);letter-spacing:.02em;margin:0;text-wrap:balance}
+h1 .tag{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:0 8px;margin-right:8px;transform:skewX(-8deg)}
+.state{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.state.example{border-color:var(--warn);color:var(--warn)}
+.state.real{border-color:var(--good);color:var(--good)}
+.lede{margin:0;color:var(--muted);max-width:70ch}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{background:var(--panel);border:1px solid var(--line);padding:12px 14px;display:grid;gap:2px;min-width:0}
+.stat b{font-family:var(--display);font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:12px;color:var(--muted)}
+.stat.key{border-top:4px solid var(--accent)}
+h2{font-family:var(--display);font-size:20px;font-weight:600;letter-spacing:.04em;margin:0 0 10px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h2 small{font-family:var(--body);font-size:12px;font-weight:400;color:var(--muted);letter-spacing:0}
+.agents{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.agent{background:var(--panel);border:1px solid var(--line);padding:14px;display:grid;gap:10px;min-width:0}
+.agent.off{opacity:.5}
+.agent-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.agent-head h3{margin:0;font-size:18px;font-weight:900}
+.chip{font-size:11px;padding:1px 7px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.agent-head label{margin-left:auto;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;cursor:pointer}
+.rows{display:grid;gap:6px}
+.row{display:grid;grid-template-columns:70px 1fr;align-items:center;gap:8px}
+.row>span{font-size:12px;color:var(--muted)}
+.pair{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pair i{font-style:normal;color:var(--muted);font-size:12px}
+input[type=number],select{font:inherit;font-variant-numeric:tabular-nums;width:58px;padding:3px 4px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:3px}
+select{width:auto}
+input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.skills{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.sk{display:grid;gap:2px;justify-items:center;font-size:11px;color:var(--muted);background:var(--soft);padding:4px 2px}
+.sk input{width:42px;text-align:center;padding:1px}
+.mini{font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.groups{display:grid;gap:18px}
+.group h3{font-size:13px;font-weight:700;margin:0 0 8px;color:var(--muted);letter-spacing:.06em}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.tile{background:var(--panel);border:1px solid var(--line);display:grid;grid-template-columns:44px 1fr;gap:4px 10px;padding:10px;min-width:0;position:relative}
+.tile.done{border-color:var(--good)}
+.icon{grid-row:span 3;width:44px;height:44px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:18px;clip-path:polygon(12% 0,100% 0,100% 88%,88% 100%,0 100%,0 12%)}
+.icon.C{background:var(--tC)}.icon.B{background:var(--tB)}.icon.A{background:var(--tA)}.icon.S{background:var(--tS)}
+.tname{font-size:12px;font-weight:700;line-height:1.3;min-width:0;overflow-wrap:anywhere}
+.tnum{font-family:var(--display);font-size:18px;font-variant-numeric:tabular-nums;line-height:1.1}
+.tnum small{font-family:var(--body);font-size:11px;color:var(--muted)}
+.own{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+.own input{width:70px;font-size:12px}
+.gap{font-size:11px;font-weight:700}
+.gap.ok{color:var(--good)}.gap.short{color:var(--bad)}.gap.craft{color:var(--warn)}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500;background:var(--soft)}
+td.n{text-align:right;font-family:var(--display);font-size:15px}
+tfoot td{font-weight:700;border-bottom:none}
+.conf{font-size:11px;padding:0 6px;border:1px solid;white-space:nowrap}
+.conf.yes{color:var(--good)}.conf.est{color:var(--warn)}
+.panel{background:var(--panel);border:1px solid var(--line);padding:14px;display:grid;gap:10px}
+textarea{font:12px/1.4 ui-monospace,Consolas,monospace;width:100%;min-height:110px;padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
+.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-weight:700;padding:6px 14px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer}
+button.ghost{background:transparent;color:var(--ink)}
+.msg{font-size:12px;color:var(--muted)}
+.db{font-size:12px;padding:3px 10px;border-radius:999px;border:1px dashed var(--line);color:var(--muted)}
+.db.on{border-style:solid;border-color:var(--good);color:var(--good)}.db.err{border-color:var(--bad);color:var(--bad)}
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.day{background:var(--panel);border:1px solid var(--line);padding:10px 12px;display:grid;gap:4px;min-width:0;align-content:start}
+.day b{font-family:var(--display);font-size:15px;font-weight:600}
+.day ul{margin:0;padding-left:16px;font-size:12px;display:grid;gap:2px}
+.day .left{font-size:11px;color:var(--muted)}
+.hist{font-size:12px;color:var(--muted);margin:0;padding-left:18px}
+.discs{display:grid;gap:12px}
+.dagent{background:var(--panel);border:1px solid var(--line);padding:12px 14px;display:grid;gap:10px;min-width:0}
+.dhead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.dhead h3{margin:0;font-size:16px;font-weight:900}
+.pill{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid}
+.pill.ok{color:var(--good)}.pill.warn{color:var(--warn)}.pill.bad{color:var(--bad)}
+.slots{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.slot{border:1px solid var(--line);background:var(--bg);padding:6px 8px;display:grid;gap:2px;min-width:0;font-size:11px;position:relative}
+.slot.S{border-top:3px solid var(--tS)}.slot.A{border-top:3px solid var(--tA)}.slot.B{border-top:3px solid var(--tB)}
+.slot.empty{border-style:dashed;color:var(--muted);place-content:center;text-align:center;min-height:90px}
+.slot .no{font-family:var(--display);font-size:13px;color:var(--muted)}
+.slot .set{font-weight:700;font-size:12px;overflow-wrap:anywhere}
+.slot .lv{font-variant-numeric:tabular-nums}.slot .lv.low{color:var(--bad);font-weight:700}
+.slot .main{color:var(--ink)}
+.slot .subs{color:var(--muted);line-height:1.35}
+.slot .subs b{color:var(--accent);font-weight:700}
+@media (max-width:720px){.slots{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.star{font:inherit;font-size:15px;line-height:1;padding:3px 7px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.star.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.agent.starred,.dagent.starred{border-color:var(--accent);box-shadow:inset 0 3px 0 var(--accent)}
+.rec{font-size:12px;color:var(--muted)}.rec b{color:var(--ink)}
+.notes{font-size:12px;color:var(--muted);margin:0;padding-left:18px;display:grid;gap:4px;max-width:90ch}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.agents{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.tile,.agent{transition:border-color .2s,opacity .2s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <h1><span class="tag">ZZZ</span>资源调度员 2.0</h1>
+    <span id="state" class="state example">当前等级是示例值，等快照导入</span>
+    <span id="dbst" class="db">数据库：连接中…</span>
+    <span id="syncst" class="state" hidden></span>
+    <span class="state" title="配套的一条龙版本">绝区零一条龙 antece版</span>
+  </div>
+  <p class="lede">设置每个代理人的当前和目标，下面自动算出要多少材料、背包缺多少、大概要花多少电量。按版本 3.3 的数据计算，标“估算”的掉落量没有可靠来源，只能参考。</p>
+  <div class="stats">
+    <div class="stat key"><b id="s-bat">0</b><span>还需电量（不含深度追猎）</span></div>
+    <div class="stat"><b id="s-days">0</b><span>按每天 240 电量约需天数</span></div>
+    <div class="stat"><b id="s-den">0</b><span>丁尼缺口</span></div>
+    <div class="stat"><b id="s-nh">0</b><span>恶名狩猎材料缺口（每周免费 3 次）</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>代理人 <small>点 ★ 设为优先培养：它的材料排在每日电量最前面，并开始刷它的驱动盘。左边是当前，右边是目标；技能是去掉影画加成后的等级</small></h2>
+  <div class="btns" style="margin-bottom:10px"><label class="msg" style="display:flex;gap:6px;align-items:center;cursor:pointer"><input type="checkbox" id="showall">显示全部代理人</label><span class="msg" id="agcount"></span></div>
+  <div class="agents" id="agents"></div>
+</section>
+
+<section>
+  <h2>驱动盘 <small id="disc-sub">只显示已装备的；红字是没升满级的盘，副属性后面的 +N 是强化命中次数</small></h2>
+  <div class="discs" id="discs"><p class="msg">驱动盘数据从数据库读取中…</p></div>
+</section>
+
+<section>
+  <h2>材料清单 <small>填上背包里的数量，缺口会实时更新。同类材料 3 个低级合成 1 个高级</small></h2>
+  <div class="groups" id="groups"></div>
+</section>
+
+<section>
+  <h2>刷取建议 <small>只算缺口部分</small></h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>去哪刷</th><th>为了什么</th><th>每次电量</th><th>每次大约掉落</th><th style="text-align:right">次数/卡数</th><th style="text-align:right">电量</th><th>数据</th></tr></thead>
+    <tbody id="farm"></tbody>
+    <tfoot><tr><td colspan="5">合计（不含恶名狩猎）</td><td class="n" id="farm-total">0</td><td></td></tr></tfoot>
+  </table></div>
+</section>
+
+<section>
+  <h2>每日电量排期 <small>按优先级把缺口排进每天的电量：核心技 › 突破 › 代理人经验 › 技能 › 音擎 › 丁尼</small></h2>
+  <div class="btns" style="margin-bottom:10px"><label for="perday" class="msg">每天可用电量</label><input type="number" id="perday" min="20" max="2640" step="20" value="240"><label for="discruns" class="msg">★ 优先角色每天刷驱动盘</label><input type="number" id="discruns" min="0" max="10" value="2"><span class="msg">次（区域巡防，60 电量一次）</span></div>
+  <div class="days" id="days"></div>
+</section>
+
+<section>
+  <h2>升级清单 <small>按背包挑出现在就付得起的技能升级，生成 plan.json，交给一条龙 antece版的「代理人升级」在游戏里点</small></h2>
+  <div class="panel">
+    <div class="btns">
+      <label class="msg" for="pl-agent">代理人</label><select id="pl-agent"></select>
+      <label class="msg" for="pl-reserve">至少留下丁尼</label><input type="number" id="pl-reserve" min="0" step="10000" value="100000" style="width:96px">
+      <label class="msg" for="pl-max">最多步数</label><input type="number" id="pl-max" min="1" max="50" value="10">
+      <label class="msg" style="display:flex;gap:6px;align-items:center;cursor:pointer"><input type="checkbox" id="pl-approve">我确认这份清单（不勾的话一条龙只会演练）</label>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>技能</th><th>基础等级</th><th>游戏里显示</th><th>花费</th></tr></thead>
+      <tbody id="pl-rows"></tbody>
+    </table></div>
+    <div class="btns">
+      <button id="pl-download">下载 plan.json</button>
+      <button id="pl-copy" class="ghost">复制</button>
+      <span class="msg" id="pl-msg"></span>
+    </div>
+    <ul class="notes">
+      <li>把下载的文件放到一条龙目录下的 <code>config\agent_upgrade\plan.json</code>。</li>
+      <li>游戏里给这个代理人标星，让其排在代理人列表第一位（一条龙只点第一张卡）。</li>
+      <li>一条龙「应用运行」→「代理人升级」：第一次先在设置里「只执行这些步骤」填 1、关闭「真的升级」，演练一遍再真升级。</li>
+      <li>每次只升 1 级；材料按清单里写的品级算，不会自动合成。目前只支持技能，等级、核心技、音擎还没做。</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>导入升级结果 <small>一条龙跑完会写 .log\agent_upgrade\&lt;时间&gt;.json，选这个文件，网页按成功的步骤更新技能等级和背包</small></h2>
+  <div class="panel">
+    <div class="btns"><input type="file" id="res-file" accept=".json,application/json"><span class="msg" id="res-msg"></span></div>
+  </div>
+</section>
+
+<section>
+  <h2>导入快照 <small>把快照 JSON 的内容粘贴进来（格式见 snapshot_template.json）</small></h2>
+  <div class="panel">
+    <textarea id="snap" placeholder='{"dennies": 1234567, "agents": [...], "materials": [...]}'></textarea>
+    <div class="btns">
+      <button id="btn-import">导入</button>
+      <button id="btn-reset" class="ghost">恢复示例值</button>
+      <button id="btn-sample" class="ghost">重新载入最新账号数据</button>
+      <span class="msg" id="msg"></span>
+    </div>
+    <ul class="hist" id="hist"></ul>
+  </div>
+</section>
+
+<section>
+  <h2>数据说明</h2>
+  <ul class="notes">
+    <li>升级消耗（等级、突破、技能、核心技、音擎）已用多个来源核对：B 站 wiki、Game8、Icy Veins、Prydwen。</li>
+    <li>实战模拟室每张卡 20 电量，一次最多 5 张。调查专项约 12,500 经验/卡、音擎专项约 15,800 经验/卡、赏金专项约 21,000 丁尼/卡，都是从 2024 年的帖子反推的估算值。</li>
+    <li>代理人晋升按每卡 1 个 A 级 + 1.5 个 B 级估算（只有 Game8 一个来源）。技能芯片和音擎组件的每卡掉落没查到，暂时按同样的量估算。</li>
+    <li>专业挑战室 40 电量一次，满级掉 5 个高维数据（已确认）。恶名狩猎每周 3 次免费奖励，所有 Boss 共用，之后深度追猎 60 电量一次，掉 1 个 Boss 材料。</li>
+    <li>「仓鼠笼」访问器（技能 11→12 级用）不能用电量刷，来自丽都城募和活动。</li>
+    <li>音擎组件按代理人自己的职业计算；如果装的是别的职业的音擎，组件种类会不同。</li>
+    <li>等级经验在每个等级段内按线性估算，误差在一个等级段以内。</li>
+    <li>账号数据每晚 23:00 从 HoYoLAB 同步（代理人、技能、核心技、音擎、驱动盘、电量），打开网页时自动载入。背包材料和丁尼 HoYoLAB 不提供，保持上次读背包的数量。</li>
+    <li>你在网页上改的目标、星标只存在这台电脑的浏览器里。</li>
+    <li>升级清单的技能消耗和上面的材料清单用同一张表；生成的清单交给一条龙 antece版的「代理人升级」执行，它每次点击前都会先识别画面。</li>
+    <li>资源调度员 2.0 · 绝区零一条龙 antece版 · <a href="https://github.com/antece1/auto-zzz">github.com/antece1/auto-zzz</a></li>
+  </ul>
+</section>
+</div>
+
+<script>
+const SKILLS=["普攻","闪避","支援","特殊技","连携技"];
+const CORE=["无","A","B","C","D","E","F"];
+const A_SEAL={强攻:"先行者",击破:"破阵者",异常:"掌控者",支援:"统御者",防护:"捍卫者",命破:"裁决者",锋御:"执锋者"};
+const LV_BANDS=[[1,10,6000],[10,20,24000],[20,30,60000],[30,40,135000],[40,50,225000],[50,60,450000]];
+const PROMO=[[10,"C",4,24000],[20,"B",12,56000],[30,"B",20,120000],[40,"A",10,200000],[50,"A",20,400000]];
+const SKILL_LV=[null,null,["C",2,2000],["C",3,3000],["B",2,6000],["B",3,9000],["B",4,12000],["B",6,18000],["A",5,45000],["A",8,67500],["A",10,90000],["A",12,112500],["A",15,135000]];
+const CORE_ST=[null,[0,0,5000],[2,0,12000],[4,0,28000],[9,2,60000],[15,3,100000],[30,4,200000]];
+const W={S:{bands:[[1,10,4000],[10,20,16000],[20,30,40000],[30,40,90000],[40,50,150000],[50,60,300000]],promo:[[10,"C",4,12000],[20,"B",12,28000],[30,"B",20,60000],[40,"A",10,100000],[50,"A",20,200000]]},
+         A:{bands:[[1,10,3200],[10,20,12800],[20,30,32000],[30,40,72000],[40,50,120000],[50,60,240000]],promo:[[10,"C",3,9600],[20,"B",10,22400],[30,"B",16,48000],[40,"A",8,80000],[50,"A",16,160000]]},
+         B:{bands:[[1,10,2400],[10,20,9600],[20,30,24000],[30,40,54000],[40,50,90000],[50,60,180000]],promo:[[10,"C",2,7200],[20,"B",7,16800],[30,"B",12,36000],[40,"A",6,60000],[50,"A",12,120000]]}};
+let AGENTS=[
+ {id:"ellen",name:"艾莲",sp:"强攻",attr:"冰",chip:"冰结",ecBoss:"恶名·杜拉罕",hdd:"高维数据：凶刑讣告",nhBoss:"初生死路屠夫",nh:"腥风之握",sim:"强攻演练",skSim:"冰结测试"},
+ {id:"lycaon",name:"莱卡恩",sp:"击破",attr:"冰",chip:"冰结",ecBoss:"恶名·装甲哈提",hdd:"高维数据：追袭骸影",nhBoss:"冥宁芙·双子",nh:"终幕舞鞋",sim:"击破演练",skSim:"冰结测试"},
+ {id:"astra_yao",name:"耀嘉音",sp:"支援",attr:"以太",chip:"以太",ecBoss:"色雷斯人",hdd:"高维数据：游鳞雷动",nhBoss:"冥宁芙·双子",nh:"终幕舞鞋",sim:"支援演练",skSim:"共鸣测试"},
+ {id:"hoshimi_miyabi",name:"星见雅",sp:"异常",attr:"烈霜",chip:"冰结",ecBoss:"色雷斯人",hdd:"高维数据：游鳞雷动",nhBoss:"牲鬼·布林格",nh:"狂信之塑",sim:"异常演练",skSim:"冰结测试"},
+ {id:"yanagi",name:"柳",sp:"异常",attr:"电",chip:"电击",ecBoss:"「提丰·重击者型」",hdd:"高维数据：毁荡突进",nhBoss:"未知复合侵蚀体",nh:"活态驱动",sim:"异常演练",skSim:"电流测试"}];
+const EXAMPLE={
+ ellen:{lv:50,sk:[8,8,6,9,8],core:4,wr:"S",wl:50},
+ lycaon:{lv:40,sk:[6,6,5,7,6],core:3,wr:"A",wl:40},
+ astra_yao:{lv:60,sk:[9,7,7,10,9],core:6,wr:"S",wl:60},
+ hoshimi_miyabi:{lv:60,sk:[10,8,7,11,10],core:6,wr:"S",wl:60},
+ yanagi:{lv:55,sk:[8,7,6,9,8],core:5,wr:"S",wl:50}};
+const TARGET={lv:60,sk:[10,8,8,10,10],core:6,wl:60};
+const SKSIM={物理:"刚性测试",引燃:"升温测试",冰结:"冰结测试",电击:"电流测试",风蚀:"风切测试",以太:"共鸣测试",流明:"琢光测试"};
+const ENGINE_STAGE={锋御:"锋御耦合试验",命破:"命破共鸣试验",强攻:"强攻极片试验",击破:"击破振膜试验",异常:"异常磁体试验",支援:"支援分频试验",防护:"防护音圈试验"};
+const SET_AREA={"怪兽与怪客":["摇摆爵士","混沌重金属"],"恶拳与凶枪":["激素朋克","獠牙重金属"],"猎人与忠犬":["震星迪斯科","雷暴重金属"],"高塔与巨炮":["啄木鸟电音","灵魂摇滚"],"疯子与追随者":["河豚电音","炎狱重金属"],"锐牙与钝斧":["自由蓝调","极地重金属"],"猎手与凶兽":["混沌爵士","原始朋克"],"怪兽二重奏":["折枝剑歌","静听嘉音"],"游侠与守卫":["如影相随","法厄同之歌"],"口舌与刀兵":["云岿如我","山大王"],"铁律与狂徒":["拂晓生花","月光骑士颂"],"诡步与重壁":["沧浪行歌","流光咏叹"],"伏龙与战车":["雪兔梦游仙境","囚徒手记"],"机师与叛甲":["呼啸沙龙","拂晓行纪"],"迅脊与裂爪":["谶羽之誓","荆棘玫瑰"]};
+const areaOf=set=>Object.keys(SET_AREA).find(k=>SET_AREA[k].includes(set));
+const simOfG=sp=>(AGENTS.find(a=>a.sp===sp)||{}).sim||sp+"演练";
+const skOfG=c=>SKSIM[c]||c+"芯片关卡";
+function normAgent(a){
+  a.sim=a.sim||(a.sp?a.sp+"演练":"");
+  a.skSim=a.skSim||SKSIM[a.chip]||(a.chip?a.chip+"芯片关卡（名称以游戏为准）":"");
+  a.hdd=a.hdd||`${a.name}的高维数据（待查）`;a.nh=a.nh||`${a.name}的恶名狩猎材料（待查）`;
+  a.ecBoss=a.ecBoss||"（Boss 待查）";a.nhBoss=a.nhBoss||"（Boss 待查）";return a}
+AGENTS.forEach(normAgent);
+function ensureAgent(a){
+  if(!S.cur[a.id])S.cur[a.id]={lv:1,sk:[1,1,1,1,1],core:0,wr:"-",wl:1};
+  if(!S.tgt[a.id])S.tgt[a.id]={lv:TARGET.lv,sk:[...TARGET.sk],core:TARGET.core,wl:TARGET.wl};
+  if(!(a.id in S.on))S.on[a.id]=false;}
+let showAll=false;
+let DISCS=null;
+function setCount(list){const c={};for(const d of list)if(d&&d.set)c[d.set]=(c[d.set]||0)+1;return Object.entries(c).sort((a,b)=>b[1]-a[1])}
+function renderDiscs(){
+  const box=document.getElementById("discs");if(!box)return;
+  if(!DISCS){box.innerHTML=`<p class="msg">还没有驱动盘数据。连上数据库后会显示。</p>`;return}
+  const ids=AGENTS.filter(a=>(showAll||S.on[a.id])&&DISCS[a.id]&&DISCS[a.id].length).sort((x,y)=>(S.star.includes(y.id)?1:0)-(S.star.includes(x.id)?1:0)).map(a=>a.id);
+  const noDisc=AGENTS.filter(a=>(showAll||S.on[a.id])&&!(DISCS[a.id]&&DISCS[a.id].length)).map(a=>a.name);
+  let html="",issues=0;
+  for(const id of ids){
+    const a=AGENTS.find(x=>x.id===id),list=DISCS[id],bySlot={};for(const d of list)bySlot[d.slot]=d;
+    const sets=setCount(list),four=sets.some(([,n])=>n>=4),two=sets.filter(([,n])=>n>=2).length>=2;
+    const low=list.filter(d=>d.level<(d.level_cap||15)).length,notS=list.filter(d=>d.rarity!=="S").length,empty=6-Object.keys(bySlot).length;
+    const pills=[];
+    pills.push(four&&two?`<span class="pill ok">4+2 成套</span>`:four?`<span class="pill warn">只有 4 件套</span>`:`<span class="pill bad">没凑成 4 件套</span>`);
+    if(low)pills.push(`<span class="pill bad">${low} 个没升满</span>`);
+    if(notS)pills.push(`<span class="pill warn">${notS} 个不是 S 级</span>`);
+    if(empty)pills.push(`<span class="pill bad">${empty} 个空位</span>`);
+    if(!(four&&two)||low||notS||empty)issues++;
+    let slots="";
+    for(let n=1;n<=6;n++){const d=bySlot[n];
+      if(!d){slots+=`<div class="slot empty"><span class="no">${n} 号位</span>空</div>`;continue}
+      const subs=(d.sub_stats||[]).map(x=>`${x.stat} ${x.value}${x.upgrades?` <b>+${x.upgrades}</b>`:""}`).join("<br>");
+      slots+=`<div class="slot ${d.rarity||""}"><span class="no">${n} 号位 · ${d.rarity||"?"}级</span><span class="set">${d.set||"未知套装"}</span>
+        <span class="lv ${d.level<(d.level_cap||15)?"low":""}">Lv ${d.level}/${d.level_cap||15}</span>
+        <span class="main">${d.main_stat?`${d.main_stat.stat} ${d.main_stat.value}`:""}</span><span class="subs">${subs}</span></div>`;}
+    const ds=a.discSets,starred=S.star.includes(id);
+    const rec=starred?(ds&&ds.four?`<div class="rec">推荐：<b>4 件 ${ds.four}</b> + <b>2 件 ${(ds.two||[]).join(" / ")}</b>${ds.main?` · 4/5/6 号位主属性 ${ds.main}`:""}${ds.subs?` · 副属性 ${ds.subs}`:""}${areaOf(ds.four)?` · 刷 区域巡防 › ${areaOf(ds.four)}`:""}</div>`:`<div class="rec">推荐套装还在查。</div>`):"";
+    html+=`<article class="dagent${starred?" starred":""}"><div class="dhead">${starred?"<b>★</b>":""}<h3>${a.name}</h3><span class="chip">${sets.map(([k,v])=>`${k} ${v}`).join(" · ")}</span>${pills.join("")}</div>${rec}<div class="slots">${slots}</div></article>`;
+  }
+  if(noDisc.length)html+=`<p class="msg">没装驱动盘：${noDisc.join("、")}</p>`;
+  box.innerHTML=html||`<p class="msg">计入的代理人都没装驱动盘。</p>`;
+  document.getElementById("disc-sub").textContent=`只显示已装备的；${issues} 个代理人的驱动盘需要处理。红字是没升满级的盘，副属性后面的 +N 是强化命中次数`;
+}
+const EST={expA:12500,expW:15800,den:21000,ceqPerCard:13.5,hddPerRun:5};
+const KEY="zzz-planner-v1";
+
+function freshState(){
+  const s={source:"example",snapAt:null,on:{},cur:{},tgt:{},own:{}};
+  for(const a of AGENTS){s.on[a.id]=true;s.cur[a.id]=JSON.parse(JSON.stringify(EXAMPLE[a.id]));s.tgt[a.id]={lv:TARGET.lv,sk:[...TARGET.sk],core:TARGET.core,wl:TARGET.wl};}
+  return s;
+}
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
+const HAD_LOCAL=!!(S&&S.cur);
+if(!S||!S.cur)S=freshState();
+S.star=Array.isArray(S.star)?S.star:[];S.discRuns=Number.isFinite(S.discRuns)?S.discRuns:2;
+/* backend: artifact db. plan/current, plan/targets, plan/inventory, snapshots/<stamp> */
+const DOCS={current:"plan/current",targets:"plan/targets",inventory:"plan/inventory",focus:"plan/focus"};
+let db=null,timers={},chain=Promise.resolve();
+function setDb(cls,txt){const e=document.getElementById("dbst");e.className="db "+cls;e.textContent=txt}
+function bodyFor(k){const t=new Date().toISOString();
+  if(k==="current")return{cur:S.cur,source:S.source,snapAt:S.snapAt||null,updated_at:t};
+  if(k==="targets")return{tgt:S.tgt,on:S.on,updated_at:t};
+  if(k==="focus")return{starred:S.star,disc_runs:S.discRuns,updated_at:t};
+  return{own:S.own,updated_at:t};}
+function save(kinds){
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+  if(!db)return;
+  for(const k of kinds||Object.keys(DOCS)){clearTimeout(timers[k]);timers[k]=setTimeout(()=>{timers[k]=null;
+    const body=bodyFor(k);chain=chain.then(()=>db.doc(DOCS[k]).set(body)).then(()=>setDb("on","数据库：已保存")).catch(e=>setDb("err","数据库保存失败（"+(e&&e.code||"未知")+"），已存在本机"));},800);}
+}
+function applyRemote(k,d){
+  if(k==="current"&&d.cur){for(const[id,v]of Object.entries(d.cur))S.cur[id]=v;S.source=d.source||S.source;S.snapAt=d.snapAt||S.snapAt;}
+  if(k==="targets"&&d.tgt){for(const[id,v]of Object.entries(d.tgt))S.tgt[id]=v;if(d.on)for(const[id,v]of Object.entries(d.on))S.on[id]=v;}
+  if(k==="meta"&&Array.isArray(d.list)&&d.list.length){AGENTS=d.list.map(x=>normAgent({...x}));}
+  AGENTS.forEach(ensureAgent);
+  if(k==="inventory"&&d.own)S.own={...d.own};
+  if(k==="focus"){S.star=Array.isArray(d.starred)?[...d.starred]:[];if(Number.isFinite(d.disc_runs))S.discRuns=d.disc_runs;const e=document.getElementById("discruns");if(e)e.value=S.discRuns;}
+}
+async function connectDb(){
+  let x=null;try{x=await window.claude?.use?.("db")}catch(e){}
+  if(!x){setDb("","改动只存在这台电脑的浏览器里");loadLatest(true);return}
+  db=x;setDb("","数据库：读取中…");
+  const timer=setTimeout(()=>setDb("err","数据库暂时连不上，先用本机数据"),10000);
+  for(const k of Object.keys(DOCS)){
+    db.doc(DOCS[k]).onSnapshot(snap=>{
+      if(!snap.metadata.fromCache){clearTimeout(timer);setDb("on","数据库：已连接")}
+      if(timers[k]||snap.metadata.hasPendingWrites||!snap.exists)return;
+      const typing=document.activeElement&&document.getElementById("agents").contains(document.activeElement);
+      applyRemote(k,snap.data());
+      if(!typing&&k!=="inventory")renderAgents();
+      update();
+    },e=>{clearTimeout(timer);setDb("err","数据库连接中断（"+e.code+"）")});
+  }
+  db.doc("discs/current").onSnapshot(snap=>{
+    if(!snap.exists)return;DISCS=(snap.data()||{}).agents||null;renderDiscs();
+  },()=>{});
+  db.doc("meta/agents").onSnapshot(snap=>{
+    if(!snap.exists)return;applyRemote("meta",snap.data());renderAgents();update();
+  },()=>{});
+  db.collection("snapshots").orderBy("taken_at","desc").limit(8).onSnapshot(q=>{
+    document.getElementById("hist").innerHTML=q.docs.map(d=>{const v=d.data();return`<li>${String(v.taken_at||d.id).replace("T"," ").slice(0,16)} · ${(v.agents||[]).length} 个代理人 · ${Object.keys(v.materials||{}).length} 种材料${v.battery&&v.battery.current!=null?` · 电量 ${v.battery.current}`:""}</li>`}).join("")||"<li>数据库里还没有快照。</li>";
+  },()=>{});
+}
+
+const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,Number.isFinite(+v)?+v:lo));
+const fmt=n=>Math.round(n).toLocaleString("zh-CN");
+function expBetween(bands,a,b){let s=0;for(const[f,t,e]of bands){const lo=Math.max(a,f),hi=Math.min(b,t);if(hi>lo)s+=e*(hi-lo)/(t-f);}return s}
+
+/* item catalogue: tiered groups use C/B/A with 3:1 synthesis */
+function sealNames(sp){return{C:`初阶${sp}认证章`,B:`高阶${sp}认证章`,A:`${A_SEAL[sp]}认证章`}}
+function chipNames(c){return{C:`基础${c}芯片`,B:`进阶${c}芯片`,A:`特化${c}芯片`}}
+function compNames(sp){return{C:`${sp}组件`,B:`增强型${sp}组件`,A:`特化型${sp}组件`}}
+const EXP_A={C:["见习调查员记录",100],B:["正式调查员记录",600],A:["资深调查员记录",3000]};
+const EXP_W={C:["音擎蓄电池",100],B:["变频音擎电源",600],A:["音擎能源模块",3000]};
+
+function compute(only){
+  const need={expA:0,expW:0,den:0,seal:{},chip:{},comp:{},hdd:{},nh:{},cage:0};
+  const add=(obj,k,t,n)=>{obj[k]=obj[k]||{C:0,B:0,A:0};obj[k][t]+=n};
+  const per={};
+  for(const a of AGENTS){
+    const c=S.cur[a.id],g=S.tgt[a.id];let den=0;
+    if(!S.on[a.id]||(only&&!only.has(a.id))){per[a.id]=null;continue}
+    const lv0=c.lv,lv1=Math.max(c.lv,g.lv);
+    need.expA+=expBetween(LV_BANDS,lv0,lv1);
+    for(const[at,t,n,d]of PROMO)if(lv0<=at&&lv1>at){add(need.seal,a.sp,t,n);den+=d}
+    for(let i=0;i<5;i++){for(let l=c.sk[i]+1;l<=Math.max(c.sk[i],g.sk[i]);l++){const[t,n,d]=SKILL_LV[l];add(need.chip,a.chip,t,n);den+=d;if(l===12)need.cage++}}
+    for(let s=c.core+1;s<=Math.max(c.core,g.core);s++){const[h,m,d]=CORE_ST[s];need.hdd[a.hdd]=(need.hdd[a.hdd]||0)+h;need.nh[a.nh]=(need.nh[a.nh]||0)+m;den+=d}
+    if(c.wr&&c.wr!=="-"){const w=W[c.wr]||W.S,wl0=c.wl,wl1=Math.max(c.wl,g.wl);
+      need.expW+=expBetween(w.bands,wl0,wl1);
+      for(const[at,t,n,d]of w.promo)if(wl0<=at&&wl1>at){add(need.comp,a.sp,t,n);den+=d}}
+    need.den+=den;per[a.id]={den,lvGap:lv1-lv0};
+  }
+  return{need,per};
+}
+const own=n=>+(S.own[n]||0);
+const ceq=o=>o.C+o.B*3+o.A*9;
+
+function renderAgents(){
+  const box=document.getElementById("agents");box.innerHTML="";
+  AGENTS.forEach(ensureAgent);
+  const isStar=id=>S.star.includes(id)?1:0;
+  const list=AGENTS.filter(a=>showAll||S.on[a.id]||isStar(a.id)).sort((x,y)=>(isStar(y.id)-isStar(x.id))||(S.on[y.id]-S.on[x.id])||(S.cur[y.id].lv-S.cur[x.id].lv));
+  const nOn=AGENTS.filter(a=>S.on[a.id]).length;
+  document.getElementById("agcount").textContent=`共 ${AGENTS.length} 个代理人，计入 ${nOn} 个`+(showAll?"":"（没计入的已隐藏）");
+  if(!list.length)box.innerHTML=`<p class="msg">还没有计入任何代理人。勾选“显示全部代理人”，再勾选要培养的人。</p>`;
+  for(const a of list){
+    const c=S.cur[a.id],g=S.tgt[a.id];
+    const el=document.createElement("article");el.className="agent"+(S.on[a.id]?"":" off")+(isStar(a.id)?" starred":"");
+    el.innerHTML=`<div class="agent-head"><button type="button" class="star${isStar(a.id)?" on":""}" id="star-${a.id}" aria-pressed="${isStar(a.id)?"true":"false"}" title="设为优先培养">★</button><h3>${a.name}</h3>${a.rarity?`<span class="chip">${a.rarity}级</span>`:""}${a.sp?`<span class="chip">${a.sp}</span>`:""}${a.attr?`<span class="chip">${a.attr}</span>`:""}${a.m?`<span class="chip">影画 ${a.m}</span>`:""}
+      <label><input type="checkbox" id="on-${a.id}" ${S.on[a.id]?"checked":""}>计入</label></div>
+      <div class="rows">
+        <div class="row"><span>等级</span><div class="pair"><input type="number" id="c-${a.id}-lv" min="1" max="60" value="${c.lv}"><i>→</i><input type="number" id="t-${a.id}-lv" min="1" max="60" value="${g.lv}"></div></div>
+        <div class="row"><span>核心技</span><div class="pair"><select id="c-${a.id}-core">${CORE.map((x,i)=>`<option value="${i}" ${i===c.core?"selected":""}>${x}</option>`).join("")}</select><i>→</i><select id="t-${a.id}-core">${CORE.map((x,i)=>`<option value="${i}" ${i===g.core?"selected":""}>${x}</option>`).join("")}</select></div></div>
+        <div class="row"><span>音擎</span><div class="pair"><select id="c-${a.id}-wr">${[["S","S级"],["A","A级"],["B","B级"],["-","未装备"]].map(([v,l])=>`<option value="${v}" ${(c.wr||"-")===v?"selected":""}>${l}</option>`).join("")}</select><input type="number" id="c-${a.id}-wl" min="1" max="60" value="${c.wl}"><i>→</i><input type="number" id="t-${a.id}-wl" min="1" max="60" value="${g.wl}"></div></div>
+        <div class="row"><span>技能</span><div class="skills">${SKILLS.map((n,i)=>`<div class="sk">${n}<input type="number" id="c-${a.id}-sk${i}" min="1" max="12" value="${c.sk[i]}" aria-label="${a.name}${n}当前"><input type="number" id="t-${a.id}-sk${i}" min="1" max="12" value="${g.sk[i]}" aria-label="${a.name}${n}目标"></div>`).join("")}</div></div>
+      </div>
+      <div class="mini" id="mini-${a.id}"></div>`;
+    box.appendChild(el);
+  }
+  box.onclick=e=>{const b=e.target.closest(".star");if(!b)return;const k=b.id.slice(5);
+    if(S.star.includes(k))S.star=S.star.filter(x=>x!==k);else{S.star=[...S.star,k];S.on[k]=true;}
+    save(["focus","targets"]);renderAgents();update();};
+  box.oninput=box.onchange=e=>{
+    const id=e.target.id;if(!id)return;
+    if(id.startsWith("on-")){const k=id.slice(3);S.on[k]=e.target.checked;e.target.closest(".agent").classList.toggle("off",!S.on[k]);}
+    else{const m=id.match(/^([ct])-(.+)-(lv|core|wr|wl|sk(\d))$/);if(!m)return;
+      const o=(m[1]==="c"?S.cur:S.tgt)[m[2]],f=m[3],v=e.target.value;
+      if(f==="wr")o.wr=v;else if(f==="lv"||f==="wl")o[f]=clamp(v,1,60);else if(f==="core")o.core=clamp(v,0,6);else o.sk[+m[4]]=clamp(v,1,12);
+      if(m[1]==="c"&&S.source==="snapshot")S.source="edited";}
+    save([id.startsWith("on-")||id.startsWith("t-")?"targets":"current"]);update();
+  };
+}
+
+function tile(icon,tier,name,needTxt,ownKey,gapHtml){
+  return `<div class="tile ${gapHtml.includes('ok')?'done':''}"><div class="icon ${tier}">${icon}</div>
+   <div class="tname">${name}</div><div class="tnum">${needTxt}</div>
+   <div class="own">${ownKey?`背包 <input type="number" min="0" data-own="${ownKey}" value="${own(ownKey)}" aria-label="${name}背包数量">`:""}</div>
+   <div class="gap-cell" style="grid-column:1/-1">${gapHtml}</div></div>`;
+}
+function gapTxt(short,unit,craft){
+  if(short<=0)return craft?`<span class="gap craft">够用（需要合成）</span>`:`<span class="gap ok">够用</span>`;
+  return `<span class="gap short">还缺 ${unit}</span>`;
+}
+
+let farmRows=[];
+function update(){
+  const{need,per}=compute();
+  farmRows=[];
+  for(const a of AGENTS){const m=document.getElementById("mini-"+a.id);if(!m)continue;
+    m.textContent=per[a.id]?`这个代理人要花 ${fmt(per[a.id].den)} 丁尼`:"未计入";}
+  let html="";
+  // EXP groups
+  const expGroup=(title,def,needExp,perCard,stage,icon)=>{
+    const have=Object.values(def).reduce((s,[n,v])=>s+own(n)*v,0),short=Math.max(0,needExp-have);
+    let t="";
+    for(const tier of["A","B","C"]){const[n,v]=def[tier];
+      const label=tier==="A"?`<span>${fmt(Math.ceil(needExp/v))}</span> <small>个（折合）</small>`:`<small>每个 ${v} 经验</small>`;
+      t+=tile(icon,tier,n,label,n,tier==="A"?gapTxt(short,`${fmt(short)} 经验（约 ${fmt(Math.ceil(short/v))} 个）`):"");}
+    if(short>0)farmRows.push({where:stage,why:title,cost:20,drop:`约 ${fmt(perCard)} 经验/卡`,runs:Math.ceil(short/perCard),est:true});
+    return `<div class="group"><h3>${title} · 需要 ${fmt(needExp)} 经验</h3><div class="tiles">${t}</div></div>`;
+  };
+  html+=expGroup("代理人经验",EXP_A,need.expA,EST.expA,"实战模拟室 › 基础材料 › 调查专项","记");
+  html+=expGroup("音擎经验",EXP_W,need.expW,EST.expW,"实战模拟室 › 基础材料 › 音擎专项","擎");
+  // tiered
+  const tierGroup=(title,obj,namer,icon,stageFn,why)=>{
+    const keys=Object.keys(obj).filter(k=>ceq(obj[k])>0);if(!keys.length)return"";
+    let t="";
+    for(const k of keys){const nm=namer(k),nd=obj[k];
+      const have={C:own(nm.C),B:own(nm.B),A:own(nm.A)};
+      const direct=["C","B","A"].every(x=>have[x]>=nd[x]);
+      const shortC=Math.max(0,ceq(nd)-ceq(have));
+      for(const tier of["C","B","A"]){if(!nd[tier]&&!have[tier])continue;
+        t+=tile(icon,tier,nm[tier],`<span>${nd[tier]}</span> <small>个</small>`,nm[tier],tier==="A"?gapTxt(shortC,`折合 ${(shortC/9).toFixed(1)} 个 A 级`,!direct):"");}
+      if(shortC>0)farmRows.push({where:stageFn(k),why:`${why}：${k}`,cost:20,drop:"约 1 个 A + 1.5 个 B",runs:Math.ceil(shortC/EST.ceqPerCard),est:true});
+    }
+    return `<div class="group"><h3>${title}</h3><div class="tiles">${t}</div></div>`;
+  };
+  const simOf=sp=>(AGENTS.find(a=>a.sp===sp)||{}).sim||sp+"演练";
+  const skOf=skOfG;
+  html+=tierGroup("代理人突破 · 认证章",need.seal,sealNames,"章",sp=>`实战模拟室 › 代理人晋升 › ${simOf(sp)}`,"认证章");
+  html+=tierGroup("技能升级 · 技能芯片",need.chip,chipNames,"芯",c=>`实战模拟室 › 代理人技能 › ${skOf(c)}`,"技能芯片");
+  html+=tierGroup("音擎突破 · 组件",need.comp,compNames,"件",sp=>`实战模拟室 › 音擎改装 › ${ENGINE_STAGE[sp]||sp}`,"音擎组件");
+  // core skill
+  let t="";
+  for(const[n,c]of Object.entries(need.hdd)){if(!c)continue;const s=Math.max(0,c-own(n));
+    const a=AGENTS.find(x=>x.hdd===n);
+    t+=tile("数","A",n,`<span>${c}</span> <small>个</small>`,n,gapTxt(s,`${s} 个`));
+    if(s>0)farmRows.push({where:`专业挑战室 › ${a.ecBoss}`,why:`核心技：${n.replace("高维数据：","")}`,cost:40,drop:"5 个",runs:Math.ceil(s/EST.hddPerRun),est:false});}
+  let nhShort=0;
+  for(const[n,c]of Object.entries(need.nh)){if(!c)continue;const s=Math.max(0,c-own(n));nhShort+=s;
+    const a=AGENTS.find(x=>x.nh===n);
+    t+=tile("狩","S",n,`<span>${c}</span> <small>个</small>`,n,gapTxt(s,`${s} 个`));
+    if(s>0)farmRows.push({where:`恶名狩猎 › ${a.nhBoss}`,why:`核心技：${n}`,cost:60,drop:"1 个（每周前 3 次免费）",runs:s,est:false,nh:true});}
+  if(t)html+=`<div class="group"><h3>核心技 · 高维数据与恶名狩猎材料</h3><div class="tiles">${t}</div></div>`;
+  // misc
+  const denShort=Math.max(0,need.den-own("丁尼"));
+  let m=tile("丁","S","丁尼",`<span>${fmt(need.den)}</span>`,"丁尼",gapTxt(denShort,fmt(denShort)));
+  if(need.cage){const s=Math.max(0,need.cage-own("「仓鼠笼」访问器"));m+=tile("笼","S","「仓鼠笼」访问器",`<span>${need.cage}</span> <small>个</small>`,"「仓鼠笼」访问器",gapTxt(s,`${s} 个（丽都城募/活动）`));}
+  html+=`<div class="group"><h3>通用</h3><div class="tiles">${m}</div></div>`;
+  if(denShort>0)farmRows.push({where:"实战模拟室 › 基础材料 › 赏金专项",why:"丁尼",cost:20,drop:`约 ${fmt(EST.den)} 丁尼/卡`,runs:Math.ceil(denShort/EST.den),est:true});
+  const groups=document.getElementById("groups");
+  const focus=document.activeElement&&document.activeElement.dataset.own;
+  groups.innerHTML=html;
+  if(focus){const f=groups.querySelector(`[data-own="${CSS.escape(focus)}"]`);if(f){f.focus();const v=f.value;f.value="";f.value=v;}}
+  // ★ priority agents: their own gaps go first, plus drive disc farming
+  const stars=AGENTS.filter(a=>S.star.includes(a.id)&&S.on[a.id]);
+  if(stars.length){
+    const names=stars.map(a=>a.name).join("、"),drops={};for(const r of farmRows)drops[r.where]=r.drop;
+    const sr=rowsLite(compute(new Set(stars.map(a=>a.id))).need);
+    for(const r of sr){const m=farmRows.find(x=>x.where===r.where&&!x.nh);if(m)m.runs=Math.max(0,m.runs-r.runs);}
+    farmRows=farmRows.filter(r=>r.runs>0);
+    const disc=[];
+    for(const a of stars){const ds=a.discSets||{},area=ds.four&&areaOf(ds.four);
+      if(area&&S.discRuns>0)disc.push({where:`区域巡防 › ${area}`,why:`★${a.name}：驱动盘 ${ds.four}`,cost:60,drop:SET_AREA[area].join(" / "),runs:S.discRuns,est:false,star:true,disc:true});}
+    farmRows=[...sr.map(r=>({...r,why:`★${names}：${r.why}`,drop:drops[r.where]||"",est:r.cost===20,star:true})),...disc,...farmRows];
+  }
+  // farm table
+  let total=0,rows="";
+  for(const r of farmRows){const bat=r.runs*r.cost;if(!r.nh&&!r.disc)total+=bat;
+    if(r.disc){rows+=`<tr><td>${r.where}</td><td>${r.why}</td><td class="n">60</td><td>${r.drop}</td><td class="n">每天 ${r.runs}</td><td class="n">每天 ${r.runs*60}</td><td><span class="conf yes">持续</span></td></tr>`;continue}
+    rows+=`<tr><td>${r.where}</td><td>${r.why}</td><td class="n">${r.cost}</td><td>${r.drop}</td><td class="n">${fmt(r.runs)}</td><td class="n">${r.nh?`${fmt(bat)}<br><small style="font-family:var(--body);font-size:11px;color:var(--muted)">或等 ${Math.ceil(r.runs/3)} 周免费</small>`:fmt(bat)}</td><td><span class="conf ${r.est?"est":"yes"}">${r.est?"估算":"已确认"}</span></td></tr>`;}
+  document.getElementById("farm").innerHTML=rows||`<tr><td colspan="7">目标都达成了，不需要再刷。</td></tr>`;
+  document.getElementById("farm-total").textContent=fmt(total);
+  renderDays();
+  renderDiscs();
+  document.getElementById("s-bat").textContent=fmt(total);
+  document.getElementById("s-days").textContent=(total/240).toFixed(1);
+  document.getElementById("s-den").textContent=fmt(denShort);
+  document.getElementById("s-nh").textContent=nhShort;
+  const st=document.getElementById("state");
+  if(S.source==="snapshot"){st.className="state real";st.textContent=`来自快照 ${S.snapAt||""}`}
+  else if(S.source==="edited"){st.className="state real";st.textContent=`快照 ${S.snapAt||""}，之后手动改过`}
+  else if(S.source==="partial"){st.className="state example";st.textContent=`快照 ${S.snapAt||""}：背包是真实数据，代理人只有耀嘉音是真实的，其他是示例值`}
+  else{st.className="state example";st.textContent="当前等级是示例值，等快照导入"}
+}
+document.getElementById("groups").addEventListener("input",e=>{const k=e.target.dataset.own;if(!k)return;S.own[k]=Math.max(0,+e.target.value||0);save(["inventory"]);update();});
+
+/* snapshot import: matches docs/snapshot_template.json */
+document.getElementById("btn-import").onclick=()=>{
+  const msg=document.getElementById("msg");
+  let d;try{d=JSON.parse(document.getElementById("snap").value)}catch(e){msg.textContent="JSON 格式不对，请把快照文件的全部内容原样粘贴进来。";return}
+  let na=0,nm=0,skipped=[];
+  for(const x of d.agents||[]){const a=AGENTS.find(y=>y.id===x.id||y.name===x.name_cn);if(!a){if(x.name_cn)skipped.push(x.name_cn);continue}
+    const c=S.cur[a.id];if(x.level!=null)c.lv=clamp(x.level,1,60);
+    if(x.skills)SKILLS.forEach((n,i)=>{const v=x.skills[n];if(v!=null)c.sk[i]=clamp(v,1,12)});
+    if(x.core_skill!=null){const v=typeof x.core_skill==="string"?CORE.indexOf(x.core_skill.toUpperCase()):+x.core_skill;if(v>=0)c.core=clamp(v,0,6)}
+    if(x.w_engine){if(x.w_engine.rank)c.wr=x.w_engine.rank==="A"?"A":"S";if(x.w_engine.level!=null)c.wl=clamp(x.w_engine.level,1,60)}
+    na++;}
+  for(const x of d.materials||[]){if(x.name_cn&&x.count!=null){S.own[x.name_cn]=+x.count;nm++}}
+  if(d.dennies!=null)S.own["丁尼"]=+d.dennies;
+  S.source="snapshot";S.snapAt=(d.taken_at||"").replace("T"," ").slice(0,16);
+  save();renderAgents();update();
+  if(db){const id=(d.taken_at||new Date().toISOString()).replace(/[^0-9]/g,"").slice(0,12)||String(Date.now());
+    const mats={};for(const x of d.materials||[])if(x.name_cn)mats[x.name_cn]=x.count;
+    db.doc("snapshots/"+id).set({taken_at:d.taken_at||new Date().toISOString(),battery:d.battery||null,dennies:d.dennies??null,agents:d.agents||[],materials:mats,notes:d.notes||[],source:"page-import"}).catch(()=>{});}
+  msg.textContent=`已导入 ${na} 个代理人、${nm} 种材料。`+(skipped.length?`这些代理人页面里还没有，先跳过了：${skipped.join("、")}。`:"");
+};
+document.getElementById("btn-reset").onclick=()=>{S=freshState();save();renderAgents();update();document.getElementById("msg").textContent="已恢复示例值，背包数量也清空了。";};
+
+function rowsLite(need){
+  const out=[],have=t=>Object.values(t).reduce((s,[n,v])=>s+own(n)*v,0);
+  let s=need.expA-have(EXP_A);if(s>0)out.push({where:"实战模拟室 › 基础材料 › 调查专项",why:"代理人经验",cost:20,runs:Math.ceil(s/EST.expA)});
+  s=need.expW-have(EXP_W);if(s>0)out.push({where:"实战模拟室 › 基础材料 › 音擎专项",why:"音擎经验",cost:20,runs:Math.ceil(s/EST.expW)});
+  const tier=(obj,namer,stage,why)=>{for(const k of Object.keys(obj)){const nm=namer(k),h={C:own(nm.C),B:own(nm.B),A:own(nm.A)},sc=ceq(obj[k])-ceq(h);
+    if(sc>0)out.push({where:stage(k),why:`${why}：${k}`,cost:20,runs:Math.ceil(sc/EST.ceqPerCard)})}};
+  tier(need.seal,sealNames,sp=>`实战模拟室 › 代理人晋升 › ${simOfG(sp)}`,"认证章");
+  tier(need.chip,chipNames,c=>`实战模拟室 › 代理人技能 › ${skOfG(c)}`,"技能芯片");
+  tier(need.comp,compNames,sp=>`实战模拟室 › 音擎改装 › ${ENGINE_STAGE[sp]||sp}`,"音擎组件");
+  for(const[n,c]of Object.entries(need.hdd)){const r=c-own(n);if(r>0){const a=AGENTS.find(x=>x.hdd===n);out.push({where:`专业挑战室 › ${a.ecBoss}`,why:`核心技：${n.replace("高维数据：","")}`,cost:40,runs:Math.ceil(r/EST.hddPerRun)})}}
+  s=need.den-own("丁尼");if(s>0)out.push({where:"实战模拟室 › 基础材料 › 赏金专项",why:"丁尼",cost:20,runs:Math.ceil(s/EST.den)});
+  return out;
+}
+const PRIO=w=>w.startsWith("核心技")?1:w.startsWith("认证章")?2:w==="代理人经验"?3:w.startsWith("技能芯片")?4:w==="音擎经验"?5:w.startsWith("音擎组件")?6:7;
+function renderDays(){
+  const box=document.getElementById("days");if(!box)return;
+  const per=clamp(document.getElementById("perday").value,20,2640);
+  const rank=r=>r.star&&!r.disc?0:r.disc?1:2,bare=w=>w.replace(/^★[^：]*：/,"");  // ★材料（按优先级）→ ★驱动盘 → 其他
+  const q=farmRows.filter(r=>!r.nh).map(r=>({...r,left:r.runs})).sort((a,b)=>(rank(a)-rank(b))||(PRIO(bare(a.why))-PRIO(bare(b.why))));
+  const out=[];
+  for(let day=1;day<=60&&q.some(r=>r.left>0&&!r.disc);day++){
+    let budget=per;const items=[];
+    for(const r of q){const left=r.disc?r.runs:r.left;if(left<=0||budget<r.cost)continue;const n=Math.min(left,Math.floor(budget/r.cost));
+      if(!r.disc)r.left-=n;budget-=n*r.cost;items.push(`${r.where.split(" › ").pop()} ×${n}${r.cost===20?" 张卡":" 次"}（${r.why}）`);}
+    if(!items.length)break;
+    out.push({day,items,left:budget});
+  }
+  const remain=q.filter(r=>!r.disc).reduce((s,r)=>s+r.left*r.cost,0);
+  if(!out.length){box.innerHTML=`<div class="day"><b>没有要刷的</b><span class="left">目标都够了，电量可以留着。</span></div>`;return}
+  const show=out.slice(0,14);
+  box.innerHTML=show.map(d=>`<div class="day"><b>第 ${d.day} 天</b><ul>${d.items.map(i=>`<li>${i}</li>`).join("")}</ul>${d.left?`<span class="left">当天剩 ${d.left} 电量</span>`:""}</div>`).join("")
+    +(out.length>14||remain>0?`<div class="day"><b>之后</b><span class="left">${out.length>14?`第 15–${out.length} 天继续按同样顺序刷`:""}${remain>0?`，60 天后仍差 ${fmt(remain)} 电量`:""}。</span></div>`:"");
+}
+document.getElementById("perday").addEventListener("input",renderDays);
+document.getElementById("discruns").value=S.discRuns;
+document.getElementById("discruns").addEventListener("input",e=>{S.discRuns=clamp(e.target.value,0,10);save(["focus"]);update();});
+document.getElementById("showall").addEventListener("change",e=>{showAll=e.target.checked;renderAgents();update();});
+/* latest account data (docs/data/, refreshed every night at 23:00 by daily/hoyolab_sync.py) */
+async function loadLatest(auto){
+  const msg=document.getElementById("msg");
+  const g=async f=>{const r=await fetch("data/"+f,{cache:"no-store"});if(!r.ok)throw new Error(f);const j=await r.json();return j.data||j};
+  try{
+    const st=await g("status.json");
+    applyRemote("meta",await g("meta_agents.json"));applyRemote("current",await g("plan_current.json"));
+    applyRemote("inventory",await g("plan_inventory.json"));
+    if(!auto||!HAD_LOCAL){applyRemote("targets",await g("plan_targets.json"));applyRemote("focus",await g("plan_focus.json"));}
+    try{DISCS=(await g("discs.json")).agents}catch(e){}
+    const when=String(st.synced_at||"").replace("T"," ").slice(0,16);
+    S.source="snapshot";S.snapAt=when+"（HoYoLAB）";save();renderAgents();update();
+    const s=document.getElementById("syncst");s.hidden=false;s.className="state real";
+    s.textContent=`账号同步 ${when}`+(st.battery&&st.battery.current!=null?` · 电量 ${st.battery.current}/${st.battery.max}`:"");
+    if(!auto)msg.textContent=`已载入 ${when} 的账号数据。`+(st.changes&&st.changes.length?`这次的变化：${st.changes.slice(0,5).join("；")}`:"");
+  }catch(e){if(!auto)msg.textContent="读不到 data/ 文件夹：这个按钮只在 GitHub Pages 上可用。"}
+}
+document.getElementById("btn-sample").onclick=()=>loadLatest(false);
+/* ---------- 2.0：升级清单，给一条龙 antece版的「代理人升级」用 ---------- */
+const mindBonus=m=>(m>=5?4:m>=3?2:0); // 影画 3 / 5 各让 5 个技能显示等级 +2
+const agentOf=id=>AGENTS.find(a=>a.id===id);
+let PLAN=null,plPicked=false; // plPicked：用户自己选过代理人后就不再自动跟随星标
+function fillPlAgent(){
+  const sel=document.getElementById("pl-agent"),prev=sel.value;
+  const list=AGENTS.filter(a=>S.on[a.id]).sort((x,y)=>(S.star.includes(y.id)?1:0)-(S.star.includes(x.id)?1:0));
+  sel.innerHTML=list.map(a=>`<option value="${a.id}">${S.star.includes(a.id)?"★ ":""}${a.name}</option>`).join("");
+  if(plPicked&&list.some(a=>a.id===prev))sel.value=prev;
+}
+function buildPlan(){
+  const id=document.getElementById("pl-agent").value,a=agentOf(id);
+  const reserve=Math.max(0,+document.getElementById("pl-reserve").value||0);
+  const max=clamp(document.getElementById("pl-max").value,1,50);
+  const approved=document.getElementById("pl-approve").checked;
+  const plan={generated_at:new Date().toISOString(),generated_by:"资源调度员 2.0",approved_by_user:approved,
+    approved_note:approved?`在资源调度员 2.0 网页上勾选确认（${new Date().toLocaleString("zh-CN")}）`:null,steps:[],budget_after:{}};
+  if(!a)return{plan,why:"先在上面启用一个代理人"};
+  const cur=S.cur[id],tgt=S.tgt[id],names=chipNames(a.chip),bonus=mindBonus(+a.m||0);
+  const left={...S.own},sk=[...cur.sk];let why="";
+  // 每次挑等级最低、还没到目标的技能升 1 级（低级便宜，先升），下一步付不起就停
+  while(plan.steps.length<max){
+    let best=-1;
+    for(let i=0;i<5;i++)if(sk[i]<Math.min(12,Math.max(cur.sk[i],tgt.sk[i]))&&(best<0||sk[i]<sk[best]))best=i;
+    if(best<0){why="技能都已到目标";break}
+    const to=sk[best]+1,[t,n,d]=SKILL_LV[to];
+    const cost={[names[t]]:n,"丁尼":d};if(to===12)cost["「仓鼠笼」访问器"]=1;
+    const short=Object.entries(cost).filter(([k,v])=>(+(left[k]||0))-(k==="丁尼"?reserve:0)<v);
+    if(short.length){
+      why=`下一步 ${SKILLS[best]} ${sk[best]}→${to} 不够：`+short.map(([k,v])=>`${k} 要 ${fmt(v)}，有 ${fmt(+(left[k]||0))}`).join("；")
+        +(short.some(([k])=>k==="丁尼")?`（还要留 ${fmt(reserve)} 丁尼）`:"");
+      break}
+    for(const[k,v]of Object.entries(cost))left[k]=(+(left[k]||0))-v;
+    plan.steps.push({order:plan.steps.length+1,agent:id,name_cn:a.name,what:"skill",skill:SKILLS[best],
+      from:sk[best],to,display_from:sk[best]+bonus,display_to:to+bonus,cost});
+    sk[best]=to;
+  }
+  if(!why&&plan.steps.length>=max)why=`到了最多 ${max} 步`;
+  plan.budget_after={"丁尼":+(left["丁尼"]||0)};
+  return{plan,why};
+}
+function renderPlan(){
+  fillPlAgent();
+  const{plan,why}=buildPlan();PLAN=plan;
+  const a=agentOf(document.getElementById("pl-agent").value);
+  document.getElementById("pl-rows").innerHTML=plan.steps.map(s=>`<tr><td>${s.order}</td><td>${s.skill}</td><td>${s.from} → ${s.to}</td><td>${s.display_from} → ${s.display_to}</td><td>${Object.entries(s.cost).map(([k,v])=>`${k} ×${fmt(v)}`).join("，")}</td></tr>`).join("")
+    ||`<tr><td colspan="5" class="msg">没有现在就能升的技能</td></tr>`;
+  const den=plan.steps.reduce((x,s)=>x+s.cost["丁尼"],0);
+  document.getElementById("pl-msg").textContent=`${plan.steps.length} 步，共花丁尼 ${fmt(den)}。`+(why?`停在这里：${why}。`:"")
+    +(a&&mindBonus(+a.m||0)?`${a.name} 影画 ${a.m}，游戏里显示的技能等级比基础等级高 ${mindBonus(+a.m)}。`:"");
+  document.getElementById("pl-download").disabled=!plan.steps.length;
+}
+document.getElementById("pl-download").onclick=()=>{
+  if(!PLAN||!PLAN.steps.length)return;
+  const u=URL.createObjectURL(new Blob([JSON.stringify(PLAN,null,2)],{type:"application/json"}));
+  const l=document.createElement("a");l.href=u;l.download="plan.json";document.body.appendChild(l);l.click();l.remove();
+  setTimeout(()=>URL.revokeObjectURL(u),1000);
+};
+document.getElementById("pl-copy").onclick=async()=>{
+  try{await navigator.clipboard.writeText(JSON.stringify(PLAN,null,2));document.getElementById("pl-msg").textContent="已复制，粘贴进 config\\agent_upgrade\\plan.json 保存。"}
+  catch(e){document.getElementById("pl-msg").textContent="浏览器不让复制，请用「下载 plan.json」。"}
+};
+document.getElementById("pl-agent").addEventListener("change",()=>{plPicked=true});
+["pl-agent","pl-reserve","pl-max","pl-approve"].forEach(id=>document.getElementById(id).addEventListener("change",renderPlan));
+document.getElementById("res-file").onchange=async e=>{
+  const f=e.target.files[0],msg=document.getElementById("res-msg");if(!f)return;
+  try{
+    const r=JSON.parse(await f.text());
+    if(!Array.isArray(r.steps))throw new Error("不是「代理人升级」的结果文件");
+    if(!r.applied){msg.textContent="这是演练结果，没有真的升级，网页数据不变。";return}
+    let n=0,mismatch=0,den=0;
+    for(const s of r.steps){
+      if(s.status!=="ok"||s.type!=="skill")continue;
+      const c=S.cur[s.agent],i=SKILLS.indexOf(s.skill);
+      if(!c||i<0||c.sk[i]!==s.from){mismatch++;continue}
+      c.sk[i]=s.to;n++;
+      for(const[k,v]of Object.entries(s.cost||{})){if(k==="丁尼")den+=v;else S.own[k]=Math.max(0,(+(S.own[k]||0))-v)}
+    }
+    if(Number.isFinite(r.dennies_after))S.own["丁尼"]=r.dennies_after;
+    else if(den)S.own["丁尼"]=Math.max(0,(+(S.own["丁尼"]||0))-den);
+    save();renderAgents();update();
+    msg.textContent=`按 ${n} 个成功的步骤更新了技能等级和背包。`+(mismatch?`另有 ${mismatch} 步和网页里的当前等级对不上，没改。`:"");
+  }catch(err){msg.textContent="读不了这个文件："+err.message}
+  e.target.value="";
+};
+const _update=update;update=function(){_update();renderPlan()};
+renderAgents();update();connectDb();
+</script>
+</body>
+</html>

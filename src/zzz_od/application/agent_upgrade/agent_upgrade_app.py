@@ -101,7 +101,12 @@ class AgentUpgradeApp(ZApplication):
         step = self.steps[self.step_idx]
         self.step_idx += 1
         what = describe(step)
-        record: dict = {'order': step['order'], 'what': what}
+        # 结构化字段给资源调度员 2.0 网页「导入升级结果」用：按成功的步骤更新技能等级和背包
+        record: dict = {
+            'order': step['order'], 'what': what,
+            'agent': step['agent'], 'type': step['what'], 'skill': step.get('skill'),
+            'from': step.get('from'), 'to': step.get('to'), 'cost': step.get('cost', {}),
+        }
         if self.fails.get(step['agent'], 0) >= 2:
             record.update(status='skipped', reason='该代理人连续失败两次')
             self.result['steps'].append(record)

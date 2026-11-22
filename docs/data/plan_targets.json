@@ -1,0 +1,332 @@
+{
+ "on": {
+  "anby": false,
+  "anton": false,
+  "astra_yao": true,
+  "ben": false,
+  "billy": false,
+  "corin": false,
+  "ellen": true,
+  "grace": false,
+  "hoshimi_miyabi": true,
+  "jane_doe": true,
+  "lucy": false,
+  "lycaon": false,
+  "manato": false,
+  "nicole": false,
+  "panyinhu": false,
+  "piper": false,
+  "pulchra": false,
+  "qingyi": true,
+  "rina": false,
+  "seth_lowell": false,
+  "soldier_11": false,
+  "soukaku": false,
+  "yanagi": true,
+  "zhu_yuan": true,
+  "agent_1571": false
+ },
+ "tgt": {
+  "anby": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "anton": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "astra_yao": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    11,
+    10
+   ],
+   "wl": 60
+  },
+  "ben": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "billy": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "corin": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "ellen": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    12,
+    8,
+    8,
+    12,
+    11
+   ],
+   "wl": 60
+  },
+  "grace": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "hoshimi_miyabi": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    12,
+    8,
+    8,
+    11,
+    11
+   ],
+   "wl": 60
+  },
+  "jane_doe": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    11,
+    12
+   ],
+   "wl": 60
+  },
+  "lucy": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "lycaon": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "manato": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "nicole": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "panyinhu": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "piper": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "pulchra": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "qingyi": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    11,
+    10
+   ],
+   "wl": 60
+  },
+  "rina": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "seth_lowell": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "soldier_11": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "soukaku": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "wl": 60
+  },
+  "yanagi": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    11,
+    10
+   ],
+   "wl": 60
+  },
+  "zhu_yuan": {
+   "core": 6,
+   "lv": 60,
+   "sk": [
+    12,
+    8,
+    8,
+    11,
+    11
+   ],
+   "wl": 60
+  },
+  "agent_1571": {
+   "lv": 60,
+   "sk": [
+    10,
+    8,
+    8,
+    10,
+    10
+   ],
+   "core": 6,
+   "wl": 60
+  }
+ },
+ "updated_at": "2026-11-21T19:55:17.244Z"
+}
