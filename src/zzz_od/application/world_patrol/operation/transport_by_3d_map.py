@@ -18,6 +18,13 @@ from zzz_od.context.zzz_context import ZContext
 from zzz_od.operation.back_to_normal_world import BackToNormalWorld
 from zzz_od.operation.zzz_operation import ZOperation
 
+# 点到区域时弹出「区域信息」面板，标题会被当成传送点名称识别（实测常为残缺的「域信息」）
+AREA_INFO_POPUP_WORDS: tuple[str, ...] = ('区域信息', '域信息')
+# 六分街家里的点位：识别到说明 3D 地图还停在六分街，没有切到目标区域
+HOME_MAP_POINT_NAMES: frozenset[str] = frozenset({'房间', '柜台'})
+# 有多少轮点到的传送点全都不属于目标地图（中间只要有一轮能匹配上就清零；读不到名字的轮次不计），就认为地图区域不对，回去重新选择区域
+WRONG_MAP_ROUNDS_LIMIT: int = 2
+
 
 class TransportBy3dMap(ZOperation):
 
@@ -37,6 +44,8 @@ class TransportBy3dMap(ZOperation):
 
         self.target_area: WorldPatrolArea = area
         self.target_tp_name: str = tp_name
+        self.wrong_map_rounds: int = 0  # 连续几轮识别到的传送点都不在目标地图里
+        self.left_map_rounds: int = 0  # 点击前往后，连续几轮确认已离开3D地图
 
     @operation_node(name='初始回到大世界', is_start_node=True)
     def back_at_first(self) -> OperationRoundResult:
@@ -189,11 +198,13 @@ class TransportBy3dMap(ZOperation):
         self.icon_word_list = icon_word_list
         self.target_icon = target_icon
         self.map_area = self.ctx.screen_loader.get_area('3D地图', '区域-地图')
+        self.wrong_map_rounds = 0  # 每次（重新）开始搜索都从零计数
 
         log.info(f'初始化传送点搜索完成，目标：{self.target_tp_name}')
         return self.round_success()
 
     @node_from(from_name='初始化传送点搜索')
+    @node_from(from_name='点击前往', success=False)  # 前往按钮消失但仍在3D地图 → 重新点选目标传送点
     @operation_node(name='搜索传送点循环', node_max_retry_times=8)
     def search_tp_icon_loop(self) -> OperationRoundResult:
         """
@@ -205,6 +216,12 @@ class TransportBy3dMap(ZOperation):
         4. 导航计算 - 匹配检查或计算精确拖动方向
         5. 执行与循环 - 执行精确拖动操作并重新开始流程
         """
+        # 从「点击前往」回到这里时，传送可能已经开始：不在3D地图就别再点图标/拖地图，交回「点击前往」确认
+        current_screen = screen_utils.get_match_screen_name(self.ctx, self.last_screenshot, screen_name_list=['3D地图'])
+        if current_screen != '3D地图':
+            self.left_map_rounds = 0
+            return self.round_success(status='不在3D地图')
+
         # 步骤1: 侦察 - 寻找所有可见的传送点图标
         part = cv2_utils.crop_image_only(self.last_screenshot, self.map_area.rect)
 
@@ -230,6 +247,7 @@ class TransportBy3dMap(ZOperation):
 
         # 首先检查所有图标，看是否有目标传送点
         navigation_reference = None  # 用于导航的参考点
+        foreign_names: list[str] = []  # 本轮识别到、但不属于目标地图的传送点名称
         for idx, selected_icon in enumerate(all_mrl):
             log.debug(f'检查第 {idx + 1}/{len(all_mrl)} 个图标')
 
@@ -265,10 +283,17 @@ class TransportBy3dMap(ZOperation):
             recognized_name = ocr_result_list[0].data
             log.debug(f'OCR识别到传送点名称：{recognized_name}')
 
+            # 点到的是区域，弹出的是「区域信息」面板而不是传送点：关掉它，否则会一直挡住后续识别
+            if any(word in recognized_name for word in AREA_INFO_POPUP_WORDS):
+                log.debug('点到区域信息面板，关闭后继续')
+                self._close_area_info_popup()
+                continue
+
             # 匹配到具体的图标
             icon_idx = str_utils.find_best_match_by_difflib(gt(recognized_name, 'game'), self.icon_word_list)
             if icon_idx is None or icon_idx < 0:
                 log.warning(f'无法匹配传送点名称：{recognized_name}')
+                foreign_names.append(recognized_name)
                 continue  # 尝试下一个图标
 
             matched_icon = self.large_map.icon_list[icon_idx]
@@ -277,14 +302,32 @@ class TransportBy3dMap(ZOperation):
 
             # 步骤4: 导航计算
             if current_icon_name == self.target_tp_name:
-                # 找到目标传送点！
+                # 找到目标传送点！趁弹窗还在，立刻点「前往」；下一节点只负责确认传送已开始
                 log.info(f'找到目标传送点：{self.target_tp_name}')
-                return self.round_success()
+                go_area = self.ctx.screen_loader.get_area('3D地图', '按钮-前往')
+                self.ctx.controller.click(go_area.center)
+                self.left_map_rounds = 0
+                self.wrong_map_rounds = 0  # 找到了目标，说明地图区域是对的
+                return self.round_success(status='已点击前往', wait=1)
 
             # 记录第一个图标作为导航参考点
             if navigation_reference is None:
                 navigation_reference = matched_icon
                 log.debug(f'记录导航参考点：{matched_icon.icon_name}({matched_icon.lm_pos.x}, {matched_icon.lm_pos.y})')
+
+        # 地图区域判断：本轮有图标能匹配上目标地图 → 区域是对的，计数清零；
+        # 本轮识别到了传送点名称、却一个都匹配不上 → 3D 地图大概率还停在别的区域（如六分街家里），连续累计
+        if navigation_reference is not None:
+            self.wrong_map_rounds = 0
+        elif foreign_names:
+            if HOME_MAP_POINT_NAMES.intersection(foreign_names):
+                self.wrong_map_rounds = WRONG_MAP_ROUNDS_LIMIT
+            else:
+                self.wrong_map_rounds += 1
+            if self.wrong_map_rounds >= WRONG_MAP_ROUNDS_LIMIT:
+                log.warning(f'3D地图不在目标区域（识别到 {"、".join(foreign_names)}），重新选择区域')
+                self.wrong_map_rounds = 0
+                return self.round_fail('地图区域不对')
 
         # 所有图标都检查完毕，没有找到目标，执行导航
         if navigation_reference is not None:
@@ -346,6 +389,18 @@ class TransportBy3dMap(ZOperation):
         log.debug(f'执行随机拖动：{direction}')
         self.ctx.controller.drag_to(start=start_point, end=end_point)
 
+    def _close_area_info_popup(self) -> None:
+        """搜索循环内关闭「区域信息」面板：按钮在就点，不在就算了（不影响节点状态）"""
+        self.screenshot()
+        result = screen_utils.find_area(
+            ctx=self.ctx, screen=self.last_screenshot,
+            screen_name='3D地图', area_name='按钮-区域信息-关闭',
+        )
+        if result == screen_utils.FindAreaResultEnum.TRUE:
+            area = self.ctx.screen_loader.get_area('3D地图', '按钮-区域信息-关闭')
+            self.ctx.controller.click(area.center)
+            time.sleep(0.5)
+
     @node_from(from_name='搜索传送点循环', success=False)  # 搜索失败后关闭残留弹窗
     @operation_node(name='关闭区域信息弹窗')
     def close_area_info_popup(self) -> OperationRoundResult:
@@ -354,14 +409,33 @@ class TransportBy3dMap(ZOperation):
         return self.round_success()
 
     @node_from(from_name='搜索传送点循环')
-    @operation_node(name='点击前往')
+    @operation_node(name='点击前往', node_max_retry_times=3)
     def click_go(self) -> OperationRoundResult:
-        return self.round_by_find_and_click_area(
+        """
+        搜索循环找到目标时已经点过一次「前往」，这里确认传送已经开始：
+        - 按钮还在 → 再点，直到按钮消失
+        - 按钮不在且连续两轮都认不出3D地图（加载中/已到大世界）→ 成功；只有一帧认不出可能是识别抖动，先等一轮再看
+        - 按钮不在但仍在3D地图（弹窗被关掉了）→ 失败，回到搜索循环重新点选目标传送点
+        """
+        result = self.round_by_find_and_click_area(
             self.last_screenshot,
             '3D地图', '按钮-前往',
             until_not_find_all=[('3D地图', '按钮-前往')],
             retry_wait=1,
         )
+        if result.is_success or self.node_clicked:
+            return result
+
+        current_screen = screen_utils.get_match_screen_name(self.ctx, self.last_screenshot, screen_name_list=['3D地图'])
+        if current_screen != '3D地图':
+            self.left_map_rounds += 1
+            if self.left_map_rounds >= 2:
+                return self.round_success(status='传送已开始')
+            # 用 wait 而不是 retry：确认中的这一轮不占重试次数，避免传送已开始却因次数用完被打回搜索循环
+            return self.round_wait(status='确认传送是否开始', wait=1)
+
+        self.left_map_rounds = 0
+        return result
 
     @node_from(from_name='点击前往')
     @operation_node(name='等待画面加载')
