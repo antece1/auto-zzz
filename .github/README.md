@@ -1,3 +1,53 @@
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/antece1/auto-zzz/main/assets/ui/antece_logo.png" width="120" alt="绝区零一条龙 antece版"/>
+
+# 绝区零一条龙 antece版
+
+</div>
+
+基于 [绝区零一条龙（ZenlessZoneZero-OneDragon）](https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon) 的个人修改版。官方的全部功能都保留，在它上面加了代理人培养相关的功能和一些修复。
+
+## antece版多了什么
+
+| 功能 | 在哪 | 做什么 |
+|---|---|---|
+| 代理人升级 | 「应用运行」→「代理人升级」 | 按升级清单在游戏里升代理人技能；每次点击前先识别画面，默认只演练不花材料。说明见 [agent_upgrade.md](https://github.com/antece1/auto-zzz/blob/main/docs/develop/zzz/application/agent_upgrade.md) |
+| 资源调度员 2.0 | [网页](https://antece1.github.io/auto-zzz/)（源码 `docs/index.html`） | 算该练谁、缺多少材料、每天电量怎么排；按背包生成升级清单，跑完后导入结果 |
+| 每晚同步和每日推送 | `tools/planner/` | 每晚从 HoYoLAB 读账号数据更新网页；把刷取排期写进体力计划，一条龙照常跑 |
+| 桌面启动器 | `deploy/antece_launcher.pyw` | 以管理员身份启动（游戏是管理员进程），启动前自动更新到本仓库最新代码 |
+| 代码源 | `config/repository.yml` | 界面里「同步代码」只从本仓库拉，不会被官方代码覆盖 |
+
+修复（官方仓库里有对应 issue 的附了链接）：
+
+- 声音闪避：按进程录音被重复打开，导致回退录音也报错（[官方 issue 3058](https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon/issues/3058)）
+- 咖啡店：账号没有汀曼特调时改喝浓缩咖啡（[官方 issue 3055](https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon/issues/3055)）
+- 锄大地：3D 地图传送卡在六分街地图、前往按钮消失
+
+## 安装和使用
+
+步骤见 [antece_launcher.md](https://github.com/antece1/auto-zzz/blob/main/docs/develop/setup/antece_launcher.md)：克隆到单独的目录（不要和官方安装共用），`uv sync`，复制账号配置，用桌面快捷方式启动。不要在 antece版的目录里安装官方启动器，它会拉官方代码覆盖 antece版的改动。
+
+## 分支
+
+- `main`：官方代码 + antece版的改动，日常用这个。每晚同步会往这里加一个数据提交（`data: HoYoLAB sync`）。
+- `feat/*`、`fix/*`、`docs/*`：每个功能或修复单独一个分支，做完合并进 `main`。
+- 旧版 auto-zzz（换成一条龙底座之前的规划器和脚本）：分支 `auto-zzz-old`，标签 `auto-zzz-v0.3.0-backup`。
+
+## 为什么贡献者这么多
+
+本仓库保留了 OneDragon 的完整提交历史（两千多个提交），所以 GitHub 贡献者列表里是写这些代码的 OneDragon 作者们；antece版自己的改动由 antece 提交。保留历史是为了以后能用普通合并拉取官方更新。
+
+## 致谢与许可证
+
+代码来自 [OneDragon-Anything/ZenlessZoneZero-OneDragon](https://github.com/OneDragon-Anything/ZenlessZoneZero-OneDragon)（DoctorReid 和所有贡献者），按 GPL-3.0 发布，见 [LICENSE](https://github.com/antece1/auto-zzz/blob/main/LICENSE)。antece版的改动同样是 GPL-3.0。
+
+这是非官方修改版，和官方项目、HoYoverse / 米哈游都没有关系；有问题请在本仓库反馈，不要去官方提。自动化操作游戏可能违反游戏的用户协议，风险自负。
+
+---
+
+以下是 OneDragon 官方说明（原文未改）：
+
 <!-- markdownlint-restore -->
 <div align="center">
 
