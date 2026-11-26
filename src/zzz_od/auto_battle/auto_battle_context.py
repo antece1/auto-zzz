@@ -37,6 +37,7 @@ if TYPE_CHECKING:
 _battle_state_check_executor = ThreadPoolExecutor(thread_name_prefix='od_battle_state_check', max_workers=16)
 
 BTN_BAN_CHECK_INTERVAL: float = 0.02  # 按键禁用的识别间隔秒
+RELEASE_AGAIN_DELAY_SECONDS: float = 0.3  # 停止自动战斗后，隔多久再补一次松开按键
 
 
 class AutoBattleContext:
@@ -1200,6 +1201,27 @@ class AutoBattleContext:
         self.chain_cancel(release=True)
         self.chain_left(release=True)
         self.chain_right(release=True)
+
+        # 停止时，已经提交到线程池的「按下」指令可能比上面的松开更晚执行（例如普攻按住鼠标左键），
+        # 导致按键一直不松开。稍后再补一次松开，兜住这个时间差。
+        timer = threading.Timer(
+            RELEASE_AGAIN_DELAY_SECONDS,
+            self._release_pressed_keys_after_stop,
+        )
+        timer.daemon = True
+        timer.start()
+
+    def _release_pressed_keys_after_stop(self) -> None:
+        """
+        停止后延迟补一次松开：只在自动战斗仍处于停止状态时执行，避免松开新一场战斗刚按下的键
+        :return:
+        """
+        if self.auto_op is not None and self.auto_op.is_running:
+            return
+        try:
+            self.ctx.controller.btn_controller.reset()
+        except Exception:
+            log.error('停止后补充松开按键失败', exc_info=True)
 
     def _release_keys(self) -> None:
         """

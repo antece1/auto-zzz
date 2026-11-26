@@ -93,8 +93,21 @@ class PcControllerBase(ControllerBase):
         """
         清理资源
         """
-        self.btn_controller.reset()
+        self._reset_all_btn_controllers()
         self.screenshot_controller.cleanup()
+
+    def _reset_all_btn_controllers(self) -> None:
+        """
+        松开所有按键控制器里按住的键（键鼠、Xbox、DS4）
+        只 reset 当前控制器不够：中途切过控制器时，旧控制器按住的键（如普攻的鼠标左键）会一直不松开
+        """
+        for controller in [self.keyboard_controller, self.xbox_controller, self.ds4_controller]:
+            if controller is None:
+                continue
+            try:
+                controller.reset()
+            except Exception:
+                log.error('松开按键失败', exc_info=True)
 
     def active_window(self) -> None:
         """
@@ -116,6 +129,9 @@ class PcControllerBase(ControllerBase):
         if pc_button_utils.is_vgamepad_installed():
             if self.xbox_controller is None:
                 self.xbox_controller = XboxButtonController()
+            if self.btn_controller is not self.xbox_controller:
+                # 切换前先松开旧控制器按住的键，否则之后的松开都发给新控制器，旧键会一直按着
+                self.btn_controller.reset()
             self.btn_controller = self.xbox_controller
             self.btn_controller.reset()
 
@@ -123,10 +139,16 @@ class PcControllerBase(ControllerBase):
         if pc_button_utils.is_vgamepad_installed():
             if self.ds4_controller is None:
                 self.ds4_controller = Ds4ButtonController()
+            if self.btn_controller is not self.ds4_controller:
+                # 切换前先松开旧控制器按住的键，否则之后的松开都发给新控制器，旧键会一直按着
+                self.btn_controller.reset()
             self.btn_controller = self.ds4_controller
             self.btn_controller.reset()
 
     def enable_keyboard(self):
+        if self.btn_controller is not self.keyboard_controller:
+            # 切换前先松开旧控制器按住的键
+            self.btn_controller.reset()
         self.btn_controller = self.keyboard_controller
 
     def btn_tap(self, key: str) -> None:
